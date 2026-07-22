@@ -20,3 +20,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 [dotnet]
 
 project/assembly_name="GMTK2026"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/FileSystemView/plugin.cfg")
