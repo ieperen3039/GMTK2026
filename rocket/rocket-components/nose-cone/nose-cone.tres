@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://ck8roj6dp5hwn"]
+
+[ext_resource type="Texture2D" uid="uid://bah8avrpfgxbj" path="res://rocket/rocket-components/atlas/rocket-components.png" id="1_wj01i"]
+
+[resource]
+atlas = ExtResource("1_wj01i")
+region = Rect2(0, 0, 32, 32)

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bah8avrpfgxbj"
-path="res://.godot/imported/rocket-components.png-8e5bcc3c85f090f539e8c7912aa4059a.ctex"
+path="res://.godot/imported/rocket-components.png-4a0c8ac0951aeee95f8cf2ff788e6d06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rocket/rocket-components/rocket-components.png"
-dest_files=["res://.godot/imported/rocket-components.png-8e5bcc3c85f090f539e8c7912aa4059a.ctex"]
+source_file="res://rocket/rocket-components/atlas/rocket-components.png"
+dest_files=["res://.godot/imported/rocket-components.png-4a0c8ac0951aeee95f8cf2ff788e6d06.ctex"]
 
 [params]
 
