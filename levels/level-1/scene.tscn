@@ -3,27 +3,29 @@
 [ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="1_68uyt"]
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_hh1ok"]
 [ext_resource type="Texture2D" uid="uid://corhuhrff2hkt" path="res://levels/level-1/launchpad.png" id="2_471vb"]
+[ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_llm56"]
+[ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_xmw3k"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s1ev"]
-distance = -253.83942
+distance = -278.91638
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_teru1"]
 normal = Vector2(1, 0)
-distance = -312.14224
+distance = -316.03165
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5tnor"]
 normal = Vector2(-0.99999434, -0.003355726)
-distance = -312.0929
+distance = -316.0366
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
-size = Vector2(843.7595, 138.74454)
+size = Vector2(827.5021, 119.82558)
 
 [node name="Level" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_hh1ok")
 
 [node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
-position = Vector2(360, 360)
-scale = Vector2(1.1453899, 1.1348792)
+position = Vector2(425.00003, 96)
+scale = Vector2(1.9586645, 1.9969167)
 texture = ExtResource("1_68uyt")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="LevelBg" unique_id=1699988788]
@@ -46,9 +48,22 @@ texture = ExtResource("2_471vb")
 scale = Vector2(0.6151042, 0.6342593)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Launchpad/StaticBody2D2" unique_id=1798477531]
+position = Vector2(0, -0.00036621094)
 shape = SubResource("RectangleShape2D_teru1")
 
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
+
+[node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_llm56")]
+position = Vector2(311, 499)
+
+[node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_xmw3k")]
+position = Vector2(244, 456)
+
+[node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_xmw3k")]
+position = Vector2(389, 450)
+
+[node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_xmw3k")]
+position = Vector2(476, 487)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(360, 360)
@@ -58,11 +73,22 @@ position = Vector2(360, 360)
 [node name="Button" type="Button" parent="CanvasLayer" unique_id=1277344209]
 anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 302.0
-offset_top = 34.0
-offset_right = -309.0
-offset_bottom = -635.0
+offset_left = 31.0
+offset_top = 21.0
+offset_right = -580.0
+offset_bottom = 72.0
 text = "win"
+
+[node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=1047236533]
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 585.0
+offset_top = 21.0
+offset_right = -26.0
+offset_bottom = 72.0
+toggle_mode = true
+text = "Tape"
+
+[node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="OnLevelComplete"]
