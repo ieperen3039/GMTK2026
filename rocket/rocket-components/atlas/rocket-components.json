@@ -21,15 +21,16 @@
    { "name": "Engine" },
    { "name": "Layer 1", "group": "Engine", "opacity": 255, "blendMode": "normal" },
    { "name": "tank" },
-   { "name": "Layer 2", "group": "tank", "opacity": 255, "blendMode": "normal" },
+   { "name": "tank-base", "group": "tank", "opacity": 255, "blendMode": "normal" },
+   { "name": "shading", "group": "tank", "opacity": 255, "blendMode": "normal" },
    { "name": "Nose cone" },
    { "name": "Cone-base", "group": "Nose cone", "opacity": 255, "blendMode": "normal" },
    { "name": "Shading", "group": "Nose cone", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
-   { "name": "Slice 1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 64, "w": 32, "h": 32 } }] },
+   { "name": "Slice 3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 0, "w": 32, "h": 32 } }] },
    { "name": "Slice 2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 32, "w": 32, "h": 32 } }] },
-   { "name": "Slice 3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 0, "w": 32, "h": 32 } }] }
+   { "name": "Slice 1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 64, "w": 32, "h": 32 } }] }
   ]
  }
 }
