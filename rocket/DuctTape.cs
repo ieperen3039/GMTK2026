@@ -32,29 +32,30 @@ public partial class DuctTape : Node2D
 
     public StatusValue Status => ComponentA == null ? StatusValue.Empty : (ComponentB == null ? StatusValue.HalfConnected : StatusValue.FullConnected);
 
-    public void Attach(RocketComponent component, Vector2 relativeAttachmentPosition)
+    public void Attach(RocketComponent component, Vector2 globalAttachmentPosition)
     {
         switch (Status)
         {
             case StatusValue.Empty:
                 GD.Print("Tape attach A");
                 ComponentA = component;
-                anchorA = relativeAttachmentPosition;
-                Vector2 linePoint = ToLocal(ComponentA.ToGlobal(relativeAttachmentPosition));
+                anchorA = globalAttachmentPosition;
+                Vector2 linePoint = ToLocal(ComponentA.ToGlobal(globalAttachmentPosition));
                 graphic.AddPoint(linePoint);
-                graphic.AddPoint(linePoint + Vector2.Up);
+                graphic.AddPoint(linePoint);
                 return;
 
             case StatusValue.HalfConnected:
                 if (component == ComponentA)
                 {
+                    GD.Print("Tape detach A");
                     ComponentA = null;
                     return;
                 }
 
                 GD.Print("Tape attach B");
                 ComponentB = component;
-                anchorB = relativeAttachmentPosition;
+                anchorB = globalAttachmentPosition;
                 return;
 
             case StatusValue.FullConnected:

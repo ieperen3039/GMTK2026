@@ -54,11 +54,14 @@ public partial class RocketComponent : RigidBody2D
         }
     }
 
+    public override void _UnhandledInput(InputEvent inputEvent){GetViewport().SetInputAsHandled();}
+
     private void OnInputEvent(Node viewport, InputEvent inputEvent, long shapeIdx)
     {
         if (inputEvent is InputEventMouseButton mouseEvent)
         {
             EmitSignal(SignalName.OnClick, this, mouseEvent);
+            GetViewport().SetInputAsHandled();
         }
     }
 

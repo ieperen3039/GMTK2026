@@ -36,7 +36,7 @@ public partial class Level : Node2D
         }
 
         Button tapeToolButton = GetNode("CanvasLayer").GetNode<Button>("SetTapeTool");
-        tapeToolButton.Toggled += SetTapeTool;
+        tapeToolButton.Pressed += SetTapeTool;
 
         mouseTool = new GrabTool(this);
     }
@@ -49,17 +49,10 @@ public partial class Level : Node2D
         }
     }
 
-    private void SetTapeTool(bool active)
+    private void SetTapeTool()
     {
         mouseTool.OnCancel();
-        if (active)
-        {
-            mouseTool = new TapeTool(this);
-        }
-        else
-        {
-            mouseTool = new GrabTool(this);
-        }
+        mouseTool = new TapeTool(this);
     }
 
     private RocketComponent GetRocketComponentAt(Vector2 position)
@@ -96,8 +89,8 @@ public partial class Level : Node2D
         }
     }
 
-    // handle global right-click
-    public override void _Input(InputEvent inputEvent)
+    // handle global right-click and release
+    public override void _UnhandledInput(InputEvent inputEvent)
     {
         if (inputEvent is InputEventMouseButton mouseEvent)
         {
@@ -108,8 +101,7 @@ public partial class Level : Node2D
             }
             if (mouseEvent.IsReleased())
             {
-                mouseTool.OnCancel();
-                mouseTool = new GrabTool(this);
+                mouseTool.OnRelease();
             }
         }
     }
@@ -137,6 +129,7 @@ public partial class Level : Node2D
 
         public TapeTool(Level parent)
         {
+            GD.Print("TapeTool");
             this.parent = parent;
             tape = NewTape();
         }
@@ -152,12 +145,14 @@ public partial class Level : Node2D
 
         public void OnRocketPartEvent(RocketComponent component, InputEventMouseButton mouseEvent)
         {
+            GD.Print("TapeTool::OnRocketPartEvent");
             Vector2 relativeClick = component.ToLocal(mouseEvent.GlobalPosition);
             tape.Attach(component, relativeClick);
             // both for pressed and released
 
             if (tape.Status == DuctTape.StatusValue.FullConnected)
             {
+                GD.Print("Tape Connected");
                 // start new tape
                 tape = NewTape();
             }
@@ -165,6 +160,7 @@ public partial class Level : Node2D
 
         public void OnRelease()
         {
+            GD.Print("TapeTool::OnRelease");
             OnCancel();
             tape = NewTape();
         }
@@ -186,6 +182,7 @@ public partial class Level : Node2D
 
         public GrabTool(Level level)
         {
+            GD.Print("GrabTool");
             this.level = level;
             this.grabbed = null;
         }
@@ -201,7 +198,9 @@ public partial class Level : Node2D
             }
             else
             {
-                OnCancel();
+                // OnRelease();
+                grabbed?.OnRelease();
+                grabbed = null;
             }
         }
 
