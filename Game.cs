@@ -28,6 +28,7 @@ public partial class Game : Node
         GD.Print("Moving to level " + currentLevelIdx);
         if (currentLevel != null)
         {
+            currentLevel.QueueFree();
             RemoveChild(currentLevel);
         }
 

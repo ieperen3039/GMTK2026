@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dwjacrldt08do"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_y801g"]
+[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_gh70o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(32, 32)
@@ -8,7 +9,7 @@ size = Vector2(32, 32)
 [node name="Scene" type="RigidBody2D" unique_id=217928142]
 input_pickable = true
 physics_material_override = ExtResource("1_y801g")
-inertia = 0.1
+script = ExtResource("2_gh70o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=565845095]
 shape = SubResource("RectangleShape2D_teru1")
