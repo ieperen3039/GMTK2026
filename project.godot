@@ -30,3 +30,7 @@ project/assembly_name="GMTK2026"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/FileSystemView/plugin.cfg")
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
