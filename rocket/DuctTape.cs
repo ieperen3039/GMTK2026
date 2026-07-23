@@ -10,9 +10,7 @@ public partial class DuctTape : Node2D
         FullConnected
     }
 
-    public Func<Vector2, RocketComponent> ComponentQuery;
-
-    private const float Pull = 10;
+    private const float Pull = 100;
     public const float MousePullFactor = 0.1f;
 
     public RocketComponent ComponentA { get; private set; } = null;

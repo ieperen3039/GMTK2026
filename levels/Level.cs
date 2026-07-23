@@ -18,6 +18,7 @@ public partial class Level : Node2D
     private Node ductTapeInstancesNode;
 
     private IMouseTool mouseTool;
+    private RocketComponent hoveredComponent;
 
     public override void _Ready()
     {
@@ -26,14 +27,13 @@ public partial class Level : Node2D
         camera = GetNode<Camera2D>("Camera2D");
         rocketComponentsNode = GetNode<Node>("RocketComponents");
         ductTapeInstancesNode = GetNode<Node>("DuctTapeInstances");
-        Area2D backgroundNode = GetNode<Area2D>("Background");
-        backgroundNode.InputEvent += OnBackgroundClicked;
 
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
             if (child is RocketComponent part)
             {
-                part.OnClick += OnRocketPartClicked;
+                part.MouseEntered += () => OnRocketComponentMouse(part, true);
+                part.MouseExited += () => OnRocketComponentMouse(part, false);
             }
         }
 
@@ -41,6 +41,21 @@ public partial class Level : Node2D
         tapeToolButton.Pressed += SetTapeTool;
 
         mouseTool = new GrabTool(this);
+    }
+
+    private void OnRocketComponentMouse(RocketComponent part, bool setActive)
+    {
+        if (!setActive)
+        {
+            if (hoveredComponent == part)
+            {
+                hoveredComponent = null;
+            }
+        }
+        else
+        {
+            hoveredComponent = part;
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -57,28 +72,6 @@ public partial class Level : Node2D
         mouseTool = new TapeTool(this);
     }
 
-    private RocketComponent GetRocketComponentAt(Vector2 position)
-    {
-        PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
-        PhysicsPointQueryParameters2D query = new()
-        {
-            Position = position,
-            CollideWithBodies = true
-        };
-        Array<Dictionary> results = spaceState.IntersectPoint(query);
-
-        foreach (Dictionary result in results)
-        {
-            Variant collider = result["collider"];
-            if (collider.GetType() == typeof(RocketComponent))
-            {
-                return collider.As<RocketComponent>();
-            }
-        }
-
-        return null;
-    }
-
     // attach camera to largest component tree, activate all engines
     private void OnCountdownZero()
     {
@@ -91,29 +84,29 @@ public partial class Level : Node2D
         }
     }
 
-    // handle global right-click and release
-    public void OnBackgroundClicked(Node viewport, InputEvent @inputEvent, long shapeIdx)
+    public override void _UnhandledInput(InputEvent inputEvent)
     {
         if (inputEvent is InputEventMouseButton mouseEvent)
         {
-            GD.Print("OnBackgroundClicked");
-            if (mouseEvent.ButtonIndex == MouseButton.Right && mouseEvent.IsPressed())
+            if (mouseEvent.ButtonIndex == MouseButton.Right)
             {
                 mouseTool.OnCancel();
                 mouseTool = new GrabTool(this);
             }
-            if (mouseEvent.IsReleased())
+            else if (mouseEvent.ButtonIndex == MouseButton.Left)
             {
-                mouseTool.OnRelease();
+                // use GetGlobalMousePosition instead of mouseEvent.Position; 
+                // mouseEvent.Position is relative to viewport
+                if (mouseEvent.IsPressed())
+                {
+                    mouseTool.OnClick(GetGlobalMousePosition());
+                }
+                else if (mouseEvent.IsReleased())
+                {
+                    mouseTool.OnRelease(GetGlobalMousePosition());
+                }
             }
         }
-    }
-
-    private void OnRocketPartClicked(RocketComponent component, InputEventMouseButton mouseEvent)
-    {
-        if (mouseEvent.ButtonIndex == MouseButton.Right) return;
-
-        mouseTool.OnRocketPartEvent(component, mouseEvent);
     }
 
 
@@ -124,6 +117,8 @@ public partial class Level : Node2D
         levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
         AddChild(levelCompleteScreen);
     }
+
+
 
     private class TapeTool : IMouseTool
     {
@@ -140,82 +135,85 @@ public partial class Level : Node2D
         private DuctTape NewTape()
         {
             DuctTape tape = parent.ductTapeScene.Instantiate<DuctTape>();
-            tape.ComponentQuery = parent.GetRocketComponentAt;
             parent.ductTapeInstancesNode.AddChild(tape);
             parent.tapes.Add(tape);
             return tape;
         }
 
-        public void OnRocketPartEvent(RocketComponent component, InputEventMouseButton mouseEvent)
-        {
-            GD.Print("TapeTool::OnRocketPartEvent");
-            Vector2 relativeClick = component.ToLocal(mouseEvent.GlobalPosition);
-            tape.Attach(component, relativeClick);
-            // both for pressed and released
 
-            if (tape.Status == DuctTape.StatusValue.FullConnected)
+        public void OnClick(Vector2 mousePosition)
+        {
+            RocketComponent component = parent.hoveredComponent;
+            if (component != null)
             {
-                GD.Print("Tape Connected");
-                // start new tape
-                tape = NewTape();
+                Vector2 relativeClick = component.ToLocal(mousePosition);
+                tape.Attach(component, relativeClick);
+
+                if (tape.Status != DuctTape.StatusValue.HalfConnected)
+                {
+                    throw new Exception("Unexpected state " + tape.Status);
+                }
             }
         }
 
-        public void OnRelease()
+        public void OnRelease(Vector2 mousePosition)
         {
-            GD.Print("TapeTool::OnRelease");
-            OnCancel();
-            tape = NewTape();
+            RocketComponent component = parent.hoveredComponent;
+            if (component != null)
+            {
+                Vector2 relativeClick = component.ToLocal(mousePosition);
+                tape.Attach(component, relativeClick);
+
+                if (tape.Status == DuctTape.StatusValue.FullConnected)
+                {
+                    tape = NewTape();
+                }
+            }
+            else
+            {
+                OnCancel();
+                tape = NewTape();
+            }
         }
 
         public void OnCancel()
         {
             parent.tapes.Remove(tape);
+            parent.RemoveChild(tape);
             tape.QueueFree();
         }
-
-        public void OnClick(Vector2 mousePosition) { }
-
     }
 
     private class GrabTool : IMouseTool
     {
-        private Level level;
+        private Level parent;
         private RocketComponent grabbed;
 
-        public GrabTool(Level level)
+        public GrabTool(Level parent)
         {
             GD.Print("GrabTool");
-            this.level = level;
+            this.parent = parent;
             this.grabbed = null;
         }
 
-        public void OnRocketPartEvent(RocketComponent component, InputEventMouseButton mouseEvent)
+        public void OnClick(Vector2 mousePosition)
         {
-            GD.Print("GrabTool::OnRocketPartEvent");
-            if (mouseEvent.IsPressed())
+            RocketComponent component = parent.hoveredComponent;
+            if (component != null)
             {
                 grabbed = component;
-                Vector2 relativeClick = component.ToLocal(mouseEvent.GlobalPosition);
+                Vector2 relativeClick = component.ToLocal(mousePosition);
                 component.OnGrab(relativeClick);
-            }
-            else
-            {
-                // OnRelease();
-                grabbed?.OnRelease();
-                grabbed = null;
             }
         }
 
-        public void OnClick(Vector2 mousePosition) { }
+        public void OnRelease(Vector2 mousePosition) => OnCancel();
 
-        public void OnCancel() => OnRelease();
-
-        public void OnRelease()
+        public void OnCancel()
         {
-            GD.Print("GrabTool::OnRelease");
             grabbed?.OnRelease();
             grabbed = null;
         }
+
     }
 }

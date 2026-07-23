@@ -3,8 +3,6 @@ using System;
 
 public partial class RocketComponent : RigidBody2D
 {
-    [Signal]
-    public delegate void OnClickEventHandler(RocketComponent who, InputEventMouseButton mouseEvent);
 
     public const float InitialVelocity = 10.0f;
     public const float InitialRotation = 100.0f;
@@ -24,7 +22,6 @@ public partial class RocketComponent : RigidBody2D
         CollisionLayer = Game.COLLISION_LAYER_ROCKET_COMPONENTS;
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
-        InputEvent += OnInputEvent;
         MaxContactsReported = 1;
         ContactMonitor = true;
 
@@ -54,15 +51,6 @@ public partial class RocketComponent : RigidBody2D
         }
     }
 
-    private void OnInputEvent(Node viewport, InputEvent inputEvent, long shapeIdx)
-    {
-        if (inputEvent is InputEventMouseButton mouseEvent)
-        {
-            GD.Print("OnRocketComponentClicked");
-            EmitSignal(SignalName.OnClick, this, mouseEvent);
-        }
-    }
-
     public void OnRelease()
     {
         isDragging = false;
@@ -78,7 +66,6 @@ public partial class RocketComponent : RigidBody2D
 
     private void OnMouseEntered()
     {
-        // light up?
     }
 
     private void OnMouseExited()

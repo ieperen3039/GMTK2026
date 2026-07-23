@@ -20,10 +20,6 @@ distance = -316.0366
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(827.5021, 119.82558)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8x7xp"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6ewy3"]
-
 [node name="Level" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_hh1ok")
 
@@ -94,16 +90,5 @@ toggle_mode = true
 text = "Tape"
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
-
-[node name="Background" type="Area2D" parent="." unique_id=1918518359]
-z_index = -1
-z_as_relative = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Background" unique_id=393002437]
-shape = SubResource("WorldBoundaryShape2D_8x7xp")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background" unique_id=2124510661]
-scale = Vector2(-1, -1)
-shape = SubResource("WorldBoundaryShape2D_6ewy3")
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="OnLevelComplete"]
