@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_hh1ok"]
 [ext_resource type="Texture2D" uid="uid://corhuhrff2hkt" path="res://levels/level-1/launchpad.png" id="2_471vb"]
 [ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_llm56"]
+[ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_xmw3k"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s1ev"]
 distance = -278.91638
@@ -55,8 +56,14 @@ shape = SubResource("RectangleShape2D_teru1")
 [node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_llm56")]
 position = Vector2(311, 499)
 
-[node name="NoseCon2" parent="RocketComponents" unique_id=1342175597 instance=ExtResource("4_llm56")]
-position = Vector2(319, 424)
+[node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_xmw3k")]
+position = Vector2(244, 456)
+
+[node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_xmw3k")]
+position = Vector2(389, 450)
+
+[node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_xmw3k")]
+position = Vector2(476, 487)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(360, 360)
@@ -66,10 +73,22 @@ position = Vector2(360, 360)
 [node name="Button" type="Button" parent="CanvasLayer" unique_id=1277344209]
 anchors_preset = -1
 anchor_right = 1.0
-offset_left = 303.0
-offset_top = 20.0
-offset_right = -308.0
-offset_bottom = 71.0
+offset_left = 31.0
+offset_top = 21.0
+offset_right = -580.0
+offset_bottom = 72.0
 text = "win"
+
+[node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=1047236533]
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 585.0
+offset_top = 21.0
+offset_right = -26.0
+offset_bottom = 72.0
+toggle_mode = true
+text = "Tape"
+
+[node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="OnLevelComplete"]

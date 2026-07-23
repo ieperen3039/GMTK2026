@@ -3,9 +3,11 @@ using System;
 
 public partial class RocketComponent : RigidBody2D
 {
-    public const float InitialVelocity = 1.0f;
-    public const float InitialRotation = 10.0f;
+    [Signal]
+    public delegate void OnClickEventHandler(RocketComponent who, MouseButton button, Vector2 relativePosition);
 
+    public const float InitialVelocity = 10.0f;
+    public const float InitialRotation = 100.0f;
 
     public const float SnapSpeed = 20f;
     public const float SnapDampening = 20f;
@@ -54,13 +56,10 @@ public partial class RocketComponent : RigidBody2D
 
     private void OnInputEvent(Node viewport, InputEvent inputEvent, long shapeIdx)
     {
-        if (inputEvent is InputEventMouseButton mouseEvent)
+        if (inputEvent is InputEventMouseButton mouseEvent && mouseEvent.IsPressed())
         {
-            GD.Print("inputEvent is InputEventMouseButton");
-            if (mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.IsPressed())
-            {
-                OnGrab();
-            }
+            GD.Print(Name + "OnInputEvent");
+            EmitSignal(SignalName.OnClick, this, (int) mouseEvent.ButtonIndex, ToLocal(mouseEvent.Position));
         }
     }
 
@@ -82,36 +81,14 @@ public partial class RocketComponent : RigidBody2D
     {
         isDragging = false;
         GravityScale = 1.0f;
-
-        bool isNowAttached = TryAttach();
-        if (!isNowAttached)
-        {
-            ContactMonitor = true;
-        }
     }
 
-    public void OnGrab()
+    public void OnGrab(Vector2 localGrabPosition)
     {
         isDragging = true;
         ContactMonitor = true;
         GravityScale = 0.0f;
     }
-
-
-    private bool TryAttach()
-    {
-        foreach (Node2D others in GetCollidingBodies())
-        {
-            if (others is RocketComponent component)
-            {
-                ReparentTo(component);
-                // we can only have one parent
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     private void OnMouseEntered()
     {
@@ -126,15 +103,5 @@ public partial class RocketComponent : RigidBody2D
     {
         return new Vector2(1, 0)
             .Rotated(2 * Mathf.Pi * rng.NextSingle());
-    }
-
-    public void ReparentTo(Node2D newParent)
-    {
-        Vector2 oldPosition = GlobalPosition;
-        float oldRotation = GlobalRotation;
-        GetParent().RemoveChild(this);
-        newParent.AddChild(this);
-        GlobalPosition = oldPosition;
-        GlobalRotation = oldRotation;
     }
 }
