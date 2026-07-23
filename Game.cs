@@ -16,15 +16,19 @@ public partial class Game : Node
             ResourceLoader.Load<PackedScene>("res://levels/level-2/scene.tscn")
         ];
         
-        Level firstLevel = levelScenes[0].Instantiate<Level>();
-        AddChild(firstLevel);
+        // TODO main menu instead of first level
+        NextLevel();
     }
 
     void NextLevel()
     {
         // TODO add fader
+        GD.Print("Moving to level " + currentLevel);
+        if (currentLevel != null)
+        {
+            RemoveChild(currentLevel);
+        }
 
-        RemoveChild(currentLevel);
         PackedScene packedScene = levelScenes[currentLevelIdx++];
         currentLevel = packedScene.Instantiate<Level>();
         currentLevel.OnNextLevel += NextLevel;

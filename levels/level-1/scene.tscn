@@ -22,7 +22,7 @@ size = Vector2(843.7595, 138.74454)
 script = ExtResource("1_hh1ok")
 
 [node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
-position = Vector2(359.77484, 358.9456)
+position = Vector2(360, 360)
 scale = Vector2(1.1453899, 1.1348792)
 texture = ExtResource("1_68uyt")
 
@@ -51,3 +51,18 @@ shape = SubResource("RectangleShape2D_teru1")
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
+position = Vector2(360, 360)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=475960895]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1277344209]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 302.0
+offset_top = 34.0
+offset_right = -309.0
+offset_bottom = -635.0
+text = "win"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="OnLevelComplete"]

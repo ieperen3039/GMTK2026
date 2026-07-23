@@ -9,7 +9,7 @@ public partial class Level : Node
     public delegate void OnNextLevelEventHandler();
 
     private PackedScene levelCompleteScene;
-    private List<RocketComponent> parts;
+    private List<RocketComponent> parts = new();
     private Camera2D camera;
 
     public override void _Ready()
