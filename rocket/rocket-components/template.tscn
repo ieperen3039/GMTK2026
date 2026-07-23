@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dwjacrldt08do"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
+size = Vector2(32, 30)
+
+[node name="Scene" type="CharacterBody2D" unique_id=1753535926]
+input_pickable = true
+motion_mode = 1
+wall_min_slide_angle = 0.006981317
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=565845095]
+shape = SubResource("RectangleShape2D_teru1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=534105907]
