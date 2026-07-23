@@ -26,6 +26,8 @@ public partial class Level : Node2D
         camera = GetNode<Camera2D>("Camera2D");
         rocketComponentsNode = GetNode<Node>("RocketComponents");
         ductTapeInstancesNode = GetNode<Node>("DuctTapeInstances");
+        Area2D backgroundNode = GetNode<Area2D>("Background");
+        backgroundNode.InputEvent += OnBackgroundClicked;
 
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
@@ -90,10 +92,11 @@ public partial class Level : Node2D
     }
 
     // handle global right-click and release
-    public override void _UnhandledInput(InputEvent inputEvent)
+    public void OnBackgroundClicked(Node viewport, InputEvent @inputEvent, long shapeIdx)
     {
         if (inputEvent is InputEventMouseButton mouseEvent)
         {
+            GD.Print("OnBackgroundClicked");
             if (mouseEvent.ButtonIndex == MouseButton.Right && mouseEvent.IsPressed())
             {
                 mouseTool.OnCancel();
@@ -214,6 +217,5 @@ public partial class Level : Node2D
             grabbed?.OnRelease();
             grabbed = null;
         }
-
     }
 }
