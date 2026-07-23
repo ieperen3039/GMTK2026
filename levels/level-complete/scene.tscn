@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://s62hk0dts0pl"]
+
+[ext_resource type="Texture2D" uid="uid://c24e7nir65uw1" path="res://levels/level-complete/primary-text.png" id="1_1si2r"]
+[ext_resource type="Script" uid="uid://c6vsk2w1bpdpc" path="res://levels/level-complete/LevelComplete.cs" id="1_83n8o"]
+[ext_resource type="Texture2D" uid="uid://cgnufi8t5nosu" path="res://levels/level-complete/continue.png" id="3_db2jp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5tnor"]
+size = Vector2(202, 60)
+
+[node name="LevelCompletionNode" type="Node2D" unique_id=270396650]
+script = ExtResource("1_83n8o")
+
+[node name="Text" type="Sprite2D" parent="." unique_id=2134188778]
+position = Vector2(374, 268)
+texture = ExtResource("1_1si2r")
+
+[node name="ContinueButton" type="Sprite2D" parent="." unique_id=21456652]
+position = Vector2(368, 437)
+texture = ExtResource("3_db2jp")
+
+[node name="Area2D" type="Area2D" parent="ContinueButton" unique_id=379635438]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContinueButton/Area2D" unique_id=1495163828]
+shape = SubResource("RectangleShape2D_5tnor")
