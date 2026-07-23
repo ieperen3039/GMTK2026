@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://dwmbn8u24wher"]
+
+[ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="1_68uyt"]
+[ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_hh1ok"]
+[ext_resource type="Texture2D" uid="uid://corhuhrff2hkt" path="res://levels/level-1/launchpad.png" id="2_471vb"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s1ev"]
+distance = -253.83942
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_teru1"]
+normal = Vector2(1, 0)
+distance = -312.14224
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5tnor"]
+normal = Vector2(-0.99999434, -0.003355726)
+distance = -312.0929
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
+size = Vector2(843.7595, 138.74454)
+
+[node name="Level" type="Node2D" unique_id=1782678356]
+script = ExtResource("1_hh1ok")
+
+[node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
+position = Vector2(359.77484, 358.9456)
+scale = Vector2(1.1453899, 1.1348792)
+texture = ExtResource("1_68uyt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelBg" unique_id=1699988788]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelBg/StaticBody2D" unique_id=56533830]
+shape = SubResource("WorldBoundaryShape2D_0s1ev")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LevelBg/StaticBody2D" unique_id=1357787768]
+shape = SubResource("WorldBoundaryShape2D_teru1")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="LevelBg/StaticBody2D" unique_id=180391062]
+shape = SubResource("WorldBoundaryShape2D_5tnor")
+
+[node name="Launchpad" type="Sprite2D" parent="." unique_id=1711688620]
+position = Vector2(352, 617.5)
+scale = Vector2(0.8055009, 0.80263186)
+texture = ExtResource("2_471vb")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Launchpad" unique_id=1258637541]
+scale = Vector2(0.6151042, 0.6342593)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Launchpad/StaticBody2D2" unique_id=1798477531]
+shape = SubResource("RectangleShape2D_teru1")
+
+[node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]

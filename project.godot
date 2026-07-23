@@ -15,7 +15,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="GMTK2026"
+run/main_scene="uid://bcxdl7vmhwro4"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=720
 
 [dotnet]
 

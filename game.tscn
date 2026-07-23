@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bcxdl7vmhwro4"]
+
+[ext_resource type="Script" uid="uid://b2q1loala0tad" path="res://Game.cs" id="1_80nbo"]
+
+[node name="Game" type="Node" unique_id=1705638661]
+script = ExtResource("1_80nbo")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=723390932]
