@@ -4,6 +4,8 @@ using System;
 // level-manager
 public partial class Game : Node
 {
+    public const uint COLLISION_LAYER_ROCKET_COMPONENTS = 0b_0001;
+
     private PackedScene[] levelScenes;
 
     private int currentLevelIdx = 0;
@@ -23,7 +25,7 @@ public partial class Game : Node
     void NextLevel()
     {
         // TODO add fader
-        GD.Print("Moving to level " + currentLevel);
+        GD.Print("Moving to level " + currentLevelIdx);
         if (currentLevel != null)
         {
             RemoveChild(currentLevel);
