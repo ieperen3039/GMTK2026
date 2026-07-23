@@ -4,7 +4,7 @@ using System;
 public partial class RocketComponent : RigidBody2D
 {
     [Signal]
-    public delegate void OnClickEventHandler(RocketComponent who, MouseButton button, Vector2 relativePosition);
+    public delegate void OnClickEventHandler(RocketComponent who, InputEventMouseButton mouseEvent);
 
     public const float InitialVelocity = 10.0f;
     public const float InitialRotation = 100.0f;
@@ -56,24 +56,9 @@ public partial class RocketComponent : RigidBody2D
 
     private void OnInputEvent(Node viewport, InputEvent inputEvent, long shapeIdx)
     {
-        if (inputEvent is InputEventMouseButton mouseEvent && mouseEvent.IsPressed())
-        {
-            GD.Print(Name + "OnInputEvent");
-            EmitSignal(SignalName.OnClick, this, (int) mouseEvent.ButtonIndex, ToLocal(mouseEvent.Position));
-        }
-    }
-
-    // also called for input events not on this object
-    public override void _Input(InputEvent inputEvent)
-    {
-        if (!isDragging) return;
-
         if (inputEvent is InputEventMouseButton mouseEvent)
         {
-            if (mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.IsReleased())
-            {
-                OnRelease();
-            }
+            EmitSignal(SignalName.OnClick, this, mouseEvent);
         }
     }
 

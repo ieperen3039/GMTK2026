@@ -17,7 +17,7 @@ public partial class Level : Node2D
     private Node rocketComponentsNode;
     private Node ductTapeInstancesNode;
 
-    private DuctTape currentMouseTool = null;
+    private IMouseTool mouseTool;
 
     public override void _Ready()
     {
@@ -37,6 +37,8 @@ public partial class Level : Node2D
 
         Button tapeToolButton = GetNode("CanvasLayer").GetNode<Button>("SetTapeTool");
         tapeToolButton.Toggled += SetTapeTool;
+
+        mouseTool = new GrabTool(this);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -49,19 +51,14 @@ public partial class Level : Node2D
 
     private void SetTapeTool(bool active)
     {
+        mouseTool.OnCancel();
         if (active)
         {
-            DuctTape tape = ductTapeScene.Instantiate<DuctTape>();
-            tape.ComponentQuery = GetRocketComponentAt;
-            ductTapeInstancesNode.AddChild(tape);
-            tapes.Add(tape);
-            currentMouseTool = tape;
+            mouseTool = new TapeTool(this);
         }
         else
         {
-            tapes.Remove(currentMouseTool);
-            currentMouseTool.QueueFree();
-            currentMouseTool = null;
+            mouseTool = new GrabTool(this);
         }
     }
 
@@ -99,36 +96,29 @@ public partial class Level : Node2D
         }
     }
 
-    private void OnRocketPartClicked(RocketComponent component, MouseButton button, Vector2 where)
+    // handle global right-click
+    public override void _Input(InputEvent inputEvent)
     {
-        if (currentMouseTool == null)
+        if (inputEvent is InputEventMouseButton mouseEvent)
         {
-            if (button == MouseButton.Left)
+            if (mouseEvent.ButtonIndex == MouseButton.Right && mouseEvent.IsPressed())
             {
-                component.OnGrab(where);
+                mouseTool.OnCancel();
+                mouseTool = new GrabTool(this);
             }
-            else if (button == MouseButton.Right)
+            if (mouseEvent.IsReleased())
             {
-                component.OnRelease();
+                mouseTool.OnCancel();
+                mouseTool = new GrabTool(this);
             }
         }
-        else
-        {
-            if (button == MouseButton.Left)
-            {
-                currentMouseTool.Attach(component, where);
-                if (currentMouseTool.Status == DuctTape.StatusValue.FullConnected)
-                {
-                    // start new tape
-                    currentMouseTool = null;
-                    SetTapeTool(true);
-                }
-            }
-            else if (button == MouseButton.Right)
-            {
-                SetTapeTool(false);
-            }
-        }
+    }
+
+    private void OnRocketPartClicked(RocketComponent component, InputEventMouseButton mouseEvent)
+    {
+        if (mouseEvent.ButtonIndex == MouseButton.Right) return;
+
+        mouseTool.OnRocketPartEvent(component, mouseEvent);
     }
 
 
@@ -140,4 +130,91 @@ public partial class Level : Node2D
         AddChild(levelCompleteScreen);
     }
 
+    private class TapeTool : IMouseTool
+    {
+        public Level parent;
+        public DuctTape tape;
+
+        public TapeTool(Level parent)
+        {
+            this.parent = parent;
+            tape = NewTape();
+        }
+
+        private DuctTape NewTape()
+        {
+            DuctTape tape = parent.ductTapeScene.Instantiate<DuctTape>();
+            tape.ComponentQuery = parent.GetRocketComponentAt;
+            parent.ductTapeInstancesNode.AddChild(tape);
+            parent.tapes.Add(tape);
+            return tape;
+        }
+
+        public void OnRocketPartEvent(RocketComponent component, InputEventMouseButton mouseEvent)
+        {
+            Vector2 relativeClick = component.ToLocal(mouseEvent.GlobalPosition);
+            tape.Attach(component, relativeClick);
+            // both for pressed and released
+
+            if (tape.Status == DuctTape.StatusValue.FullConnected)
+            {
+                // start new tape
+                tape = NewTape();
+            }
+        }
+
+        public void OnRelease()
+        {
+            OnCancel();
+            tape = NewTape();
+        }
+
+        public void OnCancel()
+        {
+            parent.tapes.Remove(tape);
+            tape.QueueFree();
+        }
+
+        public void OnClick(Vector2 mousePosition) { }
+
+    }
+
+    private class GrabTool : IMouseTool
+    {
+        private Level level;
+        private RocketComponent grabbed;
+
+        public GrabTool(Level level)
+        {
+            this.level = level;
+            this.grabbed = null;
+        }
+
+        public void OnRocketPartEvent(RocketComponent component, InputEventMouseButton mouseEvent)
+        {
+            GD.Print("GrabTool::OnRocketPartEvent");
+            if (mouseEvent.IsPressed())
+            {
+                grabbed = component;
+                Vector2 relativeClick = component.ToLocal(mouseEvent.GlobalPosition);
+                component.OnGrab(relativeClick);
+            }
+            else
+            {
+                OnCancel();
+            }
+        }
+
+        public void OnClick(Vector2 mousePosition) { }
+
+        public void OnCancel() => OnRelease();
+
+        public void OnRelease()
+        {
+            GD.Print("GrabTool::OnRelease");
+            grabbed?.OnRelease();
+            grabbed = null;
+        }
+
+    }
 }

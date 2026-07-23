@@ -32,16 +32,17 @@ public partial class DuctTape : Node2D
 
     public StatusValue Status => ComponentA == null ? StatusValue.Empty : (ComponentB == null ? StatusValue.HalfConnected : StatusValue.FullConnected);
 
-    public void Attach(RocketComponent component, Vector2 attachmentPosition)
+    public void Attach(RocketComponent component, Vector2 relativeAttachmentPosition)
     {
         switch (Status)
         {
             case StatusValue.Empty:
                 GD.Print("Tape attach A");
                 ComponentA = component;
-                anchorA = attachmentPosition;
-                graphic.AddPoint(attachmentPosition);
-                graphic.AddPoint(attachmentPosition);
+                anchorA = relativeAttachmentPosition;
+                Vector2 linePoint = ToLocal(ComponentA.ToGlobal(relativeAttachmentPosition));
+                graphic.AddPoint(linePoint);
+                graphic.AddPoint(linePoint + Vector2.Up);
                 return;
 
             case StatusValue.HalfConnected:
@@ -53,7 +54,7 @@ public partial class DuctTape : Node2D
 
                 GD.Print("Tape attach B");
                 ComponentB = component;
-                anchorB = attachmentPosition;
+                anchorB = relativeAttachmentPosition;
                 return;
 
             case StatusValue.FullConnected:
@@ -79,8 +80,8 @@ public partial class DuctTape : Node2D
 
         // update graphical part
         Vector2 globalAnchorA = ComponentA.ToGlobal(anchorA);
-        graphic.Points[0] = ToLocal(globalAnchorA);
-        graphic.Points[1] = ToLocal(mousePosition);
+        graphic.SetPointPosition(0, ToLocal(globalAnchorA));
+        graphic.SetPointPosition(1, ToLocal(mousePosition));
 
         Vector2 direction = mousePosition - ComponentA.GlobalPosition;
         Vector2 targetVelocity = direction * RocketComponent.SnapSpeed * MousePullFactor;
@@ -94,8 +95,8 @@ public partial class DuctTape : Node2D
         Vector2 globalAnchorA = ComponentA.ToGlobal(anchorA);
         Vector2 globalAnchorB = ComponentB.ToGlobal(anchorB);
 
-        graphic.Points[0] = ToLocal(globalAnchorA);
-        graphic.Points[1] = ToLocal(globalAnchorB);
+        graphic.SetPointPosition(0, ToLocal(globalAnchorA));
+        graphic.SetPointPosition(1, ToLocal(globalAnchorB));
 
         Vector2 vecAToB = globalAnchorB - globalAnchorA;
         Vector2 force = vecAToB.Normalized() * Pull;
