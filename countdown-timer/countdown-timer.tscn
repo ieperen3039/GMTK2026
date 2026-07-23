@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dnvvm5a5dbxib"]
+
+[ext_resource type="Texture2D" uid="uid://wk3wnetbao4d" path="res://countdown-timer/graphic/timer.tres" id="1_onarb"]
+[ext_resource type="Script" uid="uid://dpdgawotgy53l" path="res://countdown-timer/CountdownTimer.cs" id="1_vwdx4"]
+[ext_resource type="Texture2D" uid="uid://bqe2j87nb0662" path="res://countdown-timer/graphic/countdown-timer.png" id="2_vwdx4"]
+
+[node name="CountdownTimer" type="Timer" unique_id=2042633032]
+script = ExtResource("1_vwdx4")
+
+[node name="ClockFace" type="Sprite2D" parent="." unique_id=1381751894]
+texture = ExtResource("1_onarb")
+
+[node name="Ones" type="Sprite2D" parent="." unique_id=405968552]
+unique_name_in_owner = true
+position = Vector2(7, -4)
+texture = ExtResource("2_vwdx4")
+hframes = 10
+vframes = 4
+
+[node name="Tens" type="Sprite2D" parent="." unique_id=808000141]
+unique_name_in_owner = true
+position = Vector2(-7, -4)
+texture = ExtResource("2_vwdx4")
+hframes = 10
+vframes = 4
