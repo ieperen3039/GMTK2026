@@ -118,8 +118,6 @@ public partial class Level : Node2D
         AddChild(levelCompleteScreen);
     }
 
-
-
     private class TapeTool : IMouseTool
     {
         public Level parent;
@@ -179,7 +177,7 @@ public partial class Level : Node2D
         public void OnCancel()
         {
             parent.tapes.Remove(tape);
-            parent.RemoveChild(tape);
+            parent.ductTapeInstancesNode.RemoveChild(tape);
             tape.QueueFree();
         }
     }
