@@ -10,9 +10,10 @@ public partial class RocketComponent : RigidBody2D
     public const float SnapSpeed = 20f;
     public const float SnapDampening = 20f;
 
-    public const float AngularSnapSpeed = 50f;
-    public const float AngularSnapDampening = 50f;
+    public const float AngularSnapSpeed = 5f;
+    public const float AngularSnapDampening = 100f;
     private bool isDragging = false;
+    private Vector2 localGrabOffset = new();
 
     // Called when the node enters the scene tree for the first time.
 
@@ -38,11 +39,15 @@ public partial class RocketComponent : RigidBody2D
         if (isDragging)
         {
             Vector2 targetPosition = GetGlobalMousePosition();
-            Vector2 direction = targetPosition - GlobalPosition;
+            Vector2 direction = targetPosition - ToGlobal(localGrabOffset);
             Vector2 targetVelocity = direction * SnapSpeed;
             Vector2 velocityDifference = targetVelocity - LinearVelocity;
-            ApplyForce(velocityDifference * SnapDampening);
-
+            Vector2 globalOffset = GlobalTransform.BasisXform(localGrabOffset);
+            ApplyForce(velocityDifference * SnapDampening, globalOffset);
+        }
+        else
+        {
+            // beetje helpen
             // mod rotation to (-180, +180) degrees
             float rotationOffset = Mathf.PosMod(Rotation + Mathf.Pi, 2 * Mathf.Pi) - Mathf.Pi;
             float targetAngularVelocity = rotationOffset * AngularSnapSpeed;
@@ -54,14 +59,13 @@ public partial class RocketComponent : RigidBody2D
     public void OnRelease()
     {
         isDragging = false;
-        GravityScale = 1.0f;
     }
 
-    public void OnGrab(Vector2 localGrabPosition)
+    public void OnGrab(Vector2 localGrabOffset)
     {
+        this.localGrabOffset = localGrabOffset;
         isDragging = true;
         ContactMonitor = true;
-        GravityScale = 0.0f;
     }
 
     private void OnMouseEntered()

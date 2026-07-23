@@ -10,9 +10,9 @@ public partial class DuctTape : Node2D
         FullConnected
     }
 
-    public const float MousePullFactor = 0.1f;
-    public const float SnapSpeed = 200f;
-    public const float SnapDampening = 200f;
+    public const float MousePullFactor = 0.2f;
+    public const float SnapSpeed = 400f;
+    public const float SnapDampening = 1f;
 
     public RocketComponent ComponentA { get; private set; } = null;
     private Vector2 anchorA = new();
@@ -55,7 +55,10 @@ public partial class DuctTape : Node2D
                 GD.Print("Tape attach B");
                 ComponentB = component;
                 anchorB = localAttachmentPosition;
-                length = anchorA.DistanceTo(anchorB);
+
+                Vector2 globalAnchorA = ComponentA.ToGlobal(anchorA);
+                Vector2 globalAnchorB = ComponentB.ToGlobal(anchorB);
+                length = globalAnchorA.DistanceTo(globalAnchorB);
                 return;
 
             case StatusValue.FullConnected:
@@ -88,7 +91,7 @@ public partial class DuctTape : Node2D
         Vector2 targetVelocity = direction * RocketComponent.SnapSpeed * MousePullFactor;
         Vector2 velocityDifference = targetVelocity - ComponentA.LinearVelocity;
 
-        ComponentA.ApplyForce(velocityDifference * RocketComponent.SnapDampening);
+        ComponentA.ApplyForce(velocityDifference * RocketComponent.SnapDampening * MousePullFactor);
     }
 
     private void UpdateConnected(double delta)
@@ -99,14 +102,11 @@ public partial class DuctTape : Node2D
         graphic.SetPointPosition(0, ToLocal(globalAnchorA));
         graphic.SetPointPosition(1, ToLocal(globalAnchorB));
 
-        Vector2 globalVelocityA = ComponentA.GlobalTransform.BasisXform(ComponentB.LinearVelocity);
-        Vector2 globalVelocityB = ComponentB.GlobalTransform.BasisXform(ComponentB.LinearVelocity);
-
         // relative to A
-        Vector2 gap = globalAnchorB - globalAnchorA;
-        Vector2 direction = gap - (gap.Normalized() * length);
-        Vector2 targetVelocity = direction * SnapSpeed;
-        Vector2 velocityDifference = targetVelocity - (globalVelocityB - globalVelocityA);
+        Vector2 gapBToA = globalAnchorA - globalAnchorB;
+        Vector2 targetMovement = (gapBToA.Normalized() * length) - gapBToA;
+        Vector2 targetVelocity = targetMovement * SnapSpeed;
+        Vector2 velocityDifference = targetVelocity - (ComponentA.LinearVelocity - ComponentB.LinearVelocity);
         Vector2 force = velocityDifference * SnapDampening;
 
         ComponentA.ApplyForce(force, globalAnchorA - ComponentA.GlobalPosition);

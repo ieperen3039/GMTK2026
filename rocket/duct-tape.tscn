@@ -7,4 +7,8 @@ script = ExtResource("1_ttbwk")
 
 [node name="Graphics" type="Line2D" parent="." unique_id=1169081786]
 top_level = true
+width = 5.0
 default_color = Color(0.34, 0.34, 0.34, 1)
+joint_mode = 2
+begin_cap_mode = 1
+end_cap_mode = 1
