@@ -7,11 +7,17 @@ public partial class Rocket : RigidBody2D
     [Signal]
     public delegate void AltitudeChangedEventHandler(float Altitude);
 
-    private List<ThrusterComponent> thrusters = new();
+    private List<ThrustSource> thrusters = new();
     private bool IsEmpty = true;
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
+        foreach (ThrustSource thruster in thrusters)
+        {
+            Vector2 globalThrustVector = thruster.GetThrust();
+            ApplyForce(globalThrustVector, thruster.GlobalPosition);
+        }
+
         EmitSignal(SignalName.AltitudeChanged, GlobalPosition.Y);
     }
 
@@ -33,7 +39,7 @@ public partial class Rocket : RigidBody2D
 
             child.Reparent(this);
 
-            if (child is ThrusterComponent thruster)
+            if (child is ThrustSource thruster)
             {
                 thrusters.Add(thruster);
             }
@@ -48,5 +54,5 @@ public partial class Rocket : RigidBody2D
         tape.QueueFree();
     }
 
-    public IReadOnlyList<ThrusterComponent> GetThrusters() => thrusters;
+    public IReadOnlyList<ThrustSource> GetThrusters() => thrusters;
 }

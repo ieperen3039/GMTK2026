@@ -13,16 +13,15 @@ public class DynamicThrustReduction
 
     static void BalanceThrusters(Rocket rocket)
     {
-        IReadOnlyList<ThrusterComponent> thrusters = rocket.GetThrusters();
+        IReadOnlyList<ThrustSource> thrusters = rocket.GetThrusters();
 
-        Dictionary<ThrusterComponent, float> torques = new();
+        Dictionary<ThrustSource, float> torques = new();
         float totalTorque = 0;
 
-        foreach (ThrusterComponent t in thrusters)
+        foreach (ThrustSource t in thrusters)
         {
-            Vector2 thrustVector = t.GetThrustAt(1.0f);
-            Vector2 globalOffset = t.GlobalPosition - rocket.GetCenterOfMass();
-            float torque = globalOffset.Cross(thrustVector);
+            Vector2 globalThrustVector = t.GetThrustAt(1.0f);
+            float torque = t.GlobalPosition.Cross(globalThrustVector);
             torques.Add(t, torque);
             totalTorque += torque;
         }
