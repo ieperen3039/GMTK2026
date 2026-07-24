@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 // contains whats in a level
 public partial class Level : Node2D
@@ -11,11 +12,13 @@ public partial class Level : Node2D
 
     private PackedScene levelCompleteScene;
     private PackedScene ductTapeScene;
+    private PackedScene rocketScene;
 
     private List<DuctTape> tapes = new();
     private Camera2D camera;
     private Node rocketComponentsNode;
     private Node ductTapeInstancesNode;
+    private ControlCompoment controlComponent;
 
     private IMouseTool mouseTool;
     private RocketComponent hoveredComponent;
@@ -24,6 +27,7 @@ public partial class Level : Node2D
     {
         levelCompleteScene = ResourceLoader.Load<PackedScene>("uid://s62hk0dts0pl");
         ductTapeScene = ResourceLoader.Load<PackedScene>("uid://dxtpf7xkx1g4k");
+        rocketScene = ResourceLoader.Load<PackedScene>("uid://cr407o61t6wjj");
         camera = GetNode<Camera2D>("Camera2D");
         rocketComponentsNode = GetNode<Node>("RocketComponents");
         ductTapeInstancesNode = GetNode<Node>("DuctTapeInstances");
@@ -34,6 +38,16 @@ public partial class Level : Node2D
             {
                 part.MouseEntered += () => OnRocketComponentMouse(part, true);
                 part.MouseExited += () => OnRocketComponentMouse(part, false);
+
+                if (part is ControlCompoment control)
+                {
+                    if (controlComponent != null)
+                    {
+                        throw new Exception($"Multiple control copmonents: {controlComponent.Name} and {control.Name}");
+                    }
+
+                    controlComponent = control;
+                }
             }
         }
 
@@ -80,6 +94,41 @@ public partial class Level : Node2D
             if (child is ThrusterComponent thruster)
             {
                 // activate thruster
+            }
+        }
+
+        // iteratively search for nodes connected to any of the nodes in nodesSeen
+        // OPITMIZATION(#19) we can check against _all_ compomenents in nodesSeen in the inner if-statement
+        Rocket rocket = rocketScene.Instantiate<Rocket>();
+        HashSet<Node> nodesToCheck = [controlComponent];
+        HashSet<Node> nodesSeen = [controlComponent];
+        while (nodesToCheck.Count > 0)
+        {
+            Node nodeToCheck = nodesToCheck.First();
+            nodesToCheck.Remove(nodeToCheck);
+
+            // find all components connected to nodeToCheck.
+            // add all of them to a new Rocket
+            foreach (DuctTape connection in tapes)
+            {
+                RocketComponent a = connection.ComponentA;
+                RocketComponent b = connection.ComponentB;
+                if (a == nodeToCheck || b == nodeToCheck)
+                {
+                    // check that these components are not already queued for handling
+                    if (!nodesSeen.Contains(a))
+                    {
+                        rocket.AddComponent(a);
+                        nodesToCheck.Add(a);
+                        nodesSeen.Add(a);
+                    }
+                    if (nodesSeen.Contains(b))
+                    {
+                        rocket.AddComponent(b);
+                        nodesToCheck.Add(b);
+                        nodesSeen.Add(b);
+                    }
+                }
             }
         }
     }
