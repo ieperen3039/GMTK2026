@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class LevelComplete : Node2D
+public partial class LevelComplete : Node
 {
     [Signal]
     public delegate void OnNextLevelEventHandler();

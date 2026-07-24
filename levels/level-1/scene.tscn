@@ -72,7 +72,7 @@ text = "Tape"
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 30.0
+wait_time = 24.466
 one_shot = true
 
 [node name="CountdownTimer" parent="." unique_id=2072769234 instance=ExtResource("7_vayes")]
@@ -84,19 +84,19 @@ position = Vector2(-189, -47)
 position = Vector2(-23, -67)
 
 [node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_llm56")]
-position = Vector2(-80, -117)
+position = Vector2(-22, -153)
 
 [node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_xmw3k")]
 position = Vector2(-100, -72)
 
 [node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_xmw3k")]
-position = Vector2(19, -101)
+position = Vector2(-22, -103)
 
 [node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_xmw3k")]
 position = Vector2(137, -90)
 
 [node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_llm56")]
-position = Vector2(111, -151)
+position = Vector2(-22, -128)
 
 [node name="Engine2" parent="RocketComponents" unique_id=1552468733 instance=ExtResource("5_7741h")]
 position = Vector2(41, -148)

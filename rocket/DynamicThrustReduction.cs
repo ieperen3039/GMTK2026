@@ -10,9 +10,11 @@ public class DynamicThrustReduction
 
     public const float AngleCorrectionSpeed = 10.0f;
     public const float AngleCorrectionDampening = 10.0f;
-    public const float TorqueCorrectionStrength = 10.0f;
+    public const float TorqueCorrectionStrength = 1.0f;
+    public const float PlayerControlRotation = 0.5f;
+    public const float MinimumControlTorque = 0.1f;
 
-    public static void BalanceThrusters(Rocket rocket)
+    public static void BalanceThrusters(Rocket rocket, float rotationTarget)
     {
         IReadOnlyList<ThrustSource> thrusters = rocket.GetThrusters();
 
@@ -28,7 +30,7 @@ public class DynamicThrustReduction
         }
 
         float offset = Game.CentralXCoordinate - rocket.GlobalPosition.X;
-        float desiredRotation = offset * offset * XOffsetCorrectionFactor;
+        float desiredRotation = offset * offset * XOffsetCorrectionFactor + rotationTarget * PlayerControlRotation;
         float currentRotation = Util.RotationRelativeToUp(rocket.Rotation);
         float rotationDifference = desiredRotation - currentRotation;
         float desiredAngularVelocity = rotationDifference * AngleCorrectionSpeed;
@@ -37,18 +39,22 @@ public class DynamicThrustReduction
         float torqueDifference = targetTorque - totalTorque;
         float correctionFactor = Mathf.Abs(torqueDifference) * TorqueCorrectionStrength;
 
+        GD.Print($"targetTorque = {targetTorque}, correctionFactor = {correctionFactor}");
+
         foreach (var (thruster, torque) in torques)
         {
             // if torque is not opposite, go full blast
-            if ((torque < 0) == (torqueDifference < 0))
+            if ((torque < 0) == (torqueDifference < 0) || Mathf.Abs(torque) < MinimumControlTorque)
             {
                 thruster.SetThrustFactor(1.0f);
+                GD.Print($"targetPowerLevel = 1.0f (fixed)");
             }
             else
             {
                 // opposite torque, reduce power depending on torque
-                float targetPowerLevel = correctionFactor * torque;
+                float targetPowerLevel = correctionFactor * Mathf.Abs(torque);
                 thruster.SetThrustFactor(Mathf.Clamp(targetPowerLevel, 0, 1));
+                GD.Print($"targetPowerLevel = {targetPowerLevel}");
             }
         }
     }

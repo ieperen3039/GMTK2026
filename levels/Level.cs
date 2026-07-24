@@ -163,7 +163,7 @@ public partial class Level : Node2D
         LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
         // chain level complete signal to this level complete signal
         levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
-        levelCompleteScreen.GlobalPosition = camera.GlobalPosition;
+        // levelCompleteScreen.GlobalPosition = camera.GlobalPosition;
         camera.Reparent(levelCompleteScreen);
         AddChild(levelCompleteScreen);
     }

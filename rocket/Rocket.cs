@@ -6,13 +6,17 @@ public partial class Rocket : RigidBody2D
 {
     [Signal]
     public delegate void AltitudeChangedEventHandler(float Altitude);
+    private const float PlayerControlTorque = 1.0f;
 
     private List<ThrustSource> thrusters = new();
     private bool IsEmpty = true;
 
     public override void _PhysicsProcess(double delta)
     {
-        // DynamicThrustReduction.BalanceThrusters(this);
+        float rightSteer = Input.GetAxis("move_left", "move_right");
+
+        ApplyTorque(PlayerControlTorque * rightSteer);
+        DynamicThrustReduction.BalanceThrusters(this, rightSteer);
 
         foreach (ThrustSource thruster in thrusters)
         {
