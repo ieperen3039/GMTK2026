@@ -9,7 +9,11 @@ public partial class Level : Node2D
 {
     [Signal]
     public delegate void OnNextLevelEventHandler();
+
     private const int MaxRocketComponents = 100;
+
+    [Export]
+    private int AltitudeGoal = 1000;
 
     private PackedScene levelCompleteScene;
     private PackedScene ductTapeScene;
@@ -25,6 +29,9 @@ public partial class Level : Node2D
     private IMouseTool mouseTool;
     private RocketComponent hoveredComponent;
 
+    private Timer _timer;
+    private CountdownTimer _timer_ui;
+
     private object physicsLock = new();
 
     public override void _Ready()
@@ -32,12 +39,17 @@ public partial class Level : Node2D
         levelCompleteScene = ResourceLoader.Load<PackedScene>("uid://s62hk0dts0pl");
         ductTapeScene = ResourceLoader.Load<PackedScene>("uid://dxtpf7xkx1g4k");
         rocketScene = ResourceLoader.Load<PackedScene>("uid://dmdekhk5ugqao");
+
         camera = GetNode<Camera2D>("Camera2D");
         rocketComponentsNode = GetNode<Node>("RocketComponents");
         ductTapeInstancesNode = GetNode<Node>("DuctTapeInstances");
+        _timer = GetNode<Timer>("LevelTimer");
+        _timer_ui = GetNode<CountdownTimer>("CountdownTimer");
+
         defaultMouseTool = new GrabTool(this);
         mouseTool = defaultMouseTool;
 
+        // setup grabbable listeners
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
             if (child is RocketComponent part)
@@ -62,8 +74,16 @@ public partial class Level : Node2D
             throw new Exception($"No control components in scene");
         }
 
-        Button tapeToolButton = GetNode("CanvasLayer").GetNode<Button>("SetTapeTool");
+        // Setup tools
+        CanvasLayer canvasLayer = GetNode<CanvasLayer>("CanvasLayer");
+        canvasLayer.Offset = Vector2.Zero;
+        Button tapeToolButton = canvasLayer.GetNode<Button>("SetTapeTool");
         tapeToolButton.Pressed += SetTapeTool;
+
+        // Setup the timer
+        _timer_ui.Initialize(_timer);
+        _timer.Timeout += OnCountdownZero;
+        _timer.Start();
     }
 
     private void OnRocketComponentMouse(RocketComponent part, bool setActive)
@@ -110,7 +130,7 @@ public partial class Level : Node2D
         {
             if (child is ThrusterComponent thruster)
             {
-                // activate thruster
+                thruster.SetThrustFactor(1.0f);
             }
         }
 
@@ -126,6 +146,22 @@ public partial class Level : Node2D
         }
     }
 
+    private void CheckVictory(float altitude)
+    {
+        if (altitude > AltitudeGoal)
+        {
+            OnLevelComplete();
+        }
+    }
+
+    private void OnLevelComplete()
+    {
+        LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
+        // chain level complete signal to this level complete signal
+        levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
+        AddChild(levelCompleteScreen);
+    }
+
     // NOTE: also removes components from lists and removes+frees components from the tree
     private Rocket BuildRocket()
     {
@@ -134,6 +170,7 @@ public partial class Level : Node2D
         Rocket rocket = rocketScene.Instantiate<Rocket>();
         rocket.GlobalPosition = controlComponent.GlobalPosition;
         rocket.GlobalRotation = controlComponent.GlobalRotation;
+        rocket.AltitudeChanged += CheckVictory;
         HashSet<DuctTape> rocketTapes = [];
 
         HashSet<Node> nodesToCheck = [controlComponent];
@@ -222,15 +259,6 @@ public partial class Level : Node2D
                 }
             }
         }
-    }
-
-
-    private void OnLevelComplete()
-    {
-        LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
-        // chain level complete signal to this level complete signal
-        levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
-        AddChild(levelCompleteScreen);
     }
 
     // player can apply tape to rocket components

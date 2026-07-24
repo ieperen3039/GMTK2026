@@ -1,10 +1,15 @@
 [gd_scene format=3 uid="uid://dnvvm5a5dbxib"]
 
+[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_51wcu"]
 [ext_resource type="Texture2D" uid="uid://wk3wnetbao4d" path="res://countdown-timer/graphic/timer.tres" id="1_onarb"]
 [ext_resource type="Script" uid="uid://dpdgawotgy53l" path="res://countdown-timer/CountdownTimer.cs" id="1_vwdx4"]
 [ext_resource type="Texture2D" uid="uid://bqe2j87nb0662" path="res://countdown-timer/graphic/countdown-timer.png" id="2_vwdx4"]
 
-[node name="CountdownTimer" type="Node2D" unique_id=2072769234]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
+size = Vector2(32, 32)
+
+[node name="CountdownTimer" type="RigidBody2D" unique_id=1515224007]
+physics_material_override = ExtResource("1_51wcu")
 script = ExtResource("1_vwdx4")
 
 [node name="ClockFace" type="Sprite2D" parent="." unique_id=1381751894]
@@ -23,3 +28,7 @@ position = Vector2(-7, -4)
 texture = ExtResource("2_vwdx4")
 hframes = 10
 vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1861150001]
+visible = false
+shape = SubResource("RectangleShape2D_teru1")

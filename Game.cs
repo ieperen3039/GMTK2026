@@ -8,8 +8,8 @@ public partial class Game : Node
     public const int CentralXCoordinate = 360;
     private PackedScene[] levelScenes;
 
-    private int currentLevelIdx = 0;
-    private Level currentLevel;
+    private int _currentLevelIdx = 0;
+    private Level _currentLevel;
 
     public override void _Ready()
     {
@@ -25,16 +25,16 @@ public partial class Game : Node
     void NextLevel()
     {
         // TODO add fader
-        GD.Print("Moving to level " + currentLevelIdx);
-        if (currentLevel != null)
+        GD.Print("Moving to level " + _currentLevelIdx);
+        if (_currentLevel != null)
         {
-            currentLevel.QueueFree();
-            RemoveChild(currentLevel);
+            _currentLevel.QueueFree();
+            RemoveChild(_currentLevel);
         }
 
-        PackedScene packedScene = levelScenes[currentLevelIdx++];
-        currentLevel = packedScene.Instantiate<Level>();
-        currentLevel.OnNextLevel += NextLevel;
-        AddChild(currentLevel);
+        PackedScene packedScene = levelScenes[_currentLevelIdx++];
+        _currentLevel = packedScene.Instantiate<Level>();
+        _currentLevel.OnNextLevel += NextLevel;
+        AddChild(_currentLevel);
     }
 }
