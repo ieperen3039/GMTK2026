@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://dbah51ct26pfp"]
 
 [ext_resource type="Script" uid="uid://detetjh868f4w" path="res://rocket/rocket-components/ControlComponent.cs" id="1_lpyc2"]
+[ext_resource type="Texture2D" uid="uid://db4ftxu17phl5" path="res://rocket/rocket-components/drone-component/drone-controller.tres" id="2_5nt64"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
-size = Vector2(32, 16)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_teru1"]
 size = Vector2(32, 16)
 
 [node name="Scene" type="RigidBody2D" unique_id=1726531230]
@@ -15,4 +13,4 @@ script = ExtResource("1_lpyc2")
 shape = SubResource("RectangleShape2D_teru1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=344008765]
-texture = SubResource("PlaceholderTexture2D_teru1")
+texture = ExtResource("2_5nt64")
