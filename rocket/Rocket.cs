@@ -6,7 +6,7 @@ public partial class Rocket : RigidBody2D
 {
     [Signal]
     public delegate void AltitudeChangedEventHandler(float Altitude);
-    private const float PlayerControlTorque = 1.0f;
+    private const float PlayerControlTorque = 100.0f;
 
     private List<ThrustSource> thrusters = new();
     private bool IsEmpty = true;
@@ -42,7 +42,6 @@ public partial class Rocket : RigidBody2D
 
     public void AddComponent(RocketComponent component)
     {
-        // TODO center of mass
         Vector2 relativeCenterOfMass = ToLocal(component.ToGlobal(component.CenterOfMass));
         if (IsEmpty)
         {

@@ -17,6 +17,15 @@ public class DynamicThrustReduction
     public static void BalanceThrusters(Rocket rocket, float rotationTarget)
     {
         IReadOnlyList<ThrustSource> thrusters = rocket.GetThrusters();
+        
+        if (thrusters.Count == 1)
+        {
+            // only one thruster: its up to the player now
+            thrusters[0].SetThrustFactor(1.0f);
+        }
+
+        if (thrusters.Count <= 1) return;
+
 
         Dictionary<ThrustSource, float> torques = new();
         PriorityQueue<ThrustSource, float> mostEffectiveTorqueingThrusters = new();

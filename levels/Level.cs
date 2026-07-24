@@ -24,10 +24,11 @@ public partial class Level : Node2D
     private Node rocketComponentsNode;
     private Node ductTapeInstancesNode;
     private ControlComponent controlComponent;
+    private CollisionObject2D buildPhaseBounds;
 
     private IMouseTool defaultMouseTool;
     private IMouseTool mouseTool;
-    private RocketComponent hoveredComponent;
+    private RigidBody2D hoveredSelectable;
 
     private Timer timer;
     private CountdownTimer timer_ui;
@@ -45,7 +46,9 @@ public partial class Level : Node2D
         rocketComponentsNode = GetNode<Node>("RocketComponents");
         ductTapeInstancesNode = GetNode<Node>("DuctTapeInstances");
         timer = GetNode<Timer>("LevelTimer");
-        timer_ui = GetNode<CountdownTimer>("CountdownTimer");
+        timer_ui = GetNode<CountdownTimer>("%CountdownTimer");
+        buildPhaseBounds = GetNode<CollisionObject2D>("BuildPhaseBounds");
+        Node selectablesNode = GetNode<Node>("OtherSelectables");
 
         defaultMouseTool = new GrabTool(this);
         mouseTool = defaultMouseTool;
@@ -53,10 +56,10 @@ public partial class Level : Node2D
         // setup grabbable listeners
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
-            if (child is RocketComponent part)
+            if (child is RigidBody2D part)
             {
-                part.MouseEntered += () => OnRocketComponentMouse(part, true);
-                part.MouseExited += () => OnRocketComponentMouse(part, false);
+                part.MouseEntered += () => OnHoverSelectable(part, true);
+                part.MouseExited += () => OnHoverSelectable(part, false);
 
                 if (part is ControlComponent control)
                 {
@@ -67,6 +70,16 @@ public partial class Level : Node2D
 
                     controlComponent = control;
                 }
+            }
+        }
+
+        foreach (Node child in selectablesNode.GetChildren())
+        {
+            if (child is RigidBody2D part)
+            {
+                part.InputPickable = true;
+                part.MouseEntered += () => OnHoverSelectable(part, true);
+                part.MouseExited += () => OnHoverSelectable(part, false);
             }
         }
 
@@ -87,18 +100,19 @@ public partial class Level : Node2D
         timer.Start();
     }
 
-    private void OnRocketComponentMouse(RocketComponent part, bool setActive)
+    private void OnHoverSelectable(RigidBody2D part, bool setActive)
     {
         if (!setActive)
         {
-            if (hoveredComponent == part)
+            if (hoveredSelectable == part)
             {
-                hoveredComponent = null;
+                hoveredSelectable = null;
             }
         }
         else
         {
-            hoveredComponent = part;
+            GD.Print($"Hovering {part.Name}");
+            hoveredSelectable = part;
         }
     }
 
@@ -109,6 +123,12 @@ public partial class Level : Node2D
             foreach (DuctTape tape in tapes)
             {
                 tape.Update(delta);
+            }
+
+            if (Input.IsActionJustPressed("toggle_tape"))
+            {
+                if (mouseTool is TapeTool) ResetMouseTool();
+                else SetTapeTool();
             }
         }
     }
@@ -125,6 +145,8 @@ public partial class Level : Node2D
         // NOTE: overwrite _default_ tool
         defaultMouseTool = new NullTool();
         ResetMouseTool();
+
+        buildPhaseBounds.ProcessMode = ProcessModeEnum.Disabled;
 
         // all thrusters to 100%
         foreach (Node node in rocketComponentsNode.GetChildren())
@@ -195,20 +217,20 @@ public partial class Level : Node2D
             // add all of them to a new Rocket
             foreach (DuctTape connection in tapes)
             {
-                RocketComponent a = connection.ComponentA;
-                RocketComponent b = connection.ComponentB;
+                RigidBody2D a = connection.ComponentA;
+                RigidBody2D b = connection.ComponentB;
                 if (a == nodeToCheck || b == nodeToCheck)
                 {
                     // check that these components are not already queued for handling
-                    if (!nodesSeen.Contains(a))
+                    if (a is RocketComponent ar && !nodesSeen.Contains(a))
                     {
-                        rocket.AddComponent(a);
+                        rocket.AddComponent(ar);
                         nodesToCheck.Add(a);
                         nodesSeen.Add(a);
                     }
-                    if (!nodesSeen.Contains(b))
+                    if (b is RocketComponent br && !nodesSeen.Contains(b))
                     {
-                        rocket.AddComponent(b);
+                        rocket.AddComponent(br);
                         nodesToCheck.Add(b);
                         nodesSeen.Add(b);
                     }
@@ -217,14 +239,21 @@ public partial class Level : Node2D
             }
         }
 
-        foreach (DuctTape connection in rocketTapes)
+        foreach (DuctTape tape in rocketTapes)
         {
-            bool success = tapes.Remove(connection);
-
+            bool success = tapes.Remove(tape);
             if (!success) throw new Exception("connection not found");
 
-            // NOTE: this moves the update responsibility to rocket
-            rocket.AddDuctTape(connection);
+            if (nodesSeen.Contains(tape.ComponentA) && nodesSeen.Contains(tape.ComponentB))
+            {
+                // NOTE: this moves the update responsibility to rocket
+                rocket.AddDuctTape(tape);
+            }
+            else
+            {
+                // just detach
+                tape.QueueFree();
+            }
         }
 
         // these have been emptied in rocket.AddComponent;
@@ -233,7 +262,7 @@ public partial class Level : Node2D
             rocketComponentsNode.RemoveChild(node);
         }
         controlComponent = null;
-        hoveredComponent = null;
+        hoveredSelectable = null;
         return rocket;
     }
 
@@ -290,14 +319,14 @@ public partial class Level : Node2D
             return tape;
         }
 
-
         public void OnClick(Vector2 mousePosition)
         {
-            RocketComponent component = parent.hoveredComponent;
-            if (component != null)
+            RigidBody2D selectable = parent.hoveredSelectable;
+            GD.Print($"OnClick {selectable?.Name}");
+            if (selectable != null)
             {
-                Vector2 relativeClick = component.ToLocal(mousePosition);
-                tape.Attach(component, relativeClick);
+                Vector2 relativeClick = selectable.ToLocal(mousePosition);
+                tape.Attach(selectable, relativeClick);
 
                 if (tape.Status == DuctTape.StatusValue.Empty)
                 {
@@ -310,11 +339,11 @@ public partial class Level : Node2D
 
         public void OnRelease(Vector2 mousePosition)
         {
-            RocketComponent component = parent.hoveredComponent;
-            if (component != null)
+            RigidBody2D selectable = parent.hoveredSelectable;
+            if (selectable != null)
             {
-                Vector2 relativeClick = component.ToLocal(mousePosition);
-                tape.Attach(component, relativeClick);
+                Vector2 relativeClick = selectable.ToLocal(mousePosition);
+                tape.Attach(selectable, relativeClick);
 
                 if (tape.Status == DuctTape.StatusValue.FullConnected)
                 {
@@ -340,7 +369,7 @@ public partial class Level : Node2D
     private class GrabTool : IMouseTool
     {
         private Level parent;
-        private RocketComponent grabbed;
+        private Grabbable grabbed;
 
         public GrabTool(Level parent)
         {
@@ -351,8 +380,8 @@ public partial class Level : Node2D
 
         public void OnClick(Vector2 mousePosition)
         {
-            RocketComponent component = parent.hoveredComponent;
-            if (component != null)
+            RigidBody2D thing = parent.hoveredSelectable;
+            if (thing is Grabbable component)
             {
                 grabbed = component;
                 Vector2 relativeClick = component.ToLocal(mousePosition);

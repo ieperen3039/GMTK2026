@@ -14,9 +14,9 @@ public partial class DuctTape : Node2D
     public const float SnapSpeed = 400f;
     public const float SnapDampening = 1f;
 
-    public RocketComponent ComponentA { get; private set; } = null;
+    public RigidBody2D ComponentA { get; private set; } = null;
     private Vector2 anchorA = new();
-    public RocketComponent ComponentB { get; private set; } = null;
+    public RigidBody2D ComponentB { get; private set; } = null;
 
     private Vector2 anchorB = new();
 
@@ -27,16 +27,19 @@ public partial class DuctTape : Node2D
     {
         GD.Print("Tape Ready");
         graphic = GetNode<Line2D>("Graphics");
+        graphic.TopLevel = false;
     }
 
     public StatusValue Status => ComponentA == null ? StatusValue.Empty : (ComponentB == null ? StatusValue.HalfConnected : StatusValue.FullConnected);
 
-    public void Attach(RocketComponent component, Vector2 localAttachmentPosition)
+    public void Attach(RigidBody2D component, Vector2 localAttachmentPosition)
     {
         switch (Status)
         {
             case StatusValue.Empty:
                 GD.Print("Tape attach A");
+                // set position to make it easier later when converting to rocket
+                Position = component.Position;
                 ComponentA = component;
                 anchorA = localAttachmentPosition;
                 Vector2 linePoint = ToLocal(GlobalAnchorA());

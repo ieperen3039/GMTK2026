@@ -2,19 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class RocketComponent : RigidBody2D
+public partial class RocketComponent : Grabbable
 {
-
     public const float InitialVelocity = 50.0f;
     public const float InitialRotation = 10.0f;
 
-    public const float SnapSpeed = 20f;
-    public const float SnapDampening = 20f;
-
     public const float AnglePull = 5f;
-    private bool isDragging = false;
-    private Vector2 localGrabOffset = new();
-
     private List<ThrustSource> thrustSources = [];
     public IReadOnlyList<ThrustSource> ThrustSources => thrustSources;
 
@@ -22,13 +15,12 @@ public partial class RocketComponent : RigidBody2D
 
     public override void _Ready()
     {
-        InputPickable = true;
-        CollisionLayer = Game.COLLISION_LAYER_ROCKET_COMPONENTS;
+        base._Ready();
+
+        CollisionLayer |= Game.CollisionLayerGrabbable;
+        AngularDamp = 1.0f;
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
-        MaxContactsReported = 1;
-        ContactMonitor = true;
-        AngularDamp = 1.0f;
 
         Random rng = new();
         AngularVelocity = InitialRotation * rng.NextSingle();
@@ -46,20 +38,9 @@ public partial class RocketComponent : RigidBody2D
     // Called every physics update. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
     {
-        if (isDragging)
-        {
-            Vector2 targetPosition = GetGlobalMousePosition();
-            Vector2 direction = targetPosition - ToGlobal(localGrabOffset);
-            Vector2 targetVelocity = direction * SnapSpeed;
-            Vector2 velocityDifference = targetVelocity - LinearVelocity;
-            Vector2 globalOffset = GlobalTransform.BasisXform(localGrabOffset);
-            ApplyForce(velocityDifference * SnapDampening, globalOffset);
+        base._PhysicsProcess(delta);
 
-             // beetje helpen
-            float targetForce = -1 * Util.RotationRelativeToUp(Rotation) * AnglePull;
-            ApplyTorque(Mathf.Clamp(targetForce - 1, 0, AnglePull));
-        }
-        else
+        if (!isDragging)
         {
             // note that thruster should be off at the start of the game
             foreach (ThrustSource thruster in thrustSources)
@@ -69,18 +50,6 @@ public partial class RocketComponent : RigidBody2D
                 ApplyForce(globalThrustVector, globalOffset);
             }
         }
-    }
-
-    public void OnRelease()
-    {
-        isDragging = false;
-    }
-
-    public void OnGrab(Vector2 localGrabOffset)
-    {
-        this.localGrabOffset = localGrabOffset;
-        isDragging = true;
-        ContactMonitor = true;
     }
 
     private void OnMouseEntered()
