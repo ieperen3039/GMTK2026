@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dbah51ct26pfp"]
+
+[ext_resource type="Script" uid="uid://detetjh868f4w" path="res://rocket/rocket-components/ControlComponent.cs" id="1_lpyc2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
+size = Vector2(32, 16)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_teru1"]
+size = Vector2(32, 16)
+
+[node name="Scene" type="RigidBody2D" unique_id=1726531230]
+script = ExtResource("1_lpyc2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1289694669]
+shape = SubResource("RectangleShape2D_teru1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=344008765]
+texture = SubResource("PlaceholderTexture2D_teru1")

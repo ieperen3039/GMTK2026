@@ -39,7 +39,7 @@ public partial class DuctTape : Node2D
                 GD.Print("Tape attach A");
                 ComponentA = component;
                 anchorA = localAttachmentPosition;
-                Vector2 linePoint = ToLocal(ComponentA.ToGlobal(localAttachmentPosition));
+                Vector2 linePoint = ToLocal(GlobalAnchorA());
                 graphic.AddPoint(linePoint);
                 graphic.AddPoint(linePoint);
                 return;
@@ -56,9 +56,7 @@ public partial class DuctTape : Node2D
                 ComponentB = component;
                 anchorB = localAttachmentPosition;
 
-                Vector2 globalAnchorA = ComponentA.ToGlobal(anchorA);
-                Vector2 globalAnchorB = ComponentB.ToGlobal(anchorB);
-                length = globalAnchorA.DistanceTo(globalAnchorB);
+                length = GlobalAnchorA().DistanceTo(GlobalAnchorB());
                 return;
 
             case StatusValue.FullConnected:
@@ -83,7 +81,7 @@ public partial class DuctTape : Node2D
         Vector2 mousePosition = GetGlobalMousePosition();
 
         // update graphical part
-        Vector2 globalAnchorA = ComponentA.ToGlobal(anchorA);
+        Vector2 globalAnchorA = GlobalAnchorA();
         graphic.SetPointPosition(0, ToLocal(globalAnchorA));
         graphic.SetPointPosition(1, ToLocal(mousePosition));
 
@@ -96,8 +94,8 @@ public partial class DuctTape : Node2D
 
     private void UpdateConnected(double delta)
     {
-        Vector2 globalAnchorA = ComponentA.ToGlobal(anchorA);
-        Vector2 globalAnchorB = ComponentB.ToGlobal(anchorB);
+        Vector2 globalAnchorA = GlobalAnchorA();
+        Vector2 globalAnchorB = GlobalAnchorB();
 
         graphic.SetPointPosition(0, ToLocal(globalAnchorA));
         graphic.SetPointPosition(1, ToLocal(globalAnchorB));
@@ -111,5 +109,15 @@ public partial class DuctTape : Node2D
 
         ComponentA.ApplyForce(force, globalAnchorA - ComponentA.GlobalPosition);
         ComponentB.ApplyForce(-force, globalAnchorB - ComponentB.GlobalPosition);
+    }
+
+    public Vector2 GlobalAnchorA() => ComponentA.ToGlobal(anchorA);
+    public Vector2 GlobalAnchorB() => ComponentB.ToGlobal(anchorB);
+
+    public void ReparentGraphics(Node2D newParent)
+    {
+        // this also takes care of the global-to-local conversions of the current points
+        graphic.Reparent(newParent);
+        graphic = null;
     }
 }
