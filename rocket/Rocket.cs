@@ -9,8 +9,6 @@ public partial class Rocket : RigidBody2D
 
     public void AddComponent(RocketComponent component)
     {
-        if (component.GetParent() == this) throw new Exception($"compoment {component.Name} aready added to {Name}");
-
         // TODO center of mass
         if (IsEmpty)
         {
@@ -23,6 +21,8 @@ public partial class Rocket : RigidBody2D
 
         foreach (Node child in component.GetChildren())
         {
+            if (child.GetParent() == this) throw new Exception($"compoment {component.Name} aready added to {Name}");
+            
             child.Reparent(this);
 
             if (child is ThrusterComponent thruster)

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://corhuhrff2hkt" path="res://levels/level-1/launchpad.png" id="2_471vb"]
 [ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_llm56"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_xmw3k"]
+[ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_llm56"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s1ev"]
 distance = -278.91638
@@ -65,6 +66,9 @@ position = Vector2(389, 450)
 [node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_xmw3k")]
 position = Vector2(476, 487)
 
+[node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_llm56")]
+position = Vector2(392, 496)
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(360, 360)
 
@@ -72,23 +76,37 @@ position = Vector2(360, 360)
 
 [node name="Button" type="Button" parent="CanvasLayer" unique_id=1277344209]
 anchors_preset = -1
-anchor_right = 1.0
-offset_left = 31.0
+anchor_left = 0.043
+anchor_right = 0.194
+offset_left = 0.03999901
 offset_top = 21.0
-offset_right = -580.0
+offset_right = 0.31999207
 offset_bottom = 72.0
 text = "win"
 
 [node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=1047236533]
 anchors_preset = -1
-anchor_right = 1.0
-offset_left = 585.0
+anchor_left = 0.81200004
+anchor_right = 0.96400005
+offset_left = 0.35998535
 offset_top = 21.0
-offset_right = -26.0
+offset_right = -0.08001709
 offset_bottom = 72.0
 toggle_mode = true
 text = "Tape"
 
+[node name="Lunch" type="Button" parent="CanvasLayer" unique_id=2072501012]
+anchors_preset = -1
+anchor_left = 0.257
+anchor_right = 0.40800002
+offset_left = -0.039993286
+offset_top = 22.0
+offset_right = 0.23999023
+offset_bottom = 73.0
+toggle_mode = true
+text = "Launch"
+
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="OnLevelComplete"]
+[connection signal="pressed" from="CanvasLayer/Lunch" to="." method="OnCountdownZero"]

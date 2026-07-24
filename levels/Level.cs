@@ -18,7 +18,7 @@ public partial class Level : Node2D
     private Camera2D camera;
     private Node rocketComponentsNode;
     private Node ductTapeInstancesNode;
-    private ControlCompoment controlComponent;
+    private ControlComponent controlComponent;
 
     private IMouseTool mouseTool;
     private RocketComponent hoveredComponent;
@@ -27,10 +27,11 @@ public partial class Level : Node2D
     {
         levelCompleteScene = ResourceLoader.Load<PackedScene>("uid://s62hk0dts0pl");
         ductTapeScene = ResourceLoader.Load<PackedScene>("uid://dxtpf7xkx1g4k");
-        rocketScene = ResourceLoader.Load<PackedScene>("uid://cr407o61t6wjj");
+        rocketScene = ResourceLoader.Load<PackedScene>("uid://dmdekhk5ugqao");
         camera = GetNode<Camera2D>("Camera2D");
         rocketComponentsNode = GetNode<Node>("RocketComponents");
         ductTapeInstancesNode = GetNode<Node>("DuctTapeInstances");
+        mouseTool = new GrabTool(this);
 
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
@@ -39,11 +40,11 @@ public partial class Level : Node2D
                 part.MouseEntered += () => OnRocketComponentMouse(part, true);
                 part.MouseExited += () => OnRocketComponentMouse(part, false);
 
-                if (part is ControlCompoment control)
+                if (part is ControlComponent control)
                 {
                     if (controlComponent != null)
                     {
-                        throw new Exception($"Multiple control copmonents: {controlComponent.Name} and {control.Name}");
+                        throw new Exception($"Multiple control components: {controlComponent.Name} and {control.Name}");
                     }
 
                     controlComponent = control;
@@ -51,10 +52,13 @@ public partial class Level : Node2D
             }
         }
 
+        if (controlComponent == null)
+        {
+            throw new Exception($"No control components in scene");
+        }
+
         Button tapeToolButton = GetNode("CanvasLayer").GetNode<Button>("SetTapeTool");
         tapeToolButton.Pressed += SetTapeTool;
-
-        mouseTool = new GrabTool(this);
     }
 
     private void OnRocketComponentMouse(RocketComponent part, bool setActive)
@@ -100,10 +104,17 @@ public partial class Level : Node2D
         // iteratively search for nodes connected to any of the nodes in nodesSeen
         // OPITMIZATION(#19) we can check against _all_ compomenents in nodesSeen in the inner if-statement
         Rocket rocket = rocketScene.Instantiate<Rocket>();
+        rocket.GlobalPosition = controlComponent.GlobalPosition;
+        rocket.GlobalRotation = controlComponent.GlobalRotation;
         HashSet<Node> nodesToCheck = [controlComponent];
         HashSet<Node> nodesSeen = [controlComponent];
+        int i = 0;
         while (nodesToCheck.Count > 0)
         {
+            i++;
+            if (i > 100) break;
+            GD.Print($"Nodes to check: {nodesToCheck:?}");
+
             Node nodeToCheck = nodesToCheck.First();
             nodesToCheck.Remove(nodeToCheck);
 
@@ -122,7 +133,7 @@ public partial class Level : Node2D
                         nodesToCheck.Add(a);
                         nodesSeen.Add(a);
                     }
-                    if (nodesSeen.Contains(b))
+                    if (!nodesSeen.Contains(b))
                     {
                         rocket.AddComponent(b);
                         nodesToCheck.Add(b);
@@ -131,6 +142,20 @@ public partial class Level : Node2D
                 }
             }
         }
+
+        // these have been emptied in rocket.AddComponent;
+        foreach (Node node in nodesSeen)
+        {
+            node.QueueFree();
+            RemoveChild(node);
+        }
+
+        camera.Reparent(rocket);
+        GetTree().CreateTween()
+            .TweenProperty(camera, "position", Vector2.Zero, 1f)
+            .SetEase(Tween.EaseType.Out);
+
+        AddChild(rocket);
     }
 
     public override void _UnhandledInput(InputEvent inputEvent)
