@@ -2,10 +2,11 @@ using Godot;
 using System;
 
 [Tool]
-public partial class CountdownTimer : Timer
+public partial class CountdownTimer : Node2D
 {
     private Sprite2D _tens;
     private Sprite2D _ones;
+	private Timer _timer;
     private int _value;
 
     [Export]
@@ -26,8 +27,6 @@ public partial class CountdownTimer : Timer
 		{
         	return; // skip runtime-only setup like timers, signals, etc.
 		}
-		
-		WaitTime = Value;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,7 +35,12 @@ public partial class CountdownTimer : Timer
 		if (Engine.IsEditorHint())
 			return; // skip runtime-only setup like timers, signals, etc.
 		
-		Value = (int)TimeLeft;
+		Value = (int)_timer.TimeLeft;
+	}
+
+	public void Initialize(Timer timer)
+	{
+		_timer = timer;
 	}
 
     private void UpdateDisplay()

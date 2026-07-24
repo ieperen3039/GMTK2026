@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dpdgawotgy53l" path="res://countdown-timer/CountdownTimer.cs" id="1_vwdx4"]
 [ext_resource type="Texture2D" uid="uid://bqe2j87nb0662" path="res://countdown-timer/graphic/countdown-timer.png" id="2_vwdx4"]
 
-[node name="CountdownTimer" type="Timer" unique_id=2042633032]
+[node name="CountdownTimer" type="Node2D" unique_id=2072769234]
 script = ExtResource("1_vwdx4")
 
 [node name="ClockFace" type="Sprite2D" parent="." unique_id=1381751894]

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c0j1g6v48melq"]
+
+[ext_resource type="Script" uid="uid://bl1obia3jdhp6" path="res://levels/level-test/LevelTest.cs" id="1_ci885"]
+[ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="1_p20cm"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/engine/engine.tscn" id="2_rojed"]
+[ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="3_rojed"]
+[ext_resource type="Script" uid="uid://dacy5mpjtcl1w" path="res://rocket/rocket-components/engine/RocketEngine.cs" id="4_noaix"]
+
+[node name="LevelTest" type="Node2D" unique_id=592509316]
+script = ExtResource("1_ci885")
+
+[node name="Platform1" parent="." unique_id=499166670 instance=ExtResource("1_p20cm")]
+position = Vector2(260, 418)
+
+[node name="RocketEngine" parent="." unique_id=375305117 instance=ExtResource("2_rojed")]
+unique_name_in_owner = true
+position = Vector2(259, 275)
+script = ExtResource("4_noaix")
+ThrustPower = 1000.0
+
+[node name="CountdownTimer" parent="." unique_id=2072769234 instance=ExtResource("3_rojed")]
+unique_name_in_owner = true
+position = Vector2(33, 47)
+
+[node name="LevelTimer" type="Timer" parent="." unique_id=345272516]
+unique_name_in_owner = true
+one_shot = true
