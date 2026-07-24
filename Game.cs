@@ -5,7 +5,7 @@ using System;
 public partial class Game : Node
 {
     public const uint COLLISION_LAYER_ROCKET_COMPONENTS = 0b_0001;
-
+    public const int CentralXCoordinate = 360;
     private PackedScene[] levelScenes;
 
     private int currentLevelIdx = 0;
