@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://b1on805vn5qc"]
+
+[ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_1ur03"]
+[ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="2_ijbcg"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="3_vmxb2"]
+[ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_u5qjk"]
+[ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_168kw"]
+[ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_doeej"]
+[ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_0op4n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
+size = Vector2(320, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xm06s"]
+size = Vector2(46, 253)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fudoe"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y0sqk"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
+normal = Vector2(1, 0)
+distance = -100.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7741h"]
+normal = Vector2(-1, 0)
+distance = -100.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s1ev"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_teru1"]
+normal = Vector2(1, 0)
+distance = -313.90134
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5tnor"]
+normal = Vector2(-0.99999434, -0.003355726)
+distance = -313.9372
+
+[node name="Level" type="Node2D" unique_id=1782678356]
+script = ExtResource("1_1ur03")
+
+[node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
+position = Vector2(0, -720)
+scale = Vector2(2.453, 2.5)
+texture = ExtResource("2_ijbcg")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
+position = Vector2(0, -240)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=475960895]
+offset = Vector2(-240, -480)
+transform = Transform2D(1, 0, 0, 1, -240, -480)
+
+[node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=1047236533]
+anchors_preset = -1
+anchor_left = 0.81200004
+anchor_right = 0.96400005
+offset_left = -9.76001
+offset_top = 27.0
+offset_right = -10.199982
+offset_bottom = 78.0
+text = "Tape"
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
+wait_time = 24.466
+one_shot = true
+
+[node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
+
+[node name="Engine" parent="RocketComponents" unique_id=375305117 instance=ExtResource("3_vmxb2")]
+position = Vector2(-22, -101)
+
+[node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_u5qjk")]
+position = Vector2(-54, -204)
+
+[node name="NoseCone2" parent="RocketComponents" unique_id=1881226673 instance=ExtResource("4_u5qjk")]
+position = Vector2(60, -202)
+
+[node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_168kw")]
+position = Vector2(-99, -106)
+
+[node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_168kw")]
+position = Vector2(-3, -227)
+
+[node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_168kw")]
+position = Vector2(-7, -148)
+
+[node name="FuelTank4" parent="RocketComponents" unique_id=1527314734 instance=ExtResource("5_168kw")]
+position = Vector2(45, -147)
+
+[node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_doeej")]
+position = Vector2(-70, -156)
+
+[node name="Engine2" parent="RocketComponents" unique_id=1552468733 instance=ExtResource("3_vmxb2")]
+position = Vector2(29, -97)
+
+[node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
+
+[node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_0op4n")]
+unique_name_in_owner = true
+position = Vector2(104, -283)
+input_pickable = true
+contact_monitor = true
+max_contacts_reported = 1
+
+[node name="Launchpad" type="RigidBody2D" parent="OtherSelectables" unique_id=1790845868]
+position = Vector2(0, -32)
+mass = 10000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherSelectables/Launchpad" unique_id=1798477531]
+position = Vector2(0, 10)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_teru1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="OtherSelectables/Launchpad" unique_id=1929609098]
+position = Vector2(106.00001, -107.5)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_xm06s")
+
+[node name="graphic2" type="Sprite2D" parent="OtherSelectables/Launchpad" unique_id=1490955525]
+position = Vector2(106, -101.499985)
+scale = Vector2(46.000004, 263.00006)
+texture = SubResource("PlaceholderTexture2D_fudoe")
+
+[node name="graphic" type="Sprite2D" parent="OtherSelectables/Launchpad" unique_id=1711688620]
+position = Vector2(0, 10.499999)
+scale = Vector2(319.99997, 42.999996)
+texture = SubResource("PlaceholderTexture2D_y0sqk")
+
+[node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
+
+[node name="BuildPhaseBounds" type="StaticBody2D" parent="." unique_id=573926186]
+position = Vector2(0, -200)
+scale = Vector2(2.453, 2.5)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BuildPhaseBounds" unique_id=1160610206]
+shape = SubResource("WorldBoundaryShape2D_r5p6b")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BuildPhaseBounds" unique_id=1343654671]
+shape = SubResource("WorldBoundaryShape2D_7741h")
+
+[node name="WorldBorder" type="StaticBody2D" parent="." unique_id=1699988788]
+scale = Vector2(2.453, 2.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder" unique_id=56533830]
+shape = SubResource("WorldBoundaryShape2D_0s1ev")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBorder" unique_id=1357787768]
+shape = SubResource("WorldBoundaryShape2D_teru1")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBorder" unique_id=180391062]
+shape = SubResource("WorldBoundaryShape2D_5tnor")
