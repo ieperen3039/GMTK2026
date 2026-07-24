@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_hh1ok"]
 [ext_resource type="Texture2D" uid="uid://corhuhrff2hkt" path="res://levels/level-1/launchpad.png" id="2_471vb"]
 [ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_llm56"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="5_7741h"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_xmw3k"]
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_llm56"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_vayes"]
@@ -71,27 +72,33 @@ text = "Tape"
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 99.0
+wait_time = 24.466
 one_shot = true
 
 [node name="CountdownTimer" parent="." unique_id=2072769234 instance=ExtResource("7_vayes")]
 position = Vector2(-189, -47)
 
-[node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
-
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
 
+[node name="Engine" parent="RocketComponents" unique_id=375305117 instance=ExtResource("5_7741h")]
+position = Vector2(-23, -67)
+
 [node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_llm56")]
-position = Vector2(-80, -117)
+position = Vector2(-22, -153)
 
 [node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_xmw3k")]
 position = Vector2(-100, -72)
 
 [node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_xmw3k")]
-position = Vector2(19, -101)
+position = Vector2(81, -83)
 
 [node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_xmw3k")]
 position = Vector2(137, -90)
 
 [node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_llm56")]
-position = Vector2(111, -151)
+position = Vector2(0, -111)
+
+[node name="Engine2" parent="RocketComponents" unique_id=1552468733 instance=ExtResource("5_7741h")]
+position = Vector2(28, -63)
+
+[node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]

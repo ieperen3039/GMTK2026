@@ -13,7 +13,7 @@ public partial class Level : Node2D
     private const int MaxRocketComponents = 100;
 
     [Export]
-    private int AltitudeGoal = 1000;
+    private int AltitudeGoal = 10000;
 
     private PackedScene levelCompleteScene;
     private PackedScene ductTapeScene;
@@ -29,8 +29,8 @@ public partial class Level : Node2D
     private IMouseTool mouseTool;
     private RocketComponent hoveredComponent;
 
-    private Timer _timer;
-    private CountdownTimer _timer_ui;
+    private Timer timer;
+    private CountdownTimer timer_ui;
 
     private object physicsLock = new();
 
@@ -43,8 +43,8 @@ public partial class Level : Node2D
         camera = GetNode<Camera2D>("Camera2D");
         rocketComponentsNode = GetNode<Node>("RocketComponents");
         ductTapeInstancesNode = GetNode<Node>("DuctTapeInstances");
-        _timer = GetNode<Timer>("LevelTimer");
-        _timer_ui = GetNode<CountdownTimer>("CountdownTimer");
+        timer = GetNode<Timer>("LevelTimer");
+        timer_ui = GetNode<CountdownTimer>("CountdownTimer");
 
         defaultMouseTool = new GrabTool(this);
         mouseTool = defaultMouseTool;
@@ -81,9 +81,9 @@ public partial class Level : Node2D
         tapeToolButton.Pressed += SetTapeTool;
 
         // Setup the timer
-        _timer_ui.Initialize(_timer);
-        _timer.Timeout += OnCountdownZero;
-        _timer.Start();
+        timer_ui.Initialize(timer);
+        timer.Timeout += OnCountdownZero;
+        timer.Start();
     }
 
     private void OnRocketComponentMouse(RocketComponent part, bool setActive)
@@ -121,16 +121,19 @@ public partial class Level : Node2D
     // attach camera to largest component tree, activate all engines
     private void OnCountdownZero()
     {
-
         // NOTE: overwrite _default_ tool
         defaultMouseTool = new NullTool();
         ResetMouseTool();
 
-        foreach (Node child in rocketComponentsNode.GetChildren())
+        // all thrusters to 100%
+        foreach (Node node in rocketComponentsNode.GetChildren())
         {
-            if (child is ThrusterComponent thruster)
+            if (node is RocketComponent component)
             {
-                thruster.SetThrustFactor(1.0f);
+                foreach (ThrustSource thruster in component.ThrustSources)
+                {
+                    thruster.SetThrustFactor(1.0f);
+                }
             }
         }
 
@@ -150,6 +153,7 @@ public partial class Level : Node2D
     {
         if (altitude > AltitudeGoal)
         {
+            GD.Print("Level Complete!");
             OnLevelComplete();
         }
     }
@@ -159,6 +163,8 @@ public partial class Level : Node2D
         LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
         // chain level complete signal to this level complete signal
         levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
+        // levelCompleteScreen.GlobalPosition = camera.GlobalPosition;
+        camera.Reparent(levelCompleteScreen);
         AddChild(levelCompleteScreen);
     }
 
@@ -291,9 +297,11 @@ public partial class Level : Node2D
                 Vector2 relativeClick = component.ToLocal(mousePosition);
                 tape.Attach(component, relativeClick);
 
-                if (tape.Status != DuctTape.StatusValue.HalfConnected)
+                if (tape.Status == DuctTape.StatusValue.Empty)
                 {
-                    throw new Exception("Unexpected state " + tape.Status);
+                    // avoid edge case
+                    OnCancel();
+                    tape = NewTape();
                 }
             }
         }
