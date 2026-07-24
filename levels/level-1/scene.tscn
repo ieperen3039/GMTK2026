@@ -92,7 +92,6 @@ offset_left = 0.35998535
 offset_top = 21.0
 offset_right = -0.08001709
 offset_bottom = 72.0
-toggle_mode = true
 text = "Tape"
 
 [node name="Lunch" type="Button" parent="CanvasLayer" unique_id=2072501012]

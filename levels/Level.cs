@@ -20,6 +20,7 @@ public partial class Level : Node2D
     private Node ductTapeInstancesNode;
     private ControlComponent controlComponent;
 
+    private IMouseTool defaultMouseTool;
     private IMouseTool mouseTool;
     private RocketComponent hoveredComponent;
 
@@ -31,7 +32,8 @@ public partial class Level : Node2D
         camera = GetNode<Camera2D>("Camera2D");
         rocketComponentsNode = GetNode<Node>("RocketComponents");
         ductTapeInstancesNode = GetNode<Node>("DuctTapeInstances");
-        mouseTool = new GrabTool(this);
+        defaultMouseTool = new GrabTool(this);
+        mouseTool = defaultMouseTool;
 
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
@@ -93,6 +95,10 @@ public partial class Level : Node2D
     // attach camera to largest component tree, activate all engines
     private void OnCountdownZero()
     {
+        // NOTE: overwrite _default_ tool
+        defaultMouseTool = new NullTool();
+        ResetMouseTool();
+
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
             if (child is ThrusterComponent thruster)
@@ -139,16 +145,29 @@ public partial class Level : Node2D
                         nodesToCheck.Add(b);
                         nodesSeen.Add(b);
                     }
+                    // mark for free, so we can later remove all IsQueuedForDeletion tapes
+                    connection.QueueFree();
                 }
             }
         }
 
+        foreach (DuctTape node in tapes)
+        {
+            if (node.IsQueuedForDeletion())
+            {
+                ductTapeInstancesNode.RemoveChild(node);
+            }
+        }
+        var removed = tapes.RemoveAll(t => t.IsQueuedForDeletion());
+
         // these have been emptied in rocket.AddComponent;
         foreach (Node node in nodesSeen)
         {
+            rocketComponentsNode.RemoveChild(node);
             node.QueueFree();
-            RemoveChild(node);
         }
+        controlComponent = null;
+        hoveredComponent = null;
 
         camera.Reparent(rocket);
         GetTree().CreateTween()
@@ -158,14 +177,20 @@ public partial class Level : Node2D
         AddChild(rocket);
     }
 
+    private void ResetMouseTool()
+    {
+        mouseTool.OnCancel();
+        mouseTool = defaultMouseTool;
+    }
+
+
     public override void _UnhandledInput(InputEvent inputEvent)
     {
         if (inputEvent is InputEventMouseButton mouseEvent)
         {
             if (mouseEvent.ButtonIndex == MouseButton.Right)
             {
-                mouseTool.OnCancel();
-                mouseTool = new GrabTool(this);
+                ResetMouseTool();
             }
             else if (mouseEvent.ButtonIndex == MouseButton.Left)
             {
@@ -192,6 +217,7 @@ public partial class Level : Node2D
         AddChild(levelCompleteScreen);
     }
 
+    // player can apply tape to rocket components
     private class TapeTool : IMouseTool
     {
         public Level parent;
@@ -256,6 +282,7 @@ public partial class Level : Node2D
         }
     }
 
+    // player can grab rocket components
     private class GrabTool : IMouseTool
     {
         private Level parent;
@@ -286,6 +313,13 @@ public partial class Level : Node2D
             grabbed?.OnRelease();
             grabbed = null;
         }
+    }
 
+    // player can't do anything
+    private class NullTool : IMouseTool
+    {
+        public void OnCancel() { }
+        public void OnClick(Vector2 mousePosition) { }
+        public void OnRelease(Vector2 mousePosition) { }
     }
 }
