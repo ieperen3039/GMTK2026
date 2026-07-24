@@ -56,8 +56,6 @@ public partial class Rocket : RigidBody2D
             unweightedCenterOfMass += relativeCenterOfMass * component.Mass;
         }
 
-        GD.Print($"unweightedCenterOfMass = {unweightedCenterOfMass:?}");
-
         foreach (Node child in component.GetChildren())
         {
             if (child.GetParent() == this) throw new Exception($"compoment {component.Name} aready added to {Name}");

@@ -13,7 +13,7 @@ public partial class Level : Node2D
     private const int MaxRocketComponents = 100;
 
     [Export]
-    private int AltitudeGoal = 1000;
+    private int AltitudeGoal = 10000;
 
     private PackedScene levelCompleteScene;
     private PackedScene ductTapeScene;
