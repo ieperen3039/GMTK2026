@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://kwkfpjhv503o"]
+
+[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_eoyw7"]
+[ext_resource type="Texture2D" uid="uid://bkvt0iey1faq5" path="res://rocket/rocket-components/engine/engine.tres" id="1_ro0od"]
+
+[node name="Engine" type="RigidBody2D" unique_id=375305117]
+script = ExtResource("1_eoyw7")
+metadata/_custom_type_script = "uid://du3u0mmw6vgwl"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1372319334]
+texture = ExtResource("1_ro0od")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=217453018]
+polygon = PackedVector2Array(-16, 16, -11, -1, -5, -9, -16, -16, 16, -16, 5, -9, 11, -1, 16, 16)

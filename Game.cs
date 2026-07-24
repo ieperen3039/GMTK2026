@@ -4,6 +4,8 @@ using System;
 // level-manager
 public partial class Game : Node
 {
+    public const uint COLLISION_LAYER_ROCKET_COMPONENTS = 0b_0001;
+    public const int CentralXCoordinate = 360;
     private PackedScene[] levelScenes;
 
     private int currentLevelIdx = 0;
@@ -16,15 +18,20 @@ public partial class Game : Node
             ResourceLoader.Load<PackedScene>("res://levels/level-2/scene.tscn")
         ];
         
-        Level firstLevel = levelScenes[0].Instantiate<Level>();
-        AddChild(firstLevel);
+        // TODO main menu instead of first level
+        NextLevel();
     }
 
     void NextLevel()
     {
         // TODO add fader
+        GD.Print("Moving to level " + currentLevelIdx);
+        if (currentLevel != null)
+        {
+            currentLevel.QueueFree();
+            RemoveChild(currentLevel);
+        }
 
-        RemoveChild(currentLevel);
         PackedScene packedScene = levelScenes[currentLevelIdx++];
         currentLevel = packedScene.Instantiate<Level>();
         currentLevel.OnNextLevel += NextLevel;

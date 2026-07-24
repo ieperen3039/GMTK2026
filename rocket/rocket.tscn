@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dmdekhk5ugqao"]
+
+[ext_resource type="Script" uid="uid://cr407o61t6wjj" path="res://rocket/Rocket.cs" id="1_i0la0"]
+
+[node name="Rocket" type="RigidBody2D" unique_id=1108440722]
+script = ExtResource("1_i0la0")

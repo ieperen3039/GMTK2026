@@ -4,22 +4,16 @@
 [ext_resource type="Script" uid="uid://c6vsk2w1bpdpc" path="res://levels/level-complete/LevelComplete.cs" id="1_83n8o"]
 [ext_resource type="Texture2D" uid="uid://cgnufi8t5nosu" path="res://levels/level-complete/continue.png" id="3_db2jp"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5tnor"]
-size = Vector2(202, 60)
-
-[node name="LevelCompletionNode" type="Node2D" unique_id=270396650]
+[node name="LevelCompletionNode" type="CanvasLayer" unique_id=652068365]
 script = ExtResource("1_83n8o")
 
 [node name="Text" type="Sprite2D" parent="." unique_id=2134188778]
-position = Vector2(374, 268)
+position = Vector2(360, 268)
 texture = ExtResource("1_1si2r")
 
-[node name="ContinueButton" type="Sprite2D" parent="." unique_id=21456652]
-position = Vector2(368, 437)
-texture = ExtResource("3_db2jp")
-
-[node name="Area2D" type="Area2D" parent="ContinueButton" unique_id=379635438]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ContinueButton/Area2D" unique_id=1495163828]
-shape = SubResource("RectangleShape2D_5tnor")
+[node name="ContinueButton" type="Button" parent="." unique_id=1773347180]
+offset_left = 249.0
+offset_top = 383.0
+offset_right = 459.0
+offset_bottom = 451.0
+icon = ExtResource("3_db2jp")
