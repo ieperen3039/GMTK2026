@@ -42,13 +42,13 @@ public class DynamicThrustReduction
             // if torque is not opposite, go full blast
             if ((torque < 0) == (torqueDifference < 0))
             {
-                thruster.SetPowerLevel(1.0f);
+                thruster.SetThrustFactor(1.0f);
             }
             else
             {
                 // opposite torque, reduce power depending on torque
                 float targetPowerLevel = correctionFactor * torque;
-                thruster.SetPowerLevel(Mathf.Clamp(targetPowerLevel, 0, 1));
+                thruster.SetThrustFactor(Mathf.Clamp(targetPowerLevel, 0, 1));
             }
         }
     }

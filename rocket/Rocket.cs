@@ -4,8 +4,16 @@ using System.Collections.Generic;
 
 public partial class Rocket : RigidBody2D
 {
+    [Signal]
+    public delegate void AltitudeChangedEventHandler(float Altitude);
+
     private List<ThrusterComponent> thrusters = new();
     private bool IsEmpty = true;
+
+    public override void _Process(double delta)
+    {
+        EmitSignal(SignalName.AltitudeChanged, GlobalPosition.Y);
+    }
 
     public void AddComponent(RocketComponent component)
     {

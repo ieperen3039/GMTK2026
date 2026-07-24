@@ -102,6 +102,8 @@ public partial class DuctTape : Node2D
 
         // relative to A
         Vector2 gapBToA = globalAnchorA - globalAnchorB;
+        if (gapBToA.Length() < length) return;
+
         Vector2 targetMovement = (gapBToA.Normalized() * length) - gapBToA;
         Vector2 targetVelocity = targetMovement * SnapSpeed;
         Vector2 velocityDifference = targetVelocity - (ComponentA.LinearVelocity - ComponentB.LinearVelocity);
