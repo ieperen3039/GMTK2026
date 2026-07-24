@@ -25,7 +25,7 @@ public partial class Level : Node2D
     private IMouseTool mouseTool;
     private RocketComponent hoveredComponent;
 
-    private object physicsLock;
+    private object physicsLock = new();
 
     public override void _Ready()
     {
@@ -141,11 +141,8 @@ public partial class Level : Node2D
         rocket.AddComponent(controlComponent);
 
         int iterationsUntilBreak = MaxRocketComponents;
-        while (nodesToCheck.Count > 0)
+        while (nodesToCheck.Count > 0 && iterationsUntilBreak-- > 0)
         {
-            if (iterationsUntilBreak-- > 0) break;
-            GD.Print($"Nodes to check: {nodesToCheck:?}");
-
             Node nodeToCheck = nodesToCheck.First();
             nodesToCheck.Remove(nodeToCheck);
 
@@ -177,7 +174,9 @@ public partial class Level : Node2D
 
         foreach (DuctTape connection in rocketTapes)
         {
-            tapes.Remove(connection);
+            bool success = tapes.Remove(connection);
+
+            if (!success) throw new Exception("connection not found");
 
             // NOTE: this moves the update responsibility to rocket
             rocket.AddDuctTape(connection);
