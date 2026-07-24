@@ -12,13 +12,17 @@ public partial class Rocket : RigidBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        // DynamicThrustReduction.BalanceThrusters(this);
+
         foreach (ThrustSource thruster in thrusters)
         {
-            Vector2 globalThrustVector = thruster.GetThrust();
-            ApplyForce(globalThrustVector, thruster.GlobalPosition);
+            var (thrust, position) = thruster.GetThrust(Transform);
+            GD.Print($"Thrust to {thrust} at {position}");
+            ApplyForce(thrust, position);
         }
 
-        EmitSignal(SignalName.AltitudeChanged, GlobalPosition.Y);
+        // negative Y is up
+        EmitSignal(SignalName.AltitudeChanged, -GlobalPosition.Y);
     }
 
     public void AddComponent(RocketComponent component)

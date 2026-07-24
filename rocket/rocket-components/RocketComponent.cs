@@ -1,12 +1,12 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-[GlobalClass]
 public partial class RocketComponent : RigidBody2D
 {
 
-    public const float InitialVelocity = 10.0f;
-    public const float InitialRotation = 100.0f;
+    public const float InitialVelocity = 100.0f;
+    public const float InitialRotation = 1000.0f;
 
     public const float SnapSpeed = 20f;
     public const float SnapDampening = 20f;
@@ -14,6 +14,9 @@ public partial class RocketComponent : RigidBody2D
     public const float AnglePull = 5f;
     private bool isDragging = false;
     private Vector2 localGrabOffset = new();
+
+    private List<ThrustSource> thrustSources = [];
+    public IReadOnlyList<ThrustSource> ThrustSources => thrustSources;
 
     // Called when the node enters the scene tree for the first time.
 
@@ -25,12 +28,21 @@ public partial class RocketComponent : RigidBody2D
         MouseExited += OnMouseExited;
         MaxContactsReported = 1;
         ContactMonitor = true;
+        AngularDamp = 2.0f;
 
         Random rng = new();
         ApplyImpulse(RandomUnitVector(rng) * InitialVelocity);
 
         bool clockwise = (rng.Next() & 0x01) == 0;
         ApplyTorqueImpulse(clockwise ? InitialRotation : -InitialRotation);
+
+        foreach (Node child in GetChildren())
+        {
+            if (child is ThrustSource thruster)
+            {
+                thrustSources.Add(thruster);
+            }
+        }
     }
 
     // Called every physics update. 'delta' is the elapsed time since the previous frame.
@@ -44,13 +56,19 @@ public partial class RocketComponent : RigidBody2D
             Vector2 velocityDifference = targetVelocity - LinearVelocity;
             Vector2 globalOffset = GlobalTransform.BasisXform(localGrabOffset);
             ApplyForce(velocityDifference * SnapDampening, globalOffset);
+
+             // beetje helpen
+            float targetForce = -1 * Util.RotationRelativeToUp(Rotation) * AnglePull;
+            ApplyTorque(Mathf.Clamp(targetForce - 1, 0, AnglePull));
         }
         else
         {
-            // beetje helpen
-            float rotationOffset = Util.RotationRelativeToUp(Rotation);
-            float targetForce = -1 * rotationOffset * AnglePull;
-            ApplyTorque(Mathf.Clamp(targetForce - 1, 0, AnglePull));
+            // thruster should be off at the start of the game
+            foreach (ThrustSource thruster in thrustSources)
+            {
+                var (thrust, position) = thruster.GetThrust(Transform);
+                ApplyForce(thrust, position);
+            }
         }
     }
 

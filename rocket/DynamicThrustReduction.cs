@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using Godot;
+using static System.TupleExtensions;
 
 public class DynamicThrustReduction
 {
@@ -11,7 +12,7 @@ public class DynamicThrustReduction
     public const float AngleCorrectionDampening = 10.0f;
     public const float TorqueCorrectionStrength = 10.0f;
 
-    static void BalanceThrusters(Rocket rocket)
+    public static void BalanceThrusters(Rocket rocket)
     {
         IReadOnlyList<ThrustSource> thrusters = rocket.GetThrusters();
 
@@ -20,8 +21,8 @@ public class DynamicThrustReduction
 
         foreach (ThrustSource t in thrusters)
         {
-            Vector2 globalThrustVector = t.GetThrustAt(1.0f);
-            float torque = t.GlobalPosition.Cross(globalThrustVector);
+            var (thrust, position) = t.GetThrustAt(rocket.Transform, 1.0f);
+            float torque = position.Cross(thrust);
             torques.Add(t, torque);
             totalTorque += torque;
         }

@@ -14,12 +14,20 @@ public partial class ThrustSource : Marker2D
         thrustFactor = fractionOfFull;
     }
 
-    public Vector2 GetThrust() => GetThrustAt(thrustFactor);
+    public Tuple<Vector2, Vector2> GetThrust(Transform2D transform) => GetThrustAt(transform, thrustFactor);
 
-    // Thrust applied relative from this.Position
-    public Vector2 GetThrustAt(float fractionOfFull) => GetLocalThrustAt(fractionOfFull).Rotated(GlobalRotation);
+    // returns (Global thrust vector, offset from parent in global space)
+    public Tuple<Vector2, Vector2> GetThrustAt(Transform2D transform, float fractionOfFull)
+    {
+        return new(
+            GetLocalThrustAt(fractionOfFull).Rotated(GlobalRotation), 
+            transform.BasisXform(Position)
+        );
+    }
+
 
     public Vector2 GetLocalThrust() => GetLocalThrustAt(thrustFactor);
 
-    public Vector2 GetLocalThrustAt(float fractionOfFull) => new(0, ThrustPower * fractionOfFull);
+    // note: towards negative Y
+    public Vector2 GetLocalThrustAt(float fractionOfFull) => new(0, -1 * ThrustPower * fractionOfFull);
 }

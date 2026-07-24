@@ -12,6 +12,9 @@ size = Vector2(32, 32)
 physics_material_override = ExtResource("1_51wcu")
 script = ExtResource("1_vwdx4")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1861150001]
+shape = SubResource("RectangleShape2D_teru1")
+
 [node name="ClockFace" type="Sprite2D" parent="." unique_id=1381751894]
 texture = ExtResource("1_onarb")
 
@@ -28,7 +31,3 @@ position = Vector2(-7, -4)
 texture = ExtResource("2_vwdx4")
 hframes = 10
 vframes = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1861150001]
-visible = false
-shape = SubResource("RectangleShape2D_teru1")
