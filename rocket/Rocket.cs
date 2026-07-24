@@ -20,6 +20,7 @@ public partial class Rocket : RigidBody2D
         {
             CenterOfMassMode = CenterOfMassModeEnum.Custom;
             CenterOfMass = unweightedCenterOfMass / Mass;
+            GD.Print($"CenterOfMass = {CenterOfMass:?}");
             unweightedCenterOfMass = Vector2.Zero;
         }
 
@@ -30,9 +31,9 @@ public partial class Rocket : RigidBody2D
 
         foreach (ThrustSource thruster in thrusters)
         {
-            var (thrust, position) = thruster.GetThrust(Transform);
-            GD.Print($"Thrust to {thrust} at {position}");
-            ApplyForce(thrust, position);
+            Vector2 globalThrustVector = thruster.GetThrust();
+            Vector2 globalOffset = thruster.GlobalPosition - GlobalPosition;
+            ApplyForce(globalThrustVector, globalOffset);
         }
 
         // negative Y is up
@@ -54,6 +55,8 @@ public partial class Rocket : RigidBody2D
             Mass += component.Mass;
             unweightedCenterOfMass += relativeCenterOfMass * component.Mass;
         }
+
+        GD.Print($"unweightedCenterOfMass = {unweightedCenterOfMass:?}");
 
         foreach (Node child in component.GetChildren())
         {

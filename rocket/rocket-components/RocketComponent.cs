@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public partial class RocketComponent : RigidBody2D
 {
 
-    public const float InitialVelocity = 100.0f;
-    public const float InitialRotation = 1000.0f;
+    public const float InitialVelocity = 50.0f;
+    public const float InitialRotation = 10.0f;
 
     public const float SnapSpeed = 20f;
     public const float SnapDampening = 20f;
@@ -28,13 +28,11 @@ public partial class RocketComponent : RigidBody2D
         MouseExited += OnMouseExited;
         MaxContactsReported = 1;
         ContactMonitor = true;
-        AngularDamp = 2.0f;
+        AngularDamp = 1.0f;
 
         Random rng = new();
-        ApplyImpulse(RandomUnitVector(rng) * InitialVelocity);
-
-        bool clockwise = (rng.Next() & 0x01) == 0;
-        ApplyTorqueImpulse(clockwise ? InitialRotation : -InitialRotation);
+        AngularVelocity = InitialRotation * rng.NextSingle();
+        LinearVelocity = RandomUnitVector(rng) * InitialVelocity;
 
         foreach (Node child in GetChildren())
         {
@@ -63,11 +61,12 @@ public partial class RocketComponent : RigidBody2D
         }
         else
         {
-            // thruster should be off at the start of the game
+            // note that thruster should be off at the start of the game
             foreach (ThrustSource thruster in thrustSources)
             {
-                var (thrust, position) = thruster.GetThrust(Transform);
-                ApplyForce(thrust, position);
+                Vector2 globalThrustVector = thruster.GetThrust();
+                Vector2 globalOffset = thruster.GlobalPosition - GlobalPosition;
+                ApplyForce(globalThrustVector, globalOffset);
             }
         }
     }

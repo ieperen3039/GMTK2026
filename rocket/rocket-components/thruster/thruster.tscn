@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://kwkfpjhv503o"]
 
 [ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_eoyw7"]
-[ext_resource type="Texture2D" uid="uid://bkvt0iey1faq5" path="res://rocket/rocket-components/engine/engine.tres" id="1_ro0od"]
-[ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/engine/ThrustSource.cs" id="3_00yy8"]
+[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_prk0x"]
+[ext_resource type="Texture2D" uid="uid://bkvt0iey1faq5" path="res://rocket/rocket-components/thruster/thruster.tres" id="1_ro0od"]
+[ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/thruster/ThrustSource.cs" id="3_00yy8"]
 
-[node name="Engine" type="RigidBody2D" unique_id=375305117]
-mass = 10.0
+[node name="Thruster" type="RigidBody2D" unique_id=1039960409]
+mass = 2.0
+physics_material_override = ExtResource("1_prk0x")
 script = ExtResource("1_eoyw7")
-metadata/_custom_type_script = "uid://du3u0mmw6vgwl"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=217453018]
 polygon = PackedVector2Array(-16, 16, -11, -1, -5, -9, -16, -16, 16, -16, 5, -9, 11, -1, 16, 16)
@@ -18,4 +19,4 @@ texture = ExtResource("1_ro0od")
 [node name="ThrustSource" type="Marker2D" parent="." unique_id=523484441]
 position = Vector2(0, 16)
 script = ExtResource("3_00yy8")
-ThrustPower = 10000.0
+ThrustPower = 5000.0
