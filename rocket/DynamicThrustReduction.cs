@@ -13,7 +13,7 @@ public class DynamicThrustReduction
 
     static void BalanceThrusters(Rocket rocket)
     {
-        List<ThrusterComponent> thrusters = rocket.GetThrusters();
+        IReadOnlyList<ThrusterComponent> thrusters = rocket.GetThrusters();
 
         Dictionary<ThrusterComponent, float> torques = new();
         float totalTorque = 0;
