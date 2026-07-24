@@ -10,8 +10,7 @@ public partial class RocketComponent : RigidBody2D
     public const float SnapSpeed = 20f;
     public const float SnapDampening = 20f;
 
-    public const float AngularSnapSpeed = 5f;
-    public const float AngularSnapDampening = 100f;
+    public const float AnglePull = 5f;
     private bool isDragging = false;
     private Vector2 localGrabOffset = new();
 
@@ -48,11 +47,9 @@ public partial class RocketComponent : RigidBody2D
         else
         {
             // beetje helpen
-            // mod rotation to (-180, +180) degrees
-            float rotationOffset = Mathf.PosMod(Rotation + Mathf.Pi, 2 * Mathf.Pi) - Mathf.Pi;
-            float targetAngularVelocity = rotationOffset * AngularSnapSpeed;
-            float angularVelocityDifference = targetAngularVelocity - AngularVelocity;
-            ApplyTorque(-1 * angularVelocityDifference * AngularSnapDampening);
+            float rotationOffset = Util.RotationRelativeToUp(Rotation);
+            float targetForce = -1 * rotationOffset * AnglePull;
+            ApplyTorque(Mathf.Clamp(targetForce - 1, 0, AnglePull));
         }
     }
 
