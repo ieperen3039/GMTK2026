@@ -9,6 +9,7 @@ public partial class Level : Node2D
 {
     [Signal]
     public delegate void OnNextLevelEventHandler();
+    private const int MaxRocketComponents = 100;
 
     private PackedScene levelCompleteScene;
     private PackedScene ductTapeScene;
@@ -23,6 +24,8 @@ public partial class Level : Node2D
     private IMouseTool defaultMouseTool;
     private IMouseTool mouseTool;
     private RocketComponent hoveredComponent;
+
+    private object physicsLock;
 
     public override void _Ready()
     {
@@ -80,9 +83,12 @@ public partial class Level : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        foreach (DuctTape tape in tapes)
+        lock (physicsLock)
         {
-            tape.Update(delta);
+            foreach (DuctTape tape in tapes)
+            {
+                tape.Update(delta);
+            }
         }
     }
 
@@ -95,6 +101,7 @@ public partial class Level : Node2D
     // attach camera to largest component tree, activate all engines
     private void OnCountdownZero()
     {
+
         // NOTE: overwrite _default_ tool
         defaultMouseTool = new NullTool();
         ResetMouseTool();
@@ -107,18 +114,36 @@ public partial class Level : Node2D
             }
         }
 
+        lock (physicsLock)
+        {
+            Rocket rocket = BuildRocket();
+            AddChild(rocket);
+
+            camera.Reparent(rocket);
+            GetTree().CreateTween()
+                .TweenProperty(camera, "position", Vector2.Zero, 1f)
+                .SetEase(Tween.EaseType.Out);
+        }
+    }
+
+    // NOTE: also removes components from lists and removes+frees components from the tree
+    private Rocket BuildRocket()
+    {
         // iteratively search for nodes connected to any of the nodes in nodesSeen
         // OPITMIZATION(#19) we can check against _all_ compomenents in nodesSeen in the inner if-statement
         Rocket rocket = rocketScene.Instantiate<Rocket>();
         rocket.GlobalPosition = controlComponent.GlobalPosition;
         rocket.GlobalRotation = controlComponent.GlobalRotation;
+        HashSet<DuctTape> rocketTapes = [];
+
         HashSet<Node> nodesToCheck = [controlComponent];
         HashSet<Node> nodesSeen = [controlComponent];
-        int i = 0;
+        rocket.AddComponent(controlComponent);
+
+        int iterationsUntilBreak = MaxRocketComponents;
         while (nodesToCheck.Count > 0)
         {
-            i++;
-            if (i > 100) break;
+            if (iterationsUntilBreak-- > 0) break;
             GD.Print($"Nodes to check: {nodesToCheck:?}");
 
             Node nodeToCheck = nodesToCheck.First();
@@ -145,37 +170,29 @@ public partial class Level : Node2D
                         nodesToCheck.Add(b);
                         nodesSeen.Add(b);
                     }
-                    // mark for free, so we can later remove all IsQueuedForDeletion tapes
-                    connection.QueueFree();
+                    rocketTapes.Add(connection);
                 }
             }
         }
 
-        foreach (DuctTape node in tapes)
+        foreach (DuctTape connection in rocketTapes)
         {
-            if (node.IsQueuedForDeletion())
-            {
-                ductTapeInstancesNode.RemoveChild(node);
-            }
+            tapes.Remove(connection);
+
+            // NOTE: this moves the update responsibility to rocket
+            rocket.AddDuctTape(connection);
         }
-        var removed = tapes.RemoveAll(t => t.IsQueuedForDeletion());
 
         // these have been emptied in rocket.AddComponent;
         foreach (Node node in nodesSeen)
         {
             rocketComponentsNode.RemoveChild(node);
-            node.QueueFree();
         }
         controlComponent = null;
         hoveredComponent = null;
-
-        camera.Reparent(rocket);
-        GetTree().CreateTween()
-            .TweenProperty(camera, "position", Vector2.Zero, 1f)
-            .SetEase(Tween.EaseType.Out);
-
-        AddChild(rocket);
+        return rocket;
     }
+
 
     private void ResetMouseTool()
     {
