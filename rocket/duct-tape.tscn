@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dxtpf7xkx1g4k"]
+
+[ext_resource type="Script" uid="uid://3uik83tlu5uh" path="res://rocket/DuctTape.cs" id="1_ttbwk"]
+
+[node name="DuctTape" type="Node2D" unique_id=630853924]
+script = ExtResource("1_ttbwk")
+
+[node name="Graphics" type="Line2D" parent="." unique_id=1169081786]
+top_level = true
+width = 5.0
+default_color = Color(0.34, 0.34, 0.34, 1)
+joint_mode = 2
+begin_cap_mode = 1
+end_cap_mode = 1
