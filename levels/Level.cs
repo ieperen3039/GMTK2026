@@ -33,6 +33,7 @@ public partial class Level : Node2D
     private CountdownTimer timer_ui;
 
     private object physicsLock = new();
+    private bool isLevelComplete = false;
 
     public override void _Ready()
     {
@@ -151,9 +152,10 @@ public partial class Level : Node2D
 
     private void CheckVictory(float altitude)
     {
-        if (altitude > AltitudeGoal)
+        if (altitude > AltitudeGoal && !isLevelComplete)
         {
             GD.Print("Level Complete!");
+            isLevelComplete = true;
             OnLevelComplete();
         }
     }
