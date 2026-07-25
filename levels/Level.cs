@@ -10,6 +10,8 @@ public partial class Level : Node2D
     [Signal]
     public delegate void OnNextLevelEventHandler();
 
+    private const int AltitudeScoreZone = 100;
+
     [Export]
     private int AltitudeGoal;
 
@@ -23,6 +25,7 @@ public partial class Level : Node2D
     private Node ductTapeInstancesNode;
     private ControlComponent controlComponent;
     private CollisionObject2D buildPhaseBounds;
+    private int numRocketComponents;
 
     private IMouseTool defaultMouseTool;
     private IMouseTool mouseTool;
@@ -69,6 +72,8 @@ public partial class Level : Node2D
 
                     controlComponent = control;
                 }
+
+                if (part is RocketComponent) numRocketComponents++;
             }
         }
 
@@ -188,10 +193,32 @@ public partial class Level : Node2D
 
     private void OnLevelComplete()
     {
+        // first count the score
+        int numLiftedComponents = 0;
+        int numExtras = 0;
+
+        float minimumAltitudeToCount = AltitudeGoal - AltitudeScoreZone;
+        foreach (Node node in rocketComponentsNode.GetChildren())
+        {
+            if (node is not RigidBody2D component) continue;
+            if (-component.GlobalPosition.Y < minimumAltitudeToCount) continue;
+            
+            if (component is RocketComponent)
+            {
+                numLiftedComponents++;
+            }
+            else
+            {
+                numExtras++;
+            }
+        }
+
         LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
         // chain level complete signal to this level complete signal
         levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
-        // levelCompleteScreen.GlobalPosition = camera.GlobalPosition;
+        levelCompleteScreen.TotalComponents = numRocketComponents;
+        levelCompleteScreen.NumLiftedComponents = numLiftedComponents;
+        levelCompleteScreen.NumExtras = numExtras;
         camera.Reparent(levelCompleteScreen);
         AddChild(levelCompleteScreen);
     }
