@@ -74,6 +74,12 @@ position = Vector2(-69, -90)
 [node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_llm56")]
 position = Vector2(32, -162)
 
+[node name="LeftFin" parent="RocketComponents" unique_id=97243894 instance=ExtResource("9_h37kx")]
+position = Vector2(-87, -152)
+
+[node name="RightFin" parent="RocketComponents" unique_id=218350506 instance=ExtResource("10_0v2iv")]
+position = Vector2(116, -145)
+
 [node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
 
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_vayes")]
@@ -110,9 +116,3 @@ shape = SubResource("WorldBoundaryShape2D_teru1")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBorder" unique_id=180391062]
 shape = SubResource("WorldBoundaryShape2D_5tnor")
-
-[node name="Scene" parent="." unique_id=97243894 instance=ExtResource("9_h37kx")]
-position = Vector2(-87, -152)
-
-[node name="Scene2" parent="." unique_id=218350506 instance=ExtResource("10_0v2iv")]
-position = Vector2(116, -145)
