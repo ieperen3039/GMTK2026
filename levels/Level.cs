@@ -155,10 +155,7 @@ public partial class Level : Node2D
             {
                 foreach (ThrustSource thruster in component.ThrustSources)
                 {
-                    // skip stabilizers
-                    if (thruster.Passive) continue;
-
-                    thruster.SetThrustFactor(1.0f);
+                    thruster.SetActivationThrustFactor();
                 }
             }
         }

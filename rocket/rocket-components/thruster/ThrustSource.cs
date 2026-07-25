@@ -6,8 +6,8 @@ public partial class ThrustSource : Marker2D
     [Export]
     public float ThrustPower;
     [Export]
-    public bool Passive;
-    
+    public bool IsPassive;
+
     private float thrustFactor = 0.0f;
 
     public bool EnableThrust => thrustFactor > 0.0f;
@@ -16,6 +16,8 @@ public partial class ThrustSource : Marker2D
     {
         thrustFactor = fractionOfFull;
     }
+
+    public void SetActivationThrustFactor() => SetThrustFactor(IsPassive ? 0 : 1);
 
     public Vector2 GetThrust() => GetThrustAt(thrustFactor);
 
