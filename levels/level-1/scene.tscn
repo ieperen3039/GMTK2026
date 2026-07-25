@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="8_7741h"]
 [ext_resource type="PackedScene" uid="uid://bi4yn7cwq1oyn" path="res://rocket/rocket-components/fin-left/template.tscn" id="9_h37kx"]
 [ext_resource type="PackedScene" uid="uid://dtbc1yy3xxe0b" path="res://rocket/rocket-components/fin-right/template.tscn" id="10_0v2iv"]
+[ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_0v2iv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
 normal = Vector2(1, 0)
@@ -116,3 +117,8 @@ shape = SubResource("WorldBoundaryShape2D_teru1")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBorder" unique_id=180391062]
 shape = SubResource("WorldBoundaryShape2D_5tnor")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1368445869]
+stream = ExtResource("11_0v2iv")
+volume_db = -5.0
+autoplay = true

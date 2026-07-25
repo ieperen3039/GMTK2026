@@ -9,14 +9,17 @@ public partial class Game : Node
     public const uint CollisionLayerGrabbable = 0b_0001;
     public const uint CollisionLayerMagnet = 0b_0001;
     public const int CentralXCoordinate = 0;
+    private PackedScene titleScene;
     private PackedScene[] levelScenes;
     private Score[] scores;
 
     private int _currentLevelIdx = 0;
-    private Level _currentLevel;
+    private Level currentLevel;
+    private Node currentScene;
 
     public override void _Ready()
     {
+        titleScene = ResourceLoader.Load<PackedScene>("res://levels/title-screen/scene.tscn");
         levelScenes = [
             ResourceLoader.Load<PackedScene>("res://levels/level-1/scene.tscn"),
             ResourceLoader.Load<PackedScene>("res://levels/level-2/scene.tscn"),
@@ -29,22 +32,24 @@ public partial class Game : Node
 
     void ShowTitleScreen()
     {
-        //TODO replace this with title screen
-        NextLevel();
+        currentLevel = null;
+        currentScene = titleScene.Instantiate();
+        AddChild(currentScene);
     }
 
     void NextLevel()
     {
         // TODO add fader
-        if (_currentLevel != null)
+        if (currentLevel != null)
         {
-            scores[_currentLevelIdx] = _currentLevel.GetScore();
-            _currentLevel.QueueFree();
-            RemoveChild(_currentLevel);
+            scores[_currentLevelIdx] = currentLevel.GetScore();
+            currentLevel.QueueFree();
+            RemoveChild(currentLevel);
+            _currentLevelIdx++;
         }
         else
         {
-            _currentLevelIdx++;
+            RemoveChild(currentScene);
         }
 
         if (_currentLevelIdx == levelScenes.Length)
@@ -56,8 +61,9 @@ public partial class Game : Node
 
         GD.Print("Moving to level " + _currentLevelIdx);
         PackedScene packedScene = levelScenes[_currentLevelIdx];
-        _currentLevel = packedScene.Instantiate<Level>();
-        _currentLevel.OnNextLevel += NextLevel;
-        AddChild(_currentLevel);
+        currentLevel = packedScene.Instantiate<Level>();
+        currentLevel.OnNextLevel += NextLevel;
+        AddChild(currentLevel);
+        currentScene = currentLevel;
     }
 }
