@@ -30,6 +30,9 @@
    { "name": "Fins" },
    { "name": "Right", "group": "Fins", "opacity": 255, "blendMode": "normal" },
    { "name": "Left", "group": "Fins", "opacity": 255, "blendMode": "normal" },
+   { "name": "SupportThruster" },
+   { "name": "SupportThruster1", "group": "SupportThruster", "opacity": 255, "blendMode": "normal" },
+   { "name": "Shading", "group": "SupportThruster", "opacity": 255, "blendMode": "normal" },
    { "name": "Nose cone" },
    { "name": "Cone-base", "group": "Nose cone", "opacity": 255, "blendMode": "normal" },
    { "name": "ShadingV2", "group": "Nose cone", "opacity": 255, "blendMode": "normal" }

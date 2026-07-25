@@ -34,7 +34,7 @@ project/assembly_name="GMTK2026"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/FileSystemView/plugin.cfg")
+enabled=PackedStringArray("res://addons/FileSystemView/plugin.cfg", "res://addons/parallax2d_preview/plugin.cfg")
 
 [input]
 

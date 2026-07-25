@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cklehvaf6ly0i"]
+
+[ext_resource type="Texture2D" uid="uid://bxmvtnrmf4di7" path="res://background/parallex-views.png" id="1_uqu6o"]
+
+[resource]
+atlas = ExtResource("1_uqu6o")
+region = Rect2(0, 2880, 0, 720)
