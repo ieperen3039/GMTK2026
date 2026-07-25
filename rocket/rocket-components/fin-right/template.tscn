@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_c155d"]
 [ext_resource type="Texture2D" uid="uid://bjgni40qb3d40" path="res://rocket/rocket-components/fin-right/fin-right.tres" id="3_c155d"]
 [ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/thruster/ThrustSource.cs" id="4_vw4hv"]
+[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/rocket-components/magnet/scene.tscn" id="5_byink"]
 
 [node name="Scene" type="RigidBody2D" unique_id=217928142]
 input_pickable = true
@@ -19,11 +20,12 @@ polygon = PackedVector2Array(8, 16, -7.876923, -16, -8, 16)
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=534105907]
 texture = ExtResource("3_c155d")
 
-[node name="Marker2D" type="Marker2D" parent="." unique_id=1902206827]
+[node name="Marker2D" type="Node2D" parent="." unique_id=1153760326]
 position = Vector2(-3, 4)
-rotation = 1.5707964
+rotation = -2.3561945
 script = ExtResource("4_vw4hv")
+ThrustPower = 100.0
+IsPassive = true
 
-[node name="Marker2D" type="Marker2D" parent="Marker2D" unique_id=916082100]
-position = Vector2(0, -2)
-gizmo_extents = 1.0
+[node name="Magnet" parent="." unique_id=450049775 instance=ExtResource("5_byink")]
+position = Vector2(-8, 0)

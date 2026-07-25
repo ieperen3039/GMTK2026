@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_llm56"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_vayes"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="8_7741h"]
+[ext_resource type="PackedScene" uid="uid://bi4yn7cwq1oyn" path="res://rocket/rocket-components/fin-left/template.tscn" id="9_h37kx"]
+[ext_resource type="PackedScene" uid="uid://dtbc1yy3xxe0b" path="res://rocket/rocket-components/fin-right/template.tscn" id="10_0v2iv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
 normal = Vector2(1, 0)
@@ -108,3 +110,9 @@ shape = SubResource("WorldBoundaryShape2D_teru1")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBorder" unique_id=180391062]
 shape = SubResource("WorldBoundaryShape2D_5tnor")
+
+[node name="Scene" parent="." unique_id=97243894 instance=ExtResource("9_h37kx")]
+position = Vector2(-87, -152)
+
+[node name="Scene2" parent="." unique_id=218350506 instance=ExtResource("10_0v2iv")]
+position = Vector2(116, -145)

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://detetjh868f4w" path="res://rocket/rocket-components/ControlComponent.cs" id="1_lpyc2"]
 [ext_resource type="Texture2D" uid="uid://db4ftxu17phl5" path="res://rocket/rocket-components/drone-component/drone-controller.tres" id="2_5nt64"]
+[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/rocket-components/magnet/scene.tscn" id="3_he0p5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(32, 16)
@@ -15,4 +16,8 @@ shape = SubResource("RectangleShape2D_teru1")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=344008765]
 texture = ExtResource("2_5nt64")
 
-[node name="Magnets" type="Node2D" parent="." unique_id=1458801309]
+[node name="BottomMagnet" parent="." unique_id=450049775 instance=ExtResource("3_he0p5")]
+position = Vector2(0, 8)
+
+[node name="TopMagnet" parent="." unique_id=1925542722 instance=ExtResource("3_he0p5")]
+position = Vector2(0, -8)
