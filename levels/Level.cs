@@ -168,11 +168,11 @@ public partial class Level : Node2D
         // all thrusters to 100%
         foreach (Node node in rocketComponentsNode.GetChildren())
         {
-            if (node is RocketComponent component)
+            if (node is Thruster component)
             {
-                foreach (ThrustSource thruster in component.ThrustSources)
+                if (component is Thruster)
                 {
-                    thruster.SetActivationThrustFactor();
+                    component.ActivateThruster();
                 }
             }
         }

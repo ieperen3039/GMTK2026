@@ -3,6 +3,7 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
+[GlobalClass]
 public partial class RocketComponent : Grabbable
 {
     public const float InitialVelocity = 50.0f;
