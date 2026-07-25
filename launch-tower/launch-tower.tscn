@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bn7h154hc2vae"]
+
+[ext_resource type="Texture2D" uid="uid://dqkfckyud02tv" path="res://launch-tower/launch-tower beam.png" id="1_2ddov"]
+
+[node name="LaunchTower" type="Node2D" unique_id=1243787554]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1149425452]
+texture_filter = 2
+texture_repeat = 2
+position = Vector2(38, 52)
+texture = ExtResource("1_2ddov")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 144)
