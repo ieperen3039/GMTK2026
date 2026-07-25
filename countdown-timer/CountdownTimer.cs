@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 [Tool]
-public partial class CountdownTimer : Node2D
+public partial class CountdownTimer : Grabbable
 {
     private Sprite2D _tens;
     private Sprite2D _ones;
@@ -19,6 +19,8 @@ public partial class CountdownTimer : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		base._Ready();
+
 		_tens = GetNode<Sprite2D>("%Tens");
 		_ones = GetNode<Sprite2D>("%Ones");
 		UpdateDisplay();
@@ -32,6 +34,8 @@ public partial class CountdownTimer : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		base._Process(delta);
+
 		if (Engine.IsEditorHint())
 			return; // skip runtime-only setup like timers, signals, etc.
 		

@@ -1,69 +1,69 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-[GlobalClass]
-public partial class RocketComponent : RigidBody2D
+public partial class RocketComponent : Grabbable
 {
-
-    public const float InitialVelocity = 10.0f;
-    public const float InitialRotation = 100.0f;
-
-    public const float SnapSpeed = 20f;
-    public const float SnapDampening = 20f;
+    public const float InitialVelocity = 50.0f;
+    public const float InitialRotation = 10.0f;
 
     public const float AnglePull = 5f;
-    private bool isDragging = false;
-    private Vector2 localGrabOffset = new();
+    private List<ThrustSource> thrustSources = [];
+    private List<Magnet> magnets = [];
+    public IReadOnlyList<ThrustSource> ThrustSources => thrustSources;
 
     // Called when the node enters the scene tree for the first time.
 
     public override void _Ready()
     {
-        InputPickable = true;
-        CollisionLayer = Game.COLLISION_LAYER_ROCKET_COMPONENTS;
+        base._Ready();
+
+        CollisionLayer = Game.CollisionLayerPrimary | Game.CollisionLayerGrabbable;
+        AngularDamp = 1.0f;
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
-        MaxContactsReported = 1;
-        ContactMonitor = true;
 
         Random rng = new();
-        ApplyImpulse(RandomUnitVector(rng) * InitialVelocity);
+        AngularVelocity = InitialRotation * rng.NextSingle();
+        LinearVelocity = RandomUnitVector(rng) * InitialVelocity;
 
-        bool clockwise = (rng.Next() & 0x01) == 0;
-        ApplyTorqueImpulse(clockwise ? InitialRotation : -InitialRotation);
+        foreach (Node child in GetChildren())
+        {
+            if (child is ThrustSource thruster)
+            {
+                thrustSources.Add(thruster);
+            }
+            else if (child is Magnet magnet)
+            {
+                magnets.Add(magnet);
+            }
+        }
     }
 
     // Called every physics update. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
     {
-        if (isDragging)
-        {
-            Vector2 targetPosition = GetGlobalMousePosition();
-            Vector2 direction = targetPosition - ToGlobal(localGrabOffset);
-            Vector2 targetVelocity = direction * SnapSpeed;
-            Vector2 velocityDifference = targetVelocity - LinearVelocity;
-            Vector2 globalOffset = GlobalTransform.BasisXform(localGrabOffset);
-            ApplyForce(velocityDifference * SnapDampening, globalOffset);
-        }
-        else
-        {
-            // beetje helpen
-            float rotationOffset = Util.RotationRelativeToUp(Rotation);
-            float targetForce = -1 * rotationOffset * AnglePull;
-            ApplyTorque(Mathf.Clamp(targetForce - 1, 0, AnglePull));
-        }
-    }
+        base._PhysicsProcess(delta);
 
-    public void OnRelease()
-    {
-        isDragging = false;
-    }
+        if (!isDragging)
+        {
+            // note that thruster should be off at the start of the game
+            foreach (ThrustSource thruster in thrustSources)
+            {
+                if (!thruster.EnableThrust) continue;
 
-    public void OnGrab(Vector2 localGrabOffset)
-    {
-        this.localGrabOffset = localGrabOffset;
-        isDragging = true;
-        ContactMonitor = true;
+                Vector2 globalThrustVector = thruster.GetThrust();
+                Vector2 globalOffset = thruster.GlobalPosition - GlobalPosition;
+                ApplyForce(globalThrustVector, globalOffset);
+            }
+        }
+            
+        foreach (Magnet magnet in magnets)
+        {
+            Vector2 globalThrustVector = magnet.GetForce();
+            Vector2 globalOffset = magnet.GlobalPosition - GlobalPosition;
+            ApplyForce(globalThrustVector, globalOffset);
+        }
     }
 
     private void OnMouseEntered()

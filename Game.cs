@@ -4,8 +4,10 @@ using System;
 // level-manager
 public partial class Game : Node
 {
-    public const uint COLLISION_LAYER_ROCKET_COMPONENTS = 0b_0001;
-    public const int CentralXCoordinate = 360;
+    public const uint CollisionLayerPrimary = 0b_0001;
+    public const uint CollisionLayerGrabbable = 0b_0001;
+    public const uint CollisionLayerMagnet = 0b_0001;
+    public const int CentralXCoordinate = 0;
     private PackedScene[] levelScenes;
 
     private int _currentLevelIdx = 0;
@@ -15,7 +17,8 @@ public partial class Game : Node
     {
         levelScenes = [
             ResourceLoader.Load<PackedScene>("res://levels/level-1/scene.tscn"),
-            ResourceLoader.Load<PackedScene>("res://levels/level-2/scene.tscn")
+            ResourceLoader.Load<PackedScene>("res://levels/level-2/scene.tscn"),
+            ResourceLoader.Load<PackedScene>("res://levels/level-3/scene.tscn")
         ];
         
         // TODO main menu instead of first level

@@ -6,25 +6,53 @@ public partial class Rocket : RigidBody2D
 {
     [Signal]
     public delegate void AltitudeChangedEventHandler(float Altitude);
+    private const float PlayerControlTorque = 100.0f;
 
-    private List<ThrusterComponent> thrusters = new();
+    private List<ThrustSource> thrusters = new();
     private bool IsEmpty = true;
 
-    public override void _Process(double delta)
+    private Vector2 unweightedCenterOfMass = Vector2.Zero;
+
+    public override void _PhysicsProcess(double delta)
     {
-        EmitSignal(SignalName.AltitudeChanged, GlobalPosition.Y);
+        // delayed
+        if (unweightedCenterOfMass.LengthSquared() > 0)
+        {
+            CenterOfMassMode = CenterOfMassModeEnum.Custom;
+            CenterOfMass = unweightedCenterOfMass / Mass;
+            GD.Print($"CenterOfMass = {CenterOfMass:?}");
+            unweightedCenterOfMass = Vector2.Zero;
+        }
+
+        float rightSteer = Input.GetAxis("move_left", "move_right");
+
+        ApplyTorque(PlayerControlTorque * rightSteer);
+        DynamicThrustReduction.BalanceThrusters(this, rightSteer);
+
+        foreach (ThrustSource thruster in thrusters)
+        {
+            Vector2 globalThrustVector = thruster.GetThrust();
+            Vector2 globalOffset = thruster.GlobalPosition - GlobalPosition;
+            ApplyForce(globalThrustVector, globalOffset);
+        }
+
+        // negative Y is up
+        EmitSignal(SignalName.AltitudeChanged, -GlobalPosition.Y);
     }
 
     public void AddComponent(RocketComponent component)
     {
-        // TODO center of mass
+        Vector2 relativeCenterOfMass = ToLocal(component.ToGlobal(component.CenterOfMass));
         if (IsEmpty)
         {
             Mass = component.Mass;
+            unweightedCenterOfMass = relativeCenterOfMass;
+            IsEmpty = false;
         }
         else
         {
             Mass += component.Mass;
+            unweightedCenterOfMass += relativeCenterOfMass * component.Mass;
         }
 
         foreach (Node child in component.GetChildren())
@@ -33,7 +61,7 @@ public partial class Rocket : RigidBody2D
 
             child.Reparent(this);
 
-            if (child is ThrusterComponent thruster)
+            if (child is ThrustSource thruster)
             {
                 thrusters.Add(thruster);
             }
@@ -48,5 +76,5 @@ public partial class Rocket : RigidBody2D
         tape.QueueFree();
     }
 
-    public IReadOnlyList<ThrusterComponent> GetThrusters() => thrusters;
+    public IReadOnlyList<ThrustSource> GetThrusters() => thrusters;
 }

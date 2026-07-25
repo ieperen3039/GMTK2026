@@ -2,55 +2,41 @@
 
 [ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="1_68uyt"]
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_hh1ok"]
-[ext_resource type="Texture2D" uid="uid://corhuhrff2hkt" path="res://levels/level-1/launchpad.png" id="2_471vb"]
 [ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_llm56"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="5_7741h"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_xmw3k"]
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_llm56"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_vayes"]
+[ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="8_7741h"]
+[ext_resource type="PackedScene" uid="uid://bi4yn7cwq1oyn" path="res://rocket/rocket-components/fin-left/template.tscn" id="9_h37kx"]
+[ext_resource type="PackedScene" uid="uid://dtbc1yy3xxe0b" path="res://rocket/rocket-components/fin-right/template.tscn" id="10_0v2iv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
+normal = Vector2(1, 0)
+distance = -100.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7741h"]
+normal = Vector2(-1, 0)
+distance = -100.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s1ev"]
-distance = -278.91638
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_teru1"]
 normal = Vector2(1, 0)
-distance = -316.03165
+distance = -313.90134
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5tnor"]
 normal = Vector2(-0.99999434, -0.003355726)
-distance = -316.0366
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
-size = Vector2(827.5021, 119.82558)
+distance = -313.9372
 
 [node name="Level" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_hh1ok")
+AltitudeGoal = 1000
 
 [node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
 position = Vector2(0, -720)
 scale = Vector2(2.453, 2.5)
 texture = ExtResource("1_68uyt")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="LevelBg" unique_id=1699988788]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelBg/StaticBody2D" unique_id=56533830]
-shape = SubResource("WorldBoundaryShape2D_0s1ev")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="LevelBg/StaticBody2D" unique_id=1357787768]
-shape = SubResource("WorldBoundaryShape2D_teru1")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="LevelBg/StaticBody2D" unique_id=180391062]
-shape = SubResource("WorldBoundaryShape2D_5tnor")
-
-[node name="Launchpad" type="Sprite2D" parent="." unique_id=1711688620]
-scale = Vector2(0.8055009, 0.80263186)
-texture = ExtResource("2_471vb")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Launchpad" unique_id=1258637541]
-visible = false
-scale = Vector2(0.6151042, 0.6342593)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Launchpad/StaticBody2D2" unique_id=1798477531]
-shape = SubResource("RectangleShape2D_teru1")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(0, -240)
@@ -71,27 +57,62 @@ text = "Tape"
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 99.0
+wait_time = 25.0
 one_shot = true
-
-[node name="CountdownTimer" parent="." unique_id=2072769234 instance=ExtResource("7_vayes")]
-position = Vector2(-189, -47)
-
-[node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
 
+[node name="Engine" parent="RocketComponents" unique_id=375305117 instance=ExtResource("5_7741h")]
+position = Vector2(51, -83)
+
 [node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_llm56")]
-position = Vector2(-80, -117)
+position = Vector2(-25, -165)
 
 [node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_xmw3k")]
-position = Vector2(-100, -72)
-
-[node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_xmw3k")]
-position = Vector2(19, -101)
-
-[node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_xmw3k")]
-position = Vector2(137, -90)
+position = Vector2(-69, -90)
 
 [node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_llm56")]
-position = Vector2(111, -151)
+position = Vector2(32, -162)
+
+[node name="LeftFin" parent="RocketComponents" unique_id=97243894 instance=ExtResource("9_h37kx")]
+position = Vector2(-87, -152)
+
+[node name="RightFin" parent="RocketComponents" unique_id=218350506 instance=ExtResource("10_0v2iv")]
+position = Vector2(116, -145)
+
+[node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
+
+[node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_vayes")]
+unique_name_in_owner = true
+position = Vector2(-144, -48)
+input_pickable = true
+contact_monitor = true
+max_contacts_reported = 1
+
+[node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("8_7741h")]
+position = Vector2(0, -16)
+scale = Vector2(2, 2)
+
+[node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
+
+[node name="BuildPhaseBounds" type="StaticBody2D" parent="." unique_id=573926186]
+position = Vector2(0, -200)
+scale = Vector2(2.453, 2.5)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BuildPhaseBounds" unique_id=1160610206]
+shape = SubResource("WorldBoundaryShape2D_r5p6b")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BuildPhaseBounds" unique_id=1343654671]
+shape = SubResource("WorldBoundaryShape2D_7741h")
+
+[node name="WorldBorder" type="StaticBody2D" parent="." unique_id=1699988788]
+scale = Vector2(2.453, 2.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder" unique_id=56533830]
+shape = SubResource("WorldBoundaryShape2D_0s1ev")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBorder" unique_id=1357787768]
+shape = SubResource("WorldBoundaryShape2D_teru1")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBorder" unique_id=180391062]
+shape = SubResource("WorldBoundaryShape2D_5tnor")
