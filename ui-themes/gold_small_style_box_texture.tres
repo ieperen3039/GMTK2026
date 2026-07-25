@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://bju8heskucri1"]
+
+[ext_resource type="Texture2D" uid="uid://cq1ljvx5u2nsn" path="res://ui-themes/UiThinBorder.png" id="1_twgth"]
+
+[resource]
+texture = ExtResource("1_twgth")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
