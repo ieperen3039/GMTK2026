@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://c0kbmas1o14k8"]
+
+[ext_resource type="Texture2D" uid="uid://5jty3cjo2s2m" path="res://rocket/rocket-components/thruster/flame-particles/particle-sprite.png" id="1_anivn"]
+
+[resource]
+atlas = ExtResource("1_anivn")
+region = Rect2(0, 0, 8, 8)

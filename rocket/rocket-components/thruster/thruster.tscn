@@ -1,18 +1,23 @@
 [gd_scene format=3 uid="uid://kwkfpjhv503o"]
 
-[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_eoyw7"]
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_prk0x"]
 [ext_resource type="Texture2D" uid="uid://bkvt0iey1faq5" path="res://rocket/rocket-components/thruster/thruster.tres" id="1_ro0od"]
+[ext_resource type="Script" uid="uid://c4mpc1loy7hmh" path="res://rocket/rocket-components/thruster/Thruster.cs" id="2_6c5fl"]
 [ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/ThrustSource.cs" id="3_00yy8"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/rocket-components/magnet/scene.tscn" id="4_hrefm"]
+[ext_resource type="Texture2D" uid="uid://dddo8emajju30" path="res://rocket/rocket-components/thruster/flame-sprite.png" id="6_sa6ma"]
+[ext_resource type="Texture2D" uid="uid://dg8ypi70khfpw" path="res://rocket/rocket-components/thruster/flame-particles/red-particle.tres" id="7_lvg87"]
+[ext_resource type="Texture2D" uid="uid://cmsxsbbyl3keh" path="res://rocket/rocket-components/thruster/flame-particles/orange-particle.tres" id="8_lvurw"]
+[ext_resource type="Texture2D" uid="uid://7fvdg0btkttd" path="res://rocket/rocket-components/thruster/flame-particles/yellow-particle.tres" id="9_cpaai"]
+[ext_resource type="Texture2D" uid="uid://c0kbmas1o14k8" path="res://rocket/rocket-components/thruster/flame-particles/white-particle.tres" id="10_3j71p"]
 
 [node name="Thruster" type="RigidBody2D" unique_id=1039960409]
 mass = 2.0
 physics_material_override = ExtResource("1_prk0x")
-script = ExtResource("1_eoyw7")
+script = ExtResource("2_6c5fl")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=217453018]
-polygon = PackedVector2Array(-16, 16, -11, -1, -5, -9, -16, -16, 16, -16, 5, -9, 11, -1, 16, 16)
+polygon = PackedVector2Array(-12, 16, -10, -2, -7, -11, -14, -11, -16, -16, 16, -16, 14, -11, 7, -11, 10, -2, 12, 16)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1372319334]
 texture = ExtResource("1_ro0od")
@@ -24,3 +29,71 @@ ThrustPower = 5000.0
 
 [node name="TopMagnet" parent="." unique_id=450049775 instance=ExtResource("4_hrefm")]
 position = Vector2(0, -16)
+
+[node name="ExhaustParticles" type="Node2D" parent="." unique_id=1203407339]
+position = Vector2(0, 32)
+
+[node name="RedParticles" type="CPUParticles2D" parent="ExhaustParticles" unique_id=1260737132]
+amount = 200
+texture = ExtResource("7_lvg87")
+lifetime = 0.4
+emission_shape = 1
+emission_sphere_radius = 13.25
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.62
+angular_velocity_min = -75.48
+angular_velocity_max = 66.8
+scale_amount_max = 2.0
+
+[node name="OrangeParticles" type="CPUParticles2D" parent="ExhaustParticles" unique_id=399019881]
+amount = 100
+texture = ExtResource("8_lvurw")
+lifetime = 0.35000000000000003
+emission_shape = 1
+emission_sphere_radius = 8.86
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.62
+angular_velocity_min = -75.48
+angular_velocity_max = 66.8
+scale_amount_max = 2.0
+
+[node name="YellowParticles" type="CPUParticles2D" parent="ExhaustParticles" unique_id=1081677078]
+amount = 40
+texture = ExtResource("9_cpaai")
+lifetime = 0.3
+emission_shape = 1
+emission_sphere_radius = 6.0
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.62
+angular_velocity_min = -75.48
+angular_velocity_max = 66.8
+scale_amount_max = 2.0
+
+[node name="WhiteParticles" type="CPUParticles2D" parent="ExhaustParticles" unique_id=2039101884]
+amount = 20
+texture = ExtResource("10_3j71p")
+lifetime = 0.25
+emission_shape = 1
+emission_sphere_radius = 1.33
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.62
+angular_velocity_min = -75.48
+angular_velocity_max = 66.8
+scale_amount_max = 2.0
+
+[node name="ExhaustFlame" type="Sprite2D" parent="." unique_id=352557499]
+unique_name_in_owner = true
+position = Vector2(0, 48)
+texture = ExtResource("6_sa6ma")
