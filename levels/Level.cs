@@ -34,6 +34,8 @@ public partial class Level : Node2D
     private Timer timer;
     private CountdownTimer timer_ui;
 
+    private Score score = new();
+
     private bool isLevelComplete = false;
     private bool shouldBuildRocket = false;
 
@@ -212,13 +214,19 @@ public partial class Level : Node2D
                 numExtras++;
             }
         }
+        
+        score = new()
+        {
+            TotalComponents = numRocketComponents,
+            NumLiftedComponents = numLiftedComponents,
+            NumExtras = numExtras,
+        };
 
         LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
         // chain level complete signal to this level complete signal
         levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
-        levelCompleteScreen.TotalComponents = numRocketComponents;
-        levelCompleteScreen.NumLiftedComponents = numLiftedComponents;
-        levelCompleteScreen.NumExtras = numExtras;
+
+        levelCompleteScreen.Score = score;
         camera.Reparent(levelCompleteScreen);
         AddChild(levelCompleteScreen);
     }
@@ -254,7 +262,11 @@ public partial class Level : Node2D
         }
     }
 
+    public Score GetScore() => score;
+
     // player can apply tape to rocket components
+
+
     private class TapeTool : IMouseTool
     {
         public Level parent;
