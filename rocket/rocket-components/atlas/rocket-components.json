@@ -23,7 +23,7 @@
    { "name": "Shading", "group": "Engine", "opacity": 255, "blendMode": "normal" },
    { "name": "Sas" },
    { "name": "base", "group": "Sas", "opacity": 255, "blendMode": "normal" },
-   { "name": "Shading", "group": "Sas", "opacity": 255, "blendMode": "normal" },
+   { "name": "ShadingV2", "group": "Sas", "opacity": 255, "blendMode": "normal" },
    { "name": "tank" },
    { "name": "tank-base", "group": "tank", "opacity": 255, "blendMode": "normal" },
    { "name": "shading", "group": "tank", "opacity": 255, "blendMode": "normal" },
@@ -32,7 +32,7 @@
    { "name": "Left", "group": "Fins", "opacity": 255, "blendMode": "normal" },
    { "name": "Nose cone" },
    { "name": "Cone-base", "group": "Nose cone", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 1", "group": "Nose cone", "opacity": 255, "blendMode": "normal" }
+   { "name": "ShadingV2", "group": "Nose cone", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
    { "name": "Slice 3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 0, "w": 32, "h": 32 } }] },
