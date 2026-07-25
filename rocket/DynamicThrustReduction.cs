@@ -14,10 +14,8 @@ public class DynamicThrustReduction
     public const float PlayerControlRotation = 0.5f;
     public const float MinimumControlTorque = 10f;
 
-    public static void BalanceThrusters(Rocket rocket, float rotationTarget)
+    public static void BalanceThrusters(RigidBody2D rocket, IReadOnlyList<ThrustSource> thrusters, float rotationTarget)
     {
-        IReadOnlyList<ThrustSource> thrusters = rocket.GetThrusters();
-
         if (thrusters.Count == 1)
         {
             // only one thruster: its up to the player now

@@ -1,79 +1,41 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-public partial class Rocket : RigidBody2D
+public partial class Rocket : Node
 {
     [Signal]
     public delegate void AltitudeChangedEventHandler(float Altitude);
     private const float PlayerControlTorque = 100.0f;
 
     private List<ThrustSource> thrusters = new();
+    public ControlComponent ControlComponent { get; private set; }
     private bool IsEmpty = true;
 
     private Vector2 unweightedCenterOfMass = Vector2.Zero;
 
     public override void _PhysicsProcess(double delta)
     {
-        // delayed
-        if (unweightedCenterOfMass.LengthSquared() > 0)
-        {
-            CenterOfMassMode = CenterOfMassModeEnum.Custom;
-            CenterOfMass = unweightedCenterOfMass / Mass;
-            GD.Print($"CenterOfMass = {CenterOfMass:?}");
-            unweightedCenterOfMass = Vector2.Zero;
-        }
-
         float rightSteer = Input.GetAxis("move_left", "move_right");
+        ControlComponent.ApplyTorque(PlayerControlTorque * rightSteer);
 
-        ApplyTorque(PlayerControlTorque * rightSteer);
-        DynamicThrustReduction.BalanceThrusters(this, rightSteer);
-
-        foreach (ThrustSource thruster in thrusters)
-        {
-            Vector2 globalThrustVector = thruster.GetThrust();
-            Vector2 globalOffset = thruster.GlobalPosition - GlobalPosition;
-            ApplyForce(globalThrustVector, globalOffset);
-        }
+        DynamicThrustReduction.BalanceThrusters(ControlComponent, thrusters, rightSteer);
 
         // negative Y is up
-        EmitSignal(SignalName.AltitudeChanged, -GlobalPosition.Y);
+        EmitSignal(SignalName.AltitudeChanged, -ControlComponent.GlobalPosition.Y);
     }
 
     public void AddComponent(RocketComponent component)
     {
-        Vector2 relativeCenterOfMass = ToLocal(component.ToGlobal(component.CenterOfMass));
-        if (IsEmpty)
+        thrusters.AddRange(component.ThrustSources);
+
+        if (component is ControlComponent control)
         {
-            Mass = component.Mass;
-            unweightedCenterOfMass = relativeCenterOfMass;
-            IsEmpty = false;
+            if (ControlComponent != null) throw new Exception("Double control component");
+
+            ControlComponent = control;
         }
-        else
-        {
-            Mass += component.Mass;
-            unweightedCenterOfMass += relativeCenterOfMass * component.Mass;
-        }
-
-        foreach (Node child in component.GetChildren())
-        {
-            if (child.GetParent() == this) throw new Exception($"compoment {component.Name} aready added to {Name}");
-
-            child.Reparent(this);
-
-            if (child is ThrustSource thruster)
-            {
-                thrusters.Add(thruster);
-            }
-        }
-        component.QueueFree();
-    }
-
-    public void AddDuctTape(DuctTape tape)
-    {
-        // updating the tape is no longer necessary
-        tape.ReparentGraphics(this);
-        tape.QueueFree();
     }
 
     public IReadOnlyList<ThrustSource> GetThrusters() => thrusters;

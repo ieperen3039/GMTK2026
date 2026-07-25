@@ -165,7 +165,7 @@ public partial class Level : Node2D
             Rocket rocket = BuildRocket();
             AddChild(rocket);
 
-            camera.Reparent(rocket);
+            camera.Reparent(rocket.ControlComponent);
             GetTree().CreateTween()
                 .TweenProperty(camera, "position", Vector2.Zero, 1f)
                 .SetEase(Tween.EaseType.Out);
@@ -198,10 +198,7 @@ public partial class Level : Node2D
         // iteratively search for nodes connected to any of the nodes in nodesSeen
         // OPITMIZATION(#19) we can check against _all_ compomenents in nodesSeen in the inner if-statement
         Rocket rocket = rocketScene.Instantiate<Rocket>();
-        rocket.GlobalPosition = controlComponent.GlobalPosition;
-        rocket.GlobalRotation = controlComponent.GlobalRotation;
         rocket.AltitudeChanged += CheckVictory;
-        HashSet<DuctTape> rocketTapes = [];
 
         HashSet<Node> nodesToCheck = [controlComponent];
         HashSet<Node> nodesSeen = [controlComponent];
@@ -234,33 +231,10 @@ public partial class Level : Node2D
                         nodesToCheck.Add(b);
                         nodesSeen.Add(b);
                     }
-                    rocketTapes.Add(connection);
                 }
             }
         }
 
-        foreach (DuctTape tape in rocketTapes)
-        {
-            bool success = tapes.Remove(tape);
-            if (!success) throw new Exception("connection not found");
-
-            if (nodesSeen.Contains(tape.ComponentA) && nodesSeen.Contains(tape.ComponentB))
-            {
-                // NOTE: this moves the update responsibility to rocket
-                rocket.AddDuctTape(tape);
-            }
-            else
-            {
-                // just detach
-                tape.QueueFree();
-            }
-        }
-
-        // these have been emptied in rocket.AddComponent;
-        foreach (Node node in nodesSeen)
-        {
-            rocketComponentsNode.RemoveChild(node);
-        }
         controlComponent = null;
         hoveredSelectable = null;
         return rocket;
