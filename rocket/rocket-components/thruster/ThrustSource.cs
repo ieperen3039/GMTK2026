@@ -1,10 +1,14 @@
 using Godot;
 using System;
 
-public partial class ThrustSource : Marker2D
+[Tool]
+public partial class ThrustSource : Node2D
 {
     [Export]
     public float ThrustPower;
+    [Export]
+    public bool IsPassive;
+
     private float thrustFactor = 0.0f;
 
     public bool EnableThrust => thrustFactor > 0.0f;
@@ -13,6 +17,8 @@ public partial class ThrustSource : Marker2D
     {
         thrustFactor = fractionOfFull;
     }
+
+    public void SetActivationThrustFactor() => SetThrustFactor(IsPassive ? 0 : 1);
 
     public Vector2 GetThrust() => GetThrustAt(thrustFactor);
 
@@ -25,6 +31,16 @@ public partial class ThrustSource : Marker2D
 
     public Vector2 GetLocalThrust() => GetLocalThrustAt(thrustFactor);
 
-    // note: towards negative Y
-    public Vector2 GetLocalThrustAt(float fractionOfFull) => Vector2.Up * ThrustPower * fractionOfFull;
+    public virtual Vector2 GetLocalThrustAt(float fractionOfFull) => Vector2.Up * ThrustPower * fractionOfFull;
+
+    public override void _Draw()
+    {
+        base._Draw();
+        if (Engine.IsEditorHint())
+        {
+            DrawLine(Vector2.Zero, GetLocalThrustAt(1.0f) * -0.1f, new Color(1, 0, 0, 0.5f), 2.0f);
+            DrawLine(Vector2.Zero, new Vector2(5, 5), new Color(1, 0, 0, 0.5f), 2.0f);
+            DrawLine(Vector2.Zero, new Vector2(-5, 5), new Color(1, 0, 0, 0.5f), 2.0f);
+        }
+    }
 }

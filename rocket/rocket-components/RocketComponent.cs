@@ -9,6 +9,7 @@ public partial class RocketComponent : Grabbable
 
     public const float AnglePull = 5f;
     private List<ThrustSource> thrustSources = [];
+    private List<Magnet> magnets = [];
     public IReadOnlyList<ThrustSource> ThrustSources => thrustSources;
 
     // Called when the node enters the scene tree for the first time.
@@ -17,7 +18,7 @@ public partial class RocketComponent : Grabbable
     {
         base._Ready();
 
-        CollisionLayer |= Game.CollisionLayerGrabbable;
+        CollisionLayer = Game.CollisionLayerPrimary | Game.CollisionLayerGrabbable;
         AngularDamp = 1.0f;
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
@@ -32,6 +33,10 @@ public partial class RocketComponent : Grabbable
             {
                 thrustSources.Add(thruster);
             }
+            else if (child is Magnet magnet)
+            {
+                magnets.Add(magnet);
+            }
         }
     }
 
@@ -45,10 +50,19 @@ public partial class RocketComponent : Grabbable
             // note that thruster should be off at the start of the game
             foreach (ThrustSource thruster in thrustSources)
             {
+                if (!thruster.EnableThrust) continue;
+
                 Vector2 globalThrustVector = thruster.GetThrust();
                 Vector2 globalOffset = thruster.GlobalPosition - GlobalPosition;
                 ApplyForce(globalThrustVector, globalOffset);
             }
+        }
+            
+        foreach (Magnet magnet in magnets)
+        {
+            Vector2 globalThrustVector = magnet.GetForce();
+            Vector2 globalOffset = magnet.GlobalPosition - GlobalPosition;
+            ApplyForce(globalThrustVector, globalOffset);
         }
     }
 

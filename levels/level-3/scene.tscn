@@ -38,6 +38,7 @@ distance = -313.9372
 
 [node name="Level" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_1ur03")
+AltitudeGoal = 10000
 
 [node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
 position = Vector2(0, -720)
@@ -63,7 +64,7 @@ text = "Tape"
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 24.466
+wait_time = 30.0
 one_shot = true
 
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
