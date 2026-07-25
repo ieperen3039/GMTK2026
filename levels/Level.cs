@@ -10,8 +10,6 @@ public partial class Level : Node2D
     [Signal]
     public delegate void OnNextLevelEventHandler();
 
-    private const int MaxRocketComponents = 100;
-
     [Export]
     private int AltitudeGoal;
 
@@ -199,47 +197,12 @@ public partial class Level : Node2D
         // OPITMIZATION(#19) we can check against _all_ compomenents in nodesSeen in the inner if-statement
         Rocket rocket = rocketScene.Instantiate<Rocket>();
         rocket.AltitudeChanged += CheckVictory;
-
-        HashSet<Node> nodesToCheck = [controlComponent];
-        HashSet<Node> nodesSeen = [controlComponent];
-        rocket.AddComponent(controlComponent);
-
-        int iterationsUntilBreak = MaxRocketComponents;
-        while (nodesToCheck.Count > 0 && iterationsUntilBreak-- > 0)
-        {
-            Node nodeToCheck = nodesToCheck.First();
-            nodesToCheck.Remove(nodeToCheck);
-
-            // find all components connected to nodeToCheck.
-            // add all of them to a new Rocket
-            foreach (DuctTape connection in tapes)
-            {
-                RigidBody2D a = connection.ComponentA;
-                RigidBody2D b = connection.ComponentB;
-                if (a == nodeToCheck || b == nodeToCheck)
-                {
-                    // check that these components are not already queued for handling
-                    if (a is RocketComponent ar && !nodesSeen.Contains(a))
-                    {
-                        rocket.AddComponent(ar);
-                        nodesToCheck.Add(a);
-                        nodesSeen.Add(a);
-                    }
-                    if (b is RocketComponent br && !nodesSeen.Contains(b))
-                    {
-                        rocket.AddComponent(br);
-                        nodesToCheck.Add(b);
-                        nodesSeen.Add(b);
-                    }
-                }
-            }
-        }
+        rocket.AddAllNearbyRecursively(controlComponent);
 
         controlComponent = null;
         hoveredSelectable = null;
         return rocket;
     }
-
 
     private void ResetMouseTool()
     {

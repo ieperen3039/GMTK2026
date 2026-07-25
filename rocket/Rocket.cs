@@ -7,7 +7,9 @@ public partial class Rocket : Node
 {
     [Signal]
     public delegate void AltitudeChangedEventHandler(float Altitude);
-    private const float PlayerControlTorque = 100.0f;
+
+    private const int MaxRocketComponents = 100;
+    private const float PlayerControlTorque = 1000.0f;
 
     private List<ThrustSource> thrusters = new();
     public ControlComponent ControlComponent { get; private set; }
@@ -35,6 +37,32 @@ public partial class Rocket : Node
             if (ControlComponent != null) throw new Exception("Double control component");
 
             ControlComponent = control;
+        }
+    }
+
+    public void AddAllNearbyRecursively(ControlComponent core)
+    {
+        HashSet<RocketComponent> nodesToCheck = [core];
+        HashSet<RocketComponent> nodesSeen = [core];
+        AddComponent(core);
+
+        int iterationsUntilBreak = MaxRocketComponents;
+        while (nodesToCheck.Count > 0 && iterationsUntilBreak-- > 0)
+        {
+            RocketComponent nodeToCheck = nodesToCheck.First();
+            nodesToCheck.Remove(nodeToCheck);
+
+            // find all components connected to nodeToCheck.
+            // add all of them to a new Rocket
+            foreach (RigidBody2D near in nodeToCheck.GetNearbyBodies())
+            {
+                if (near is not RocketComponent component) continue;
+                if (nodesSeen.Contains(component)) continue;
+
+                AddComponent(component);
+                nodesToCheck.Add(component);
+                nodesSeen.Add(component);
+            }
         }
     }
 
