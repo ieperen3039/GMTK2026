@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class Thruster : RocketComponent
 {
     private List<CpuParticles2D> _particles = [];
-    private Sprite2D _flameSprite;
+    // private Sprite2D _flameSprite;
     public override void _Ready()
     {
         base._Ready();
@@ -19,8 +19,8 @@ public partial class Thruster : RocketComponent
                 GD.Print("Disable particle");
             }
         }
-        _flameSprite = GetNode<Sprite2D>("%ExhaustFlame");
-        _flameSprite.Hide();
+        // _flameSprite = GetNode<Sprite2D>("%ExhaustFlame");
+        // _flameSprite.Hide();
     }
 
     public void ActivateThruster()
@@ -33,7 +33,7 @@ public partial class Thruster : RocketComponent
 
         
         // Enable the visuals
-        _flameSprite.Show();
+        // _flameSprite.Show();
         foreach(CpuParticles2D particle in _particles)
         {
             particle.Emitting = true;
