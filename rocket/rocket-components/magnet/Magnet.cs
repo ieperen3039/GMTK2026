@@ -3,7 +3,7 @@ using System;
 
 public partial class Magnet : Area2D
 {
-    public const float PullStrength = 500f;
+    public const float PullStrength = 250f;
 
     public Magnet connectedTo = null;
 

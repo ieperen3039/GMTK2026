@@ -10,7 +10,7 @@ public partial class Level : Node2D
     [Signal]
     public delegate void OnNextLevelEventHandler();
 
-    private const int MaxRocketComponents = 100;
+    private const int AltitudeScoreZone = 100;
 
     [Export]
     private int AltitudeGoal;
@@ -25,6 +25,7 @@ public partial class Level : Node2D
     private Node ductTapeInstancesNode;
     private ControlComponent controlComponent;
     private CollisionObject2D buildPhaseBounds;
+    private int numRocketComponents;
 
     private IMouseTool defaultMouseTool;
     private IMouseTool mouseTool;
@@ -33,8 +34,9 @@ public partial class Level : Node2D
     private Timer timer;
     private CountdownTimer timer_ui;
 
-    private object physicsLock = new();
     private bool isLevelComplete = false;
+    private bool shouldBuildRocket = false;
+
 
     public override void _Ready()
     {
@@ -70,6 +72,8 @@ public partial class Level : Node2D
 
                     controlComponent = control;
                 }
+
+                if (part is RocketComponent) numRocketComponents++;
             }
         }
 
@@ -118,18 +122,30 @@ public partial class Level : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        lock (physicsLock)
+        foreach (DuctTape tape in tapes)
         {
-            foreach (DuctTape tape in tapes)
-            {
-                tape.Update(delta);
-            }
+            tape.Update(delta);
+        }
 
-            if (Input.IsActionJustPressed("toggle_tape"))
-            {
-                if (mouseTool is TapeTool) ResetMouseTool();
-                else SetTapeTool();
-            }
+        if (Input.IsActionJustPressed("toggle_tape"))
+        {
+            if (mouseTool is TapeTool) ResetMouseTool();
+            else SetTapeTool();
+        }
+
+        if (shouldBuildRocket)
+        {
+            shouldBuildRocket = false;
+            
+            Rocket rocket = rocketScene.Instantiate<Rocket>();
+            rocket.AltitudeChanged += CheckVictory;
+            rocket.AddAllNearbyRecursively(controlComponent);
+            AddChild(rocket);
+
+            camera.Reparent(rocket.ControlComponent);
+            GetTree().CreateTween()
+                .TweenProperty(camera, "position", Vector2.Zero, 1f)
+                .SetEase(Tween.EaseType.Out);
         }
     }
 
@@ -145,6 +161,7 @@ public partial class Level : Node2D
         // NOTE: overwrite _default_ tool
         defaultMouseTool = new NullTool();
         ResetMouseTool();
+        hoveredSelectable = null;
 
         buildPhaseBounds.ProcessMode = ProcessModeEnum.Disabled;
 
@@ -160,16 +177,8 @@ public partial class Level : Node2D
             }
         }
 
-        lock (physicsLock)
-        {
-            Rocket rocket = BuildRocket();
-            AddChild(rocket);
-
-            camera.Reparent(rocket);
-            GetTree().CreateTween()
-                .TweenProperty(camera, "position", Vector2.Zero, 1f)
-                .SetEase(Tween.EaseType.Out);
-        }
+        // building the rocket must happen on the physics thread
+        shouldBuildRocket = true;
     }
 
     private void CheckVictory(float altitude)
@@ -184,88 +193,35 @@ public partial class Level : Node2D
 
     private void OnLevelComplete()
     {
-        LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
-        // chain level complete signal to this level complete signal
-        levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
-        // levelCompleteScreen.GlobalPosition = camera.GlobalPosition;
-        camera.Reparent(levelCompleteScreen);
-        AddChild(levelCompleteScreen);
-    }
+        // first count the score
+        int numLiftedComponents = 0;
+        int numExtras = 0;
 
-    // NOTE: also removes components from lists and removes+frees components from the tree
-    private Rocket BuildRocket()
-    {
-        // iteratively search for nodes connected to any of the nodes in nodesSeen
-        // OPITMIZATION(#19) we can check against _all_ compomenents in nodesSeen in the inner if-statement
-        Rocket rocket = rocketScene.Instantiate<Rocket>();
-        rocket.GlobalPosition = controlComponent.GlobalPosition;
-        rocket.GlobalRotation = controlComponent.GlobalRotation;
-        rocket.AltitudeChanged += CheckVictory;
-        HashSet<DuctTape> rocketTapes = [];
-
-        HashSet<Node> nodesToCheck = [controlComponent];
-        HashSet<Node> nodesSeen = [controlComponent];
-        rocket.AddComponent(controlComponent);
-
-        int iterationsUntilBreak = MaxRocketComponents;
-        while (nodesToCheck.Count > 0 && iterationsUntilBreak-- > 0)
+        float minimumAltitudeToCount = AltitudeGoal - AltitudeScoreZone;
+        foreach (Node node in rocketComponentsNode.GetChildren())
         {
-            Node nodeToCheck = nodesToCheck.First();
-            nodesToCheck.Remove(nodeToCheck);
-
-            // find all components connected to nodeToCheck.
-            // add all of them to a new Rocket
-            foreach (DuctTape connection in tapes)
+            if (node is not RigidBody2D component) continue;
+            if (-component.GlobalPosition.Y < minimumAltitudeToCount) continue;
+            
+            if (component is RocketComponent)
             {
-                RigidBody2D a = connection.ComponentA;
-                RigidBody2D b = connection.ComponentB;
-                if (a == nodeToCheck || b == nodeToCheck)
-                {
-                    // check that these components are not already queued for handling
-                    if (a is RocketComponent ar && !nodesSeen.Contains(a))
-                    {
-                        rocket.AddComponent(ar);
-                        nodesToCheck.Add(a);
-                        nodesSeen.Add(a);
-                    }
-                    if (b is RocketComponent br && !nodesSeen.Contains(b))
-                    {
-                        rocket.AddComponent(br);
-                        nodesToCheck.Add(b);
-                        nodesSeen.Add(b);
-                    }
-                    rocketTapes.Add(connection);
-                }
-            }
-        }
-
-        foreach (DuctTape tape in rocketTapes)
-        {
-            bool success = tapes.Remove(tape);
-            if (!success) throw new Exception("connection not found");
-
-            if (nodesSeen.Contains(tape.ComponentA) && nodesSeen.Contains(tape.ComponentB))
-            {
-                // NOTE: this moves the update responsibility to rocket
-                rocket.AddDuctTape(tape);
+                numLiftedComponents++;
             }
             else
             {
-                // just detach
-                tape.QueueFree();
+                numExtras++;
             }
         }
 
-        // these have been emptied in rocket.AddComponent;
-        foreach (Node node in nodesSeen)
-        {
-            rocketComponentsNode.RemoveChild(node);
-        }
-        controlComponent = null;
-        hoveredSelectable = null;
-        return rocket;
+        LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
+        // chain level complete signal to this level complete signal
+        levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
+        levelCompleteScreen.TotalComponents = numRocketComponents;
+        levelCompleteScreen.NumLiftedComponents = numLiftedComponents;
+        levelCompleteScreen.NumExtras = numExtras;
+        camera.Reparent(levelCompleteScreen);
+        AddChild(levelCompleteScreen);
     }
-
 
     private void ResetMouseTool()
     {

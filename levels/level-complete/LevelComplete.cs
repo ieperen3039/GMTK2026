@@ -8,23 +8,59 @@ public partial class LevelComplete : Node
 
     public const float FadeDuration = 1.0f;
     private bool hasFired = false;
+    [Export]
+    public int NumLiftedComponents;
+    [Export]
+    public int NumExtras;
+    [Export]
+    public int TotalComponents;
 
-    // Called when the node enters the scene tree for the first time.
+    Label scoreNode;
+    Label extraScoreNode;
+
+
     public override void _Ready()
     {
-        Node2D textNode = GetNode<Node2D>("Text");
+        Tween tween = GetTree().CreateTween();
+
+        Control textNode = GetNode<Control>("%Title");
         textNode.Modulate = new(Colors.White, 0);
 
-        Tween tween = GetTree().CreateTween();
         tween.TweenProperty(textNode, "modulate:a", 1.0, FadeDuration)
             .SetTrans(Tween.TransitionType.Cubic);
 
-        Button continueButton = GetNode<Button>("ContinueButton");
+        scoreNode = GetNode<Label>("%ScoreText");
+        scoreNode.Modulate = new(Colors.White, 0);
+
+        tween.TweenProperty(scoreNode, "modulate:a", 1.0, FadeDuration)
+            .SetTrans(Tween.TransitionType.Cubic);
+        tween.Parallel()
+            .TweenMethod(Callable.From<int>(SetVisibleScore), 0, NumLiftedComponents, 2.0f);
+
+        extraScoreNode = GetNode<Label>("%ExtraScoreText");
+        extraScoreNode.Modulate = new(Colors.White, 0);
+
+        tween.TweenProperty(extraScoreNode, "modulate:a", 1.0, FadeDuration)
+            .SetTrans(Tween.TransitionType.Cubic);
+        tween.Parallel()
+            .TweenMethod(Callable.From<int>(SetVisibleExtraScore), 0, NumExtras, 2.0f);
+
+        Button continueButton = GetNode<Button>("%ContinueButton");
         continueButton.Modulate = new(Colors.White, 0);
         
         tween.TweenProperty(continueButton, "modulate:a", 1.0, FadeDuration)
             .SetTrans(Tween.TransitionType.Cubic);
         tween.TweenCallback(Callable.From(() => continueButton.Pressed += OnContinue));
+    }
+
+    private void SetVisibleScore(int count)
+    {
+        scoreNode.Text = $"Components lifted: {count} / {TotalComponents}";
+    }
+
+    private void SetVisibleExtraScore(int count)
+    {
+        extraScoreNode.Text = $"Extra objects: {count}";
     }
 
     private void OnContinue()
