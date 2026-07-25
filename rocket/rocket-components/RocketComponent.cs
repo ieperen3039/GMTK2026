@@ -50,6 +50,8 @@ public partial class RocketComponent : Grabbable
             // note that thruster should be off at the start of the game
             foreach (ThrustSource thruster in thrustSources)
             {
+                if (!thruster.EnableThrust) continue;
+
                 Vector2 globalThrustVector = thruster.GetThrust();
                 Vector2 globalOffset = thruster.GlobalPosition - GlobalPosition;
                 ApplyForce(globalThrustVector, globalOffset);

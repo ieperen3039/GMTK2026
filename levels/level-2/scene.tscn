@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="5_tfgyv"]
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_6itg2"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_4scl4"]
+[ext_resource type="PackedScene" uid="uid://dtbc1yy3xxe0b" path="res://rocket/rocket-components/fin-right/template.tscn" id="7_xm06s"]
+[ext_resource type="PackedScene" uid="uid://bi4yn7cwq1oyn" path="res://rocket/rocket-components/fin-left/template.tscn" id="8_okrdb"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="8_y0sqk"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
@@ -29,6 +31,7 @@ distance = -313.9372
 
 [node name="Level" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_krbkv")
+AltitudeGoal = 10000
 
 [node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
 position = Vector2(0, -720)
@@ -54,7 +57,7 @@ text = "Tape"
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 24.466
+wait_time = 40.0
 one_shot = true
 
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
@@ -79,6 +82,12 @@ position = Vector2(20, -151)
 
 [node name="Engine2" parent="RocketComponents" unique_id=1552468733 instance=ExtResource("5_tfgyv")]
 position = Vector2(29, -97)
+
+[node name="RightFin" parent="RocketComponents" unique_id=1295776029 instance=ExtResource("7_xm06s")]
+position = Vector2(69, -198)
+
+[node name="LeftFin" parent="RocketComponents" unique_id=1440213093 instance=ExtResource("8_okrdb")]
+position = Vector2(-38, -186)
 
 [node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
 

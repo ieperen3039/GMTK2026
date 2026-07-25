@@ -5,6 +5,9 @@ public partial class ThrustSource : Marker2D
 {
     [Export]
     public float ThrustPower;
+    [Export]
+    public bool Passive;
+    
     private float thrustFactor = 0.0f;
 
     public bool EnableThrust => thrustFactor > 0.0f;
@@ -26,5 +29,5 @@ public partial class ThrustSource : Marker2D
     public Vector2 GetLocalThrust() => GetLocalThrustAt(thrustFactor);
 
     // note: towards negative Y
-    public Vector2 GetLocalThrustAt(float fractionOfFull) => Vector2.Up * ThrustPower * fractionOfFull;
+    public virtual Vector2 GetLocalThrustAt(float fractionOfFull) => Vector2.Up * ThrustPower * fractionOfFull;
 }
