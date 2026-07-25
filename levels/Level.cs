@@ -31,8 +31,9 @@ public partial class Level : Node2D
     private Timer timer;
     private CountdownTimer timer_ui;
 
-    private object physicsLock = new();
     private bool isLevelComplete = false;
+    private bool shouldBuildRocket = false;
+
 
     public override void _Ready()
     {
@@ -116,18 +117,30 @@ public partial class Level : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        lock (physicsLock)
+        foreach (DuctTape tape in tapes)
         {
-            foreach (DuctTape tape in tapes)
-            {
-                tape.Update(delta);
-            }
+            tape.Update(delta);
+        }
 
-            if (Input.IsActionJustPressed("toggle_tape"))
-            {
-                if (mouseTool is TapeTool) ResetMouseTool();
-                else SetTapeTool();
-            }
+        if (Input.IsActionJustPressed("toggle_tape"))
+        {
+            if (mouseTool is TapeTool) ResetMouseTool();
+            else SetTapeTool();
+        }
+
+        if (shouldBuildRocket)
+        {
+            shouldBuildRocket = false;
+            
+            Rocket rocket = rocketScene.Instantiate<Rocket>();
+            rocket.AltitudeChanged += CheckVictory;
+            rocket.AddAllNearbyRecursively(controlComponent);
+            AddChild(rocket);
+
+            camera.Reparent(rocket.ControlComponent);
+            GetTree().CreateTween()
+                .TweenProperty(camera, "position", Vector2.Zero, 1f)
+                .SetEase(Tween.EaseType.Out);
         }
     }
 
@@ -143,6 +156,7 @@ public partial class Level : Node2D
         // NOTE: overwrite _default_ tool
         defaultMouseTool = new NullTool();
         ResetMouseTool();
+        hoveredSelectable = null;
 
         buildPhaseBounds.ProcessMode = ProcessModeEnum.Disabled;
 
@@ -158,16 +172,8 @@ public partial class Level : Node2D
             }
         }
 
-        lock (physicsLock)
-        {
-            Rocket rocket = BuildRocket();
-            AddChild(rocket);
-
-            camera.Reparent(rocket.ControlComponent);
-            GetTree().CreateTween()
-                .TweenProperty(camera, "position", Vector2.Zero, 1f)
-                .SetEase(Tween.EaseType.Out);
-        }
+        // building the rocket must happen on the physics thread
+        shouldBuildRocket = true;
     }
 
     private void CheckVictory(float altitude)
@@ -188,20 +194,6 @@ public partial class Level : Node2D
         // levelCompleteScreen.GlobalPosition = camera.GlobalPosition;
         camera.Reparent(levelCompleteScreen);
         AddChild(levelCompleteScreen);
-    }
-
-    // NOTE: also removes components from lists and removes+frees components from the tree
-    private Rocket BuildRocket()
-    {
-        // iteratively search for nodes connected to any of the nodes in nodesSeen
-        // OPITMIZATION(#19) we can check against _all_ compomenents in nodesSeen in the inner if-statement
-        Rocket rocket = rocketScene.Instantiate<Rocket>();
-        rocket.AltitudeChanged += CheckVictory;
-        rocket.AddAllNearbyRecursively(controlComponent);
-
-        controlComponent = null;
-        hoveredSelectable = null;
-        return rocket;
     }
 
     private void ResetMouseTool()
