@@ -6,11 +6,11 @@ using static System.TupleExtensions;
 public class DynamicThrustReduction
 {
     // radians per pixel offset
-    public const float XOffsetCorrectionFactor = 0.002f;
+    public const float XOffsetCorrectionFactor = 0.005f;
 
-    public const float AngleCorrectionSpeed = 1.0f;
+    public const float AngleCorrectionSpeed = 0.1f;
     public const float AngleCorrectionDampening = 50.0f;
-    public const float TorqueCorrectionStrength = 1.0f;
+    public const float TorqueCorrectionStrength = 0.5f;
     public const float PlayerControlRotation = 0.5f;
     public const float MinimumControlTorque = 10f;
 

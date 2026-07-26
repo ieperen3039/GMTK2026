@@ -161,9 +161,9 @@ public partial class Level : Node2D
     private void OnCountdownZero()
     {
         // NOTE: overwrite _default_ tool
-        defaultMouseTool = new NullTool();
-        ResetMouseTool();
-        hoveredSelectable = null;
+        // defaultMouseTool = new NullTool();
+        // ResetMouseTool();
+        // hoveredSelectable = null;
 
         buildPhaseBounds.ProcessMode = ProcessModeEnum.Disabled;
 
@@ -349,11 +349,14 @@ public partial class Level : Node2D
         public void OnClick(Vector2 mousePosition)
         {
             RigidBody2D thing = parent.hoveredSelectable;
-            if (thing is Grabbable component)
+            if (thing is Grabbable grabbable)
             {
-                grabbed = component;
-                Vector2 relativeClick = component.ToLocal(mousePosition);
-                component.OnGrab(relativeClick);
+                // prevent grabbing rocket components
+                if (thing is RocketComponent component && component.PartOfRocket) return;
+
+                grabbed = grabbable;
+                Vector2 relativeClick = grabbable.ToLocal(mousePosition);
+                grabbable.OnGrab(relativeClick);
             }
         }
 
