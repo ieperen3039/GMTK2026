@@ -2,11 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class CrewCompartment : RocketComponent
+public partial class CrewCompartment : ControlComponent
 {
     private Sprite2D fullSprite;
     private Sprite2D emptySprite;
     private bool isFilled = false;
+    public int NumCrewInside { get; private set; } = 0;
 
     public override void _Ready()
     {
@@ -22,11 +23,12 @@ public partial class CrewCompartment : RocketComponent
 
     private void OnBodyEnter(Node2D body)
     {
-        
+
         if (body is CrewMember crew)
         {
             // eat
             SetFilled(true);
+            NumCrewInside++;
             Mass += crew.Mass;
             crew.OnRelease();
             crew.Visible = false;

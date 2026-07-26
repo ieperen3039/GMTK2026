@@ -38,6 +38,7 @@ public partial class Level : Node2D
 
     private Score score = new();
 
+    private int numCrewInLevel = 0;
     private bool isLevelComplete = false;
     private bool shouldBuildRocket = false;
 
@@ -88,6 +89,11 @@ public partial class Level : Node2D
                 part.InputPickable = true;
                 part.MouseEntered += () => OnHoverSelectable(part, true);
                 part.MouseExited += () => OnHoverSelectable(part, false);
+            }
+
+            if (child is CrewMember)
+            {
+                numCrewInLevel++;
             }
         }
 
@@ -186,9 +192,13 @@ public partial class Level : Node2D
     {
         if (altitude > AltitudeGoal && !isLevelComplete)
         {
-            GD.Print("Level Complete!");
-            isLevelComplete = true;
-            OnLevelComplete();
+            // TODO show warning that not all crew are present
+            if (controlComponent is CrewCompartment cc && cc.NumCrewInside >= numCrewInLevel)
+            {
+                GD.Print("Level Complete!");
+                isLevelComplete = true;
+                OnLevelComplete();
+            }
         }
     }
 
