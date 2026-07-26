@@ -54,7 +54,7 @@ position = Vector2(-111, -75)
 position = Vector2(-37, -232)
 
 [node name="Thruster" parent="RocketComponents" unique_id=1039960409 instance=ExtResource("5_ej2ic")]
-position = Vector2(-199, -183)
+position = Vector2(28, -349)
 
 [node name="Thruster2" parent="RocketComponents" unique_id=258554309 instance=ExtResource("5_ej2ic")]
 position = Vector2(89, -205)
@@ -101,7 +101,8 @@ position = Vector2(-197.00002, -20)
 scale = Vector2(2.453, 2.5)
 
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2067742472 instance=ExtResource("9_1ierk")]
-position = Vector2(-206, -74)
+unique_name_in_owner = true
+position = Vector2(141, -179)
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 
