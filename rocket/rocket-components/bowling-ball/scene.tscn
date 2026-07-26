@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://s7v7dbr5g7n4"]
+
+[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_yclp8"]
+[ext_resource type="Texture2D" uid="uid://bkaftubhbodwl" path="res://rocket/rocket-components/bowling-ball/bowling-ball-sprite.tres" id="2_1e16j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_owge0"]
+radius = 16.0
+
+[node name="BowlingBall" type="RigidBody2D" unique_id=848770531]
+script = ExtResource("1_yclp8")
+metadata/_custom_type_script = "uid://du3u0mmw6vgwl"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=351795643]
+shape = SubResource("CircleShape2D_owge0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=878818875]
+texture = ExtResource("2_1e16j")
