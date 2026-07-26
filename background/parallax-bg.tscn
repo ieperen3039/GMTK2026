@@ -10,34 +10,43 @@
 
 [node name="Skybox" type="Parallax2D" parent="." unique_id=1914231962]
 scroll_scale = Vector2(0, 0.1)
+repeat_size = Vector2(480, 0)
+repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Skybox" unique_id=809678329]
-position = Vector2(240, -600)
+position = Vector2(240, -660)
 texture = ExtResource("1_4xylt")
 
 [node name="UpperMountains" type="Parallax2D" parent="." unique_id=1284716303]
-scroll_scale = Vector2(0, 0.2)
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(480, 0)
+repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="UpperMountains" unique_id=927365439]
 position = Vector2(240, 240)
 texture = ExtResource("2_0ub3o")
 
 [node name="LowerMountains" type="Parallax2D" parent="." unique_id=586091106]
-scroll_scale = Vector2(0, 0.3)
+scroll_scale = Vector2(0.3, 0.3)
+repeat_size = Vector2(480, 0)
+repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="LowerMountains" unique_id=1524379123]
 position = Vector2(240, 240)
 texture = ExtResource("3_6ugg7")
 
 [node name="TreeLine" type="Parallax2D" parent="." unique_id=2129810946]
-scroll_scale = Vector2(0, 0.5)
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(480, 0)
+repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="TreeLine" unique_id=1956170040]
 position = Vector2(240, 240)
 texture = ExtResource("4_13wal")
 
 [node name="Meadow" type="Parallax2D" parent="." unique_id=687859371]
-scroll_scale = Vector2(0, 1)
+repeat_size = Vector2(480, 0)
+repeat_times = 2
 ignore_camera_scroll = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Meadow" unique_id=818846849]
