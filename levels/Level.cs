@@ -25,6 +25,7 @@ public partial class Level : Node2D
     private Camera2D camera;
     private Node rocketComponentsNode;
     private Node ductTapeInstancesNode;
+    private Node selectablesNode;
     private ControlComponent controlComponent;
     private CollisionObject2D buildPhaseBounds;
     private int numRocketComponents;
@@ -38,6 +39,7 @@ public partial class Level : Node2D
 
     private Score score = new();
 
+    private int numCrewInLevel = 0;
     private bool isLevelComplete = false;
     private bool shouldBuildRocket = false;
 
@@ -54,7 +56,7 @@ public partial class Level : Node2D
         timer = GetNode<Timer>("LevelTimer");
         timer_ui = GetNode<CountdownTimer>("%CountdownTimer");
         buildPhaseBounds = GetNode<CollisionObject2D>("BuildPhaseBounds");
-        Node selectablesNode = GetNode<Node>("OtherSelectables");
+        selectablesNode = GetNode<Node>("OtherSelectables");
 
         defaultMouseTool = new GrabTool(this);
         mouseTool = defaultMouseTool;
@@ -88,6 +90,11 @@ public partial class Level : Node2D
                 part.InputPickable = true;
                 part.MouseEntered += () => OnHoverSelectable(part, true);
                 part.MouseExited += () => OnHoverSelectable(part, false);
+            }
+
+            if (child is CrewMember)
+            {
+                numCrewInLevel++;
             }
         }
 
@@ -142,7 +149,7 @@ public partial class Level : Node2D
         if (shouldBuildRocket)
         {
             shouldBuildRocket = false;
-            
+
             Rocket rocket = rocketScene.Instantiate<Rocket>();
             rocket.AltitudeChanged += CheckVictory;
             rocket.AddAllNearbyRecursively(controlComponent);
@@ -186,40 +193,40 @@ public partial class Level : Node2D
     {
         if (altitude > AltitudeGoal && !isLevelComplete)
         {
-            GD.Print("Level Complete!");
-            isLevelComplete = true;
-            OnLevelComplete();
+            // TODO show warning that not all crew are present
+            if (controlComponent is CrewCompartment cc && cc.NumCrewInside >= numCrewInLevel)
+            {
+                GD.Print("Level Complete!");
+                isLevelComplete = true;
+                OnLevelComplete();
+            }
         }
     }
 
     private void OnLevelComplete()
     {
         // first count the score
-        int numLiftedComponents = 0;
-        int numExtras = 0;
+
+        score = new() { TotalComponents = numRocketComponents, };
 
         float minimumAltitudeToCount = AltitudeGoal - AltitudeScoreZone;
         foreach (Node node in rocketComponentsNode.GetChildren())
         {
             if (node is not RigidBody2D component) continue;
             if (-component.GlobalPosition.Y < minimumAltitudeToCount) continue;
-            
+
             if (component is RocketComponent)
             {
-                numLiftedComponents++;
-            }
-            else
-            {
-                numExtras++;
+                score.NumLiftedComponents++;
             }
         }
-        
-        score = new()
+
+        foreach (Node node in selectablesNode.GetChildren())
         {
-            TotalComponents = numRocketComponents,
-            NumLiftedComponents = numLiftedComponents,
-            NumExtras = numExtras,
-        };
+            if (node is not RigidBody2D component) continue;
+            if (-component.GlobalPosition.Y < minimumAltitudeToCount) continue;
+            score.NumExtras++;
+        }
 
         LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
         // chain level complete signal to this level complete signal
@@ -328,7 +335,6 @@ public partial class Level : Node2D
         {
             tape.Snap();
             parent.tapes.Remove(tape);
-            parent.ductTapeInstancesNode.RemoveChild(tape);
             tape.QueueFree();
         }
     }

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://d25adh7mtpom8"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_ltycx"]
+[ext_resource type="Script" uid="uid://dqwy0fsr0ujw8" path="res://rocket/rocket-components/crew-compartment/CrewCompartment.cs" id="2_5jqal"]
+[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/rocket-components/magnet/scene.tscn" id="4_j8b3a"]
+[ext_resource type="Texture2D" uid="uid://cgpjv2uphpvqb" path="res://rocket/rocket-components/crew-compartment/full-compartment.tres" id="4_ltycx"]
+[ext_resource type="Texture2D" uid="uid://c3esik4vlu27l" path="res://rocket/rocket-components/crew-compartment/empty-compartment.tres" id="5_5jqal"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5tnor"]
+size = Vector2(34, 34)
+
+[node name="Scene" type="RigidBody2D" unique_id=217928142]
+input_pickable = true
+physics_material_override = ExtResource("1_ltycx")
+script = ExtResource("2_5jqal")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=565845095]
+shape = SubResource("RectangleShape2D_teru1")
+
+[node name="BottomMagnet" parent="." unique_id=450049775 instance=ExtResource("4_j8b3a")]
+position = Vector2(0, 16)
+
+[node name="TopMagnet" parent="." unique_id=1927370537 instance=ExtResource("4_j8b3a")]
+position = Vector2(0, -16)
+
+[node name="SideMagnetLeft" parent="." unique_id=840785814 instance=ExtResource("4_j8b3a")]
+position = Vector2(-16, 0)
+
+[node name="SideMagnetRight" parent="." unique_id=1405503887 instance=ExtResource("4_j8b3a")]
+position = Vector2(16, 0)
+
+[node name="Full" type="Sprite2D" parent="." unique_id=643699743]
+texture = ExtResource("4_ltycx")
+
+[node name="Empty" type="Sprite2D" parent="." unique_id=1284471202]
+texture = ExtResource("5_5jqal")
+
+[node name="CrewCollectionHitbox" type="Area2D" parent="." unique_id=1152810628]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrewCollectionHitbox" unique_id=1570176298]
+shape = SubResource("RectangleShape2D_5tnor")
