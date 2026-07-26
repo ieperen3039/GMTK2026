@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dkohpn7rytwjv"]
+
+[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_yupri"]
+[ext_resource type="Texture2D" uid="uid://c3shej0f6y657" path="res://rocket/rocket-components/oddly-shaped-component/oddly-shaped-sprite.tres" id="2_t68eu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_apetm"]
+size = Vector2(30, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7btu4"]
+size = Vector2(30, 64)
+
+[node name="Scene" type="RigidBody2D" unique_id=1875974869]
+script = ExtResource("1_yupri")
+metadata/_custom_type_script = "uid://du3u0mmw6vgwl"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1535651053]
+texture = ExtResource("2_t68eu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=823414726]
+position = Vector2(-15, 16)
+shape = SubResource("RectangleShape2D_apetm")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=220049455]
+position = Vector2(15, -16)
+shape = SubResource("RectangleShape2D_7btu4")
