@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_llm56"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_vayes"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="8_7741h"]
-[ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/stabilisation-thruster/scene.tscn" id="9_0v2iv"]
 [ext_resource type="PackedScene" uid="uid://bi4yn7cwq1oyn" path="res://rocket/rocket-components/fin-left/template.tscn" id="9_h37kx"]
 [ext_resource type="PackedScene" uid="uid://dtbc1yy3xxe0b" path="res://rocket/rocket-components/fin-right/template.tscn" id="10_0v2iv"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_0v2iv"]
@@ -65,13 +64,13 @@ one_shot = true
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
 
 [node name="Engine" parent="RocketComponents" unique_id=375305117 instance=ExtResource("5_7741h")]
-position = Vector2(51, -83)
+position = Vector2(55, -94)
 
 [node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_llm56")]
 position = Vector2(-25, -165)
 
 [node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_xmw3k")]
-position = Vector2(-69, -90)
+position = Vector2(-12, -94)
 
 [node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_llm56")]
 position = Vector2(32, -162)
@@ -82,24 +81,17 @@ position = Vector2(-87, -152)
 [node name="RightFin" parent="RocketComponents" unique_id=218350506 instance=ExtResource("10_0v2iv")]
 position = Vector2(116, -145)
 
-[node name="Stabilizer" parent="RocketComponents" unique_id=379758665 instance=ExtResource("9_0v2iv")]
-position = Vector2(-24, -100)
-
-[node name="Stabilizer2" parent="RocketComponents" unique_id=1804020420 instance=ExtResource("9_0v2iv")]
-position = Vector2(102, -97)
-
 [node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
 
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_vayes")]
 unique_name_in_owner = true
-position = Vector2(-144, -48)
+position = Vector2(-65, -35)
 input_pickable = true
 contact_monitor = true
 max_contacts_reported = 1
 
 [node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("8_7741h")]
-position = Vector2(0, -16)
-scale = Vector2(2, 2)
+position = Vector2(0, -8)
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 
