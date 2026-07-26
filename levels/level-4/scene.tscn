@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/stabilisation-thruster/scene.tscn" id="8_t84py"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="9_1ierk"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_r5mn0"]
+[ext_resource type="Texture2D" uid="uid://bmhmen7fpgecv" path="res://levels/finish-line/finishline.png" id="15_ej2ic"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
 normal = Vector2(1, 0)
@@ -33,7 +34,7 @@ distance = -313.90134
 normal = Vector2(-0.99999434, -0.003355726)
 distance = -313.9372
 
-[node name="Level" type="Node2D" unique_id=1782678356]
+[node name="Level2" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_ogb2v")
 AltitudeGoal = 10000
 
@@ -161,3 +162,8 @@ offset_right = 118.0
 offset_bottom = 74.0
 theme = ExtResource("6_6hp3m")
 text = "Reset"
+
+[node name="Finishline" type="Sprite2D" parent="." unique_id=282044595]
+z_index = 6
+position = Vector2(0, -10000)
+texture = ExtResource("15_ej2ic")
