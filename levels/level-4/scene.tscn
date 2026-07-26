@@ -35,6 +35,7 @@ distance = -313.9372
 
 [node name="Level" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_ogb2v")
+AltitudeGoal = 10000
 
 [node name="ParallaxBg" parent="." unique_id=1362283845 instance=ExtResource("2_enlji")]
 
@@ -50,8 +51,9 @@ one_shot = true
 [node name="CrewComp" parent="RocketComponents" unique_id=217928142 instance=ExtResource("4_f7rp4")]
 position = Vector2(-111, -75)
 
-[node name="Scene" parent="RocketComponents" unique_id=1875974869 instance=ExtResource("4_g5odw")]
+[node name="Thing" parent="RocketComponents" unique_id=1875974869 instance=ExtResource("4_g5odw")]
 position = Vector2(-37, -232)
+mass = 5.0
 
 [node name="Thruster" parent="RocketComponents" unique_id=1039960409 instance=ExtResource("5_ej2ic")]
 position = Vector2(28, -349)
@@ -73,6 +75,7 @@ position = Vector2(19, -142)
 
 [node name="BowlingBall" parent="RocketComponents" unique_id=848770531 instance=ExtResource("7_2rg67")]
 position = Vector2(142, -60)
+mass = 5.0
 
 [node name="Scene4" parent="RocketComponents" unique_id=379758665 instance=ExtResource("8_t84py")]
 position = Vector2(81, -102)
