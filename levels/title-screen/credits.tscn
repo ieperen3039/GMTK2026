@@ -50,7 +50,8 @@ Music inspired by
 Brittle Rille - Kevin MacLeod"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="Control" unique_id=2120857016]
+[node name="Back" type="Button" parent="Control" unique_id=2120857016]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0

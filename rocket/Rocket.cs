@@ -109,8 +109,6 @@ public partial class Rocket : RigidBody2D
             newInertia += component.Inertia + component.Mass * distSq;
         }
         Inertia = newInertia;
-
-        GD.Print($"Relative CenterOfMass = {CenterOfMass}");
     }
 
     public void AddComponent(RocketComponent component)
