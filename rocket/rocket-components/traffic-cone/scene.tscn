@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://73ile0xgnbys"]
+
+[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_b2wx3"]
+[ext_resource type="Texture2D" uid="uid://du7g0lrj2krmc" path="res://rocket/rocket-components/traffic-cone/traffic-cone-sprite.tres" id="2_2m6h8"]
+[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/rocket-components/magnet/scene.tscn" id="3_116ew"]
+
+[node name="Scene" type="RigidBody2D" unique_id=557487131]
+script = ExtResource("1_b2wx3")
+metadata/_custom_type_script = "uid://du3u0mmw6vgwl"
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=9527033]
+polygon = PackedVector2Array(-16, 16, -16, 12, -13, 12, -4, -16, 4, -16, 13, 12, 16, 12, 16, 16)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1125583401]
+texture = ExtResource("2_2m6h8")
+
+[node name="Scene" parent="." unique_id=1363214683 instance=ExtResource("3_116ew")]
+position = Vector2(0, 16)
