@@ -13,6 +13,7 @@ public partial class DuctTape : Node2D
     public const float MousePullFactor = 0.2f;
     public const float SnapSpeed = 400f;
     public const float SnapDampening = 1f;
+    private const float MaxForce = 100_000f;
 
     public RigidBody2D ComponentA { get; private set; } = null;
     private Vector2 anchorA = new();
@@ -22,6 +23,7 @@ public partial class DuctTape : Node2D
 
     private Line2D graphic;
     private float length;
+
 
     public override void _Ready()
     {
@@ -89,10 +91,10 @@ public partial class DuctTape : Node2D
         graphic.SetPointPosition(1, ToLocal(mousePosition));
 
         Vector2 direction = mousePosition - ComponentA.GlobalPosition;
-        Vector2 targetVelocity = direction * RocketComponent.SnapSpeed * MousePullFactor;
+        Vector2 targetVelocity = direction * Grabbable.SnapSpeed * MousePullFactor;
         Vector2 velocityDifference = targetVelocity - ComponentA.LinearVelocity;
 
-        ComponentA.ApplyForce(velocityDifference * RocketComponent.SnapDampening * MousePullFactor);
+        ComponentA.ApplyForce(velocityDifference * Grabbable.SnapDampening * MousePullFactor);
     }
 
     private void UpdateConnected(double delta)
@@ -104,17 +106,27 @@ public partial class DuctTape : Node2D
         graphic.SetPointPosition(1, ToLocal(globalAnchorB));
 
         // relative to A
-        Vector2 gapBToA = globalAnchorA - globalAnchorB;
-        if (gapBToA.Length() < length) return;
-
-        Vector2 targetMovement = (gapBToA.Normalized() * length) - gapBToA;
+        Vector2 gapAToB = globalAnchorB - globalAnchorA;
+        float modifiedLength = Mathf.Clamp(gapAToB.Length() - length, 1f, length * 2f);
+        Vector2 targetMovement = gapAToB.Normalized() * modifiedLength;
         Vector2 targetVelocity = targetMovement * SnapSpeed;
         Vector2 velocityDifference = targetVelocity - (ComponentA.LinearVelocity - ComponentB.LinearVelocity);
-        Vector2 force = velocityDifference * SnapDampening;
+        Vector2 force = (velocityDifference * SnapDampening).LimitLength(MaxForce);
 
         ComponentA.ApplyForce(force, globalAnchorA - ComponentA.GlobalPosition);
         ComponentB.ApplyForce(-force, globalAnchorB - ComponentB.GlobalPosition);
+        
+        if (gapAToB.Length() > length * 2) Snap();
     }
+
+    private void Snap()
+    {
+        ComponentA = null;
+        ComponentB = null;
+        graphic.RemovePoint(1);
+        graphic.RemovePoint(0);
+    }
+
 
     public Vector2 GlobalAnchorA() => ComponentA.ToGlobal(anchorA);
     public Vector2 GlobalAnchorB() => ComponentB.ToGlobal(anchorB);
