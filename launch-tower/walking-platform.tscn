@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b7u3of3wbuoau"]
+
+[ext_resource type="Texture2D" uid="uid://85h76prwaftg" path="res://launch-tower/Walking platform.png" id="1_tc774"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3a7w"]
+size = Vector2(32, 4)
+
+[node name="WalkingPlatform" type="Node2D" unique_id=1073155838]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=4858966]
+texture = ExtResource("1_tc774")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1219564814]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=614767372]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_t3a7w")
