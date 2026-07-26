@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_168kw"]
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_doeej"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_0op4n"]
+[ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="8_ijbcg"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_teru1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(320, 42)
@@ -105,9 +108,9 @@ input_pickable = true
 contact_monitor = true
 max_contacts_reported = 1
 
-[node name="Launchpad" type="RigidBody2D" parent="OtherSelectables" unique_id=1790845868]
+[node name="Launchpad" type="StaticBody2D" parent="OtherSelectables" unique_id=2100259278]
 position = Vector2(0, -32)
-mass = 10000.0
+physics_material_override = SubResource("PhysicsMaterial_teru1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OtherSelectables/Launchpad" unique_id=1798477531]
 position = Vector2(0, 10)
@@ -152,3 +155,8 @@ shape = SubResource("WorldBoundaryShape2D_teru1")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBorder" unique_id=180391062]
 shape = SubResource("WorldBoundaryShape2D_5tnor")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1594752960]
+stream = ExtResource("8_ijbcg")
+volume_db = -5.0
+autoplay = true

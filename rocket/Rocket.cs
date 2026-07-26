@@ -109,8 +109,6 @@ public partial class Rocket : RigidBody2D
             newInertia += component.Inertia + component.Mass * distSq;
         }
         Inertia = newInertia;
-
-        GD.Print($"Relative CenterOfMass = {CenterOfMass}");
     }
 
     public void AddComponent(RocketComponent component)
@@ -133,6 +131,7 @@ public partial class Rocket : RigidBody2D
         HashSet<RocketComponent> nodesToCheck = [core];
         HashSet<RocketComponent> nodesSeen = [core];
         AddComponent(core);
+        core.PartOfRocket = true;
 
         int iterationsUntilBreak = MaxRocketComponents;
         while (nodesToCheck.Count > 0 && iterationsUntilBreak-- > 0)
@@ -147,6 +146,7 @@ public partial class Rocket : RigidBody2D
                 if (near is not RocketComponent component) continue;
                 if (nodesSeen.Contains(component)) continue;
 
+                component.PartOfRocket = true;
                 AddComponent(component);
                 nodesToCheck.Add(component);
                 nodesSeen.Add(component);

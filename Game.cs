@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 // level-manager
 public partial class Game : Node
@@ -8,36 +9,84 @@ public partial class Game : Node
     public const uint CollisionLayerGrabbable = 0b_0001;
     public const uint CollisionLayerMagnet = 0b_0001;
     public const int CentralXCoordinate = 0;
+    private PackedScene titleScreenScene;
     private PackedScene[] levelScenes;
+    private Score[] scores;
 
     private int _currentLevelIdx = 0;
-    private Level _currentLevel;
+    private Level currentLevel;
+    private TitleScreen titleScreen;
 
     public override void _Ready()
     {
+        titleScreenScene = ResourceLoader.Load<PackedScene>("res://levels/title-screen/scene.tscn");
         levelScenes = [
             ResourceLoader.Load<PackedScene>("res://levels/level-1/scene.tscn"),
             ResourceLoader.Load<PackedScene>("res://levels/level-2/scene.tscn"),
-            ResourceLoader.Load<PackedScene>("res://levels/level-3/scene.tscn")
+            ResourceLoader.Load<PackedScene>("res://levels/level-3/scene.tscn"),
+            ResourceLoader.Load<PackedScene>("res://levels/level-4/scene.tscn"),
         ];
-        
-        // TODO main menu instead of first level
-        NextLevel();
+        scores = new Score[levelScenes.Length];
+
+        ShowTitleScreen();
     }
 
+    void ShowTitleScreen()
+    {
+        CleanupCurrentScene();
+        titleScreen = titleScreenScene.Instantiate<TitleScreen>();
+        titleScreen.OnLevelSelect += StartLevel;
+        AddChild(titleScreen);
+    }
+
+    private void StartLevel(int levelIndex)
+    {
+        _currentLevelIdx = levelIndex;
+        CleanupCurrentScene();
+        InstantiateLevel(levelIndex);
+    }
+
+    // tallies score of current level, starts next level or returns to menu if none
     void NextLevel()
     {
+        scores[_currentLevelIdx] = currentLevel.GetScore();
+
         // TODO add fader
-        GD.Print("Moving to level " + _currentLevelIdx);
-        if (_currentLevel != null)
+        CleanupCurrentScene();
+
+        _currentLevelIdx++;
+
+        if (_currentLevelIdx == levelScenes.Length)
         {
-            _currentLevel.QueueFree();
-            RemoveChild(_currentLevel);
+            ShowTitleScreen();
+            return;
         }
 
-        PackedScene packedScene = levelScenes[_currentLevelIdx++];
-        _currentLevel = packedScene.Instantiate<Level>();
-        _currentLevel.OnNextLevel += NextLevel;
-        AddChild(_currentLevel);
+        InstantiateLevel(_currentLevelIdx);
     }
+
+    private void InstantiateLevel(int levelIndex)
+    {
+        GD.Print($"Instantiating level {levelIndex + 1}");
+        PackedScene packedScene = levelScenes[levelIndex];
+        currentLevel = packedScene.Instantiate<Level>();
+        currentLevel.OnNextLevel += NextLevel;
+        AddChild(currentLevel);
+    }
+
+
+    private void CleanupCurrentScene()
+    {
+        if (currentLevel != null)
+        {
+            currentLevel.QueueFree();
+            RemoveChild(currentLevel);
+        }
+        else if (titleScreen != null)
+        {
+            titleScreen.QueueFree();
+            RemoveChild(titleScreen);
+        }
+    }
+
 }
