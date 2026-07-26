@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://bn7h154hc2vae"]
 
 [ext_resource type="Texture2D" uid="uid://dqkfckyud02tv" path="res://launch-tower/launch-tower beam.png" id="1_2ddov"]
+[ext_resource type="PackedScene" uid="uid://b7u3of3wbuoau" path="res://launch-tower/walking-platform.tscn" id="2_piwu0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
-size = Vector2(16, 218)
-
-[node name="LaunchTower" type="StaticBody2D" unique_id=1059885327]
+[node name="LaunchTower" type="Node2D" unique_id=1181244718]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1149425452]
 texture_filter = 2
@@ -15,6 +13,14 @@ texture = ExtResource("1_2ddov")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 240)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1091598237]
-position = Vector2(0, -130)
-shape = SubResource("RectangleShape2D_teru1")
+[node name="WalkingPlatform" parent="." unique_id=1073155838 instance=ExtResource("2_piwu0")]
+position = Vector2(-4, -61)
+
+[node name="WalkingPlatform2" parent="." unique_id=946191842 instance=ExtResource("2_piwu0")]
+position = Vector2(-36, -140)
+
+[node name="WalkingPlatform3" parent="." unique_id=742868253 instance=ExtResource("2_piwu0")]
+position = Vector2(-4, -140)
+
+[node name="WalkingPlatformExtension" parent="." unique_id=48754305 instance=ExtResource("2_piwu0")]
+position = Vector2(-35, -61)

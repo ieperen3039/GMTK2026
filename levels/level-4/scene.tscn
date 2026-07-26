@@ -90,7 +90,7 @@ position = Vector2(180, -28)
 scale = Vector2(2, 2)
 
 [node name="Crew" parent="OtherSelectables" unique_id=722783974 instance=ExtResource("6_bneui")]
-position = Vector2(222, -55)
+position = Vector2(151, -325)
 
 [node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("7_er6ob")]
 position = Vector2(181, -20)
