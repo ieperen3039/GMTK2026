@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_llm56"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_vayes"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="8_7741h"]
+[ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/stabilisation-thruster/scene.tscn" id="9_0v2iv"]
 [ext_resource type="PackedScene" uid="uid://bi4yn7cwq1oyn" path="res://rocket/rocket-components/fin-left/template.tscn" id="9_h37kx"]
 [ext_resource type="PackedScene" uid="uid://dtbc1yy3xxe0b" path="res://rocket/rocket-components/fin-right/template.tscn" id="10_0v2iv"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_0v2iv"]
@@ -80,6 +81,12 @@ position = Vector2(-87, -152)
 
 [node name="RightFin" parent="RocketComponents" unique_id=218350506 instance=ExtResource("10_0v2iv")]
 position = Vector2(116, -145)
+
+[node name="Stabilizer" parent="RocketComponents" unique_id=379758665 instance=ExtResource("9_0v2iv")]
+position = Vector2(-24, -100)
+
+[node name="Stabilizer2" parent="RocketComponents" unique_id=1804020420 instance=ExtResource("9_0v2iv")]
+position = Vector2(102, -97)
 
 [node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
 
