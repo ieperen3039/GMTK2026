@@ -18,6 +18,9 @@
   "frameTags": [
   ],
   "layers": [
+   { "name": "CrewCompartment" },
+   { "name": "Layer 1", "group": "CrewCompartment", "opacity": 255, "blendMode": "normal" },
+   { "name": "Shading", "group": "CrewCompartment", "opacity": 255, "blendMode": "normal" },
    { "name": "Engine" },
    { "name": "Engine v2", "group": "Engine", "opacity": 255, "blendMode": "normal" },
    { "name": "Shading", "group": "Engine", "opacity": 255, "blendMode": "normal" },
