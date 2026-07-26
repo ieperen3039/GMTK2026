@@ -1,0 +1,63 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://4gsf5see57qy"]
+
+[ext_resource type="Texture2D" uid="uid://bfhcq8biwiyky" path="res://crew/crew-animation.png" id="1_aeaeo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aeaeo"]
+atlas = ExtResource("1_aeaeo")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lq8au"]
+atlas = ExtResource("1_aeaeo")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34b1d"]
+atlas = ExtResource("1_aeaeo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d536g"]
+atlas = ExtResource("1_aeaeo")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmgy5"]
+atlas = ExtResource("1_aeaeo")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pymh6"]
+atlas = ExtResource("1_aeaeo")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aeaeo")
+}],
+"loop": 1,
+"name": &"Fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lq8au")
+}],
+"loop": 1,
+"name": &"Stand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34b1d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d536g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmgy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pymh6")
+}],
+"loop": 1,
+"name": &"Walk",
+"speed": 5.0
+}]

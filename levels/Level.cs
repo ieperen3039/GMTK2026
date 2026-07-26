@@ -328,7 +328,6 @@ public partial class Level : Node2D
         {
             tape.Snap();
             parent.tapes.Remove(tape);
-            parent.ductTapeInstancesNode.RemoveChild(tape);
             tape.QueueFree();
         }
     }

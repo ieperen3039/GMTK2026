@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bsr8qnp6xxaig"]
+
+[ext_resource type="Script" uid="uid://dba151g7u8mpd" path="res://crew/CrewMember.cs" id="1_kycf5"]
+[ext_resource type="SpriteFrames" uid="uid://4gsf5see57qy" path="res://crew/crew-animation.tres" id="1_w3wfc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_w3wfc"]
+friction = 0.1
+bounce = 0.1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_teru1"]
+radius = 4.0
+height = 16.0
+
+[node name="Crew" type="RigidBody2D" unique_id=722783974]
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_w3wfc")
+script = ExtResource("1_kycf5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=882741719]
+shape = SubResource("CapsuleShape2D_teru1")
+
+[node name="Animation" type="AnimatedSprite2D" parent="." unique_id=1230547999]
+sprite_frames = ExtResource("1_w3wfc")
+animation = &"Stand"
