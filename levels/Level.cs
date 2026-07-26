@@ -9,6 +9,8 @@ public partial class Level : Node2D
 {
     [Signal]
     public delegate void OnNextLevelEventHandler();
+    [Signal]
+    public delegate void OnResetEventHandler();
 
     private const int AltitudeScoreZone = 100;
 
@@ -94,11 +96,13 @@ public partial class Level : Node2D
             throw new Exception($"No control components in scene");
         }
 
-        // Setup tools
+        // Setup buttons
         CanvasLayer canvasLayer = GetNode<CanvasLayer>("CanvasLayer");
         canvasLayer.Offset = Vector2.Zero;
-        Button tapeToolButton = canvasLayer.GetNode<Button>("SetTapeTool");
+        Button tapeToolButton = GetNode<Button>("%SetTapeTool");
         tapeToolButton.Pressed += SetTapeTool;
+        Button resetButton = GetNode<Button>("%Reset");
+        resetButton.Pressed += () => EmitSignal(SignalName.OnReset);
 
         // Setup the timer
         timer_ui.Initialize(timer);
@@ -160,11 +164,6 @@ public partial class Level : Node2D
     // attach camera to largest component tree, activate all engines
     private void OnCountdownZero()
     {
-        // NOTE: overwrite _default_ tool
-        // defaultMouseTool = new NullTool();
-        // ResetMouseTool();
-        // hoveredSelectable = null;
-
         buildPhaseBounds.ProcessMode = ProcessModeEnum.Disabled;
 
         // all thrusters to 100%
