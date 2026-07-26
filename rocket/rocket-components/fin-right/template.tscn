@@ -8,6 +8,7 @@
 
 [node name="Scene" type="RigidBody2D" unique_id=217928142]
 input_pickable = true
+mass = 0.1
 physics_material_override = ExtResource("1_2e6lc")
 center_of_mass_mode = 1
 center_of_mass = Vector2(-3, 5)
@@ -20,12 +21,11 @@ polygon = PackedVector2Array(8, 16, -7.876923, -16, -8, 16)
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=534105907]
 texture = ExtResource("3_c155d")
 
-[node name="DragSource" type="Node2D" parent="." unique_id=1153760326]
-position = Vector2(8, 15)
-rotation = 3.1415927
-script = ExtResource("4_vw4hv")
-ThrustPower = 500.0
-IsPassive = true
-
 [node name="Magnet" parent="." unique_id=450049775 instance=ExtResource("5_byink")]
 position = Vector2(-8, 0)
+PullStrength = 100.0
+
+[node name="DragSource" type="Node2D" parent="." unique_id=326584465]
+position = Vector2(-8.000001, 15.000001)
+script = ExtResource("4_vw4hv")
+ThrustPower = 100.0

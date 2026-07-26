@@ -2,15 +2,16 @@
 
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_krbkv"]
 [ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="2_y0sqk"]
-[ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_y0sqk"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_fudoe"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="5_tfgyv"]
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_6itg2"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_4scl4"]
 [ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/stabilisation-thruster/scene.tscn" id="7_xm06s"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="8_y0sqk"]
+[ext_resource type="PackedScene" uid="uid://73ile0xgnbys" path="res://rocket/rocket-components/traffic-cone/scene.tscn" id="10_6itg2"]
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="11_6itg2"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_okrdb"]
+[ext_resource type="PackedScene" uid="uid://s7v7dbr5g7n4" path="res://rocket/rocket-components/bowling-ball/scene.tscn" id="12_6itg2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
 normal = Vector2(1, 0)
@@ -43,19 +44,16 @@ texture = ExtResource("2_y0sqk")
 position = Vector2(0, -240)
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 40.0
+wait_time = 60.0
 one_shot = true
 
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
 
 [node name="Engine" parent="RocketComponents" unique_id=375305117 instance=ExtResource("5_tfgyv")]
-position = Vector2(-96, -186)
-
-[node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_y0sqk")]
-position = Vector2(-28, -122)
+position = Vector2(-19, -132)
 
 [node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_fudoe")]
-position = Vector2(-114, -100)
+position = Vector2(-41, -51)
 
 [node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_fudoe")]
 position = Vector2(83, -139)
@@ -73,7 +71,11 @@ position = Vector2(29, -97)
 position = Vector2(-66, -129)
 
 [node name="StabilizerThr2" parent="RocketComponents" unique_id=1610155872 instance=ExtResource("7_xm06s")]
-position = Vector2(88, -86)
+position = Vector2(60, -214)
+
+[node name="BowlingBall" parent="RocketComponents" unique_id=848770531 instance=ExtResource("12_6itg2")]
+position = Vector2(0, -592)
+mass = 10.0
 
 [node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
 
@@ -86,6 +88,12 @@ max_contacts_reported = 1
 
 [node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("8_y0sqk")]
 position = Vector2(0, -8)
+
+[node name="Cone2" parent="OtherSelectables" unique_id=557487131 instance=ExtResource("10_6itg2")]
+position = Vector2(-221, -16)
+
+[node name="Cone3" parent="OtherSelectables" unique_id=13783316 instance=ExtResource("10_6itg2")]
+position = Vector2(222, -16)
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 

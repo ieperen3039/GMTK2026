@@ -39,7 +39,7 @@ texture = ExtResource("2_cpmxm")
 position = Vector2(0, -240)
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 100000.0
+wait_time = 17.0
 one_shot = true
 
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
@@ -52,9 +52,6 @@ position = Vector2(-58, -32)
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("9_1ierk")]
 unique_name_in_owner = true
 position = Vector2(-137, -22)
-input_pickable = true
-contact_monitor = true
-max_contacts_reported = 1
 
 [node name="Crew1" parent="OtherSelectables" unique_id=722783974 instance=ExtResource("6_bneui")]
 position = Vector2(127, -179)
