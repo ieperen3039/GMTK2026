@@ -18,6 +18,10 @@ config/name="GMTK2026"
 run/main_scene="uid://bcxdl7vmhwro4"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 
+[audio]
+
+buses/default_bus_layout="uid://ct33mw21k8ao4"
+
 [display]
 
 window/size/viewport_width=480

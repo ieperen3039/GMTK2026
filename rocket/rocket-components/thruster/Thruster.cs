@@ -10,9 +10,12 @@ public partial class Thruster : RocketComponent
     }
 
     private Dictionary<CpuParticles2D, OriginalValues> _particles = [];
+    private ThrusterSFX _sfx;
     public override void _Ready()
     {
         base._Ready();
+        _sfx = GetNode<ThrusterSFX>("ThrusterSFX");
+        _sfx.Playing = false;
 
         foreach (Node node in GetNode<Node2D>("ExhaustParticles").GetChildren())
         {
@@ -61,6 +64,9 @@ public partial class Thruster : RocketComponent
         {
             thruster.SetActivationThrustFactor();
         }
+
+        // Enable the sound
+        _sfx.StartEngine();
 
         // Enable the visuals
         foreach (var (particle, _) in _particles)
