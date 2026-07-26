@@ -8,16 +8,10 @@ public partial class LevelComplete : Node
 
     public const float FadeDuration = 1.0f;
     private bool hasFired = false;
-    [Export]
-    public int NumLiftedComponents;
-    [Export]
-    public int NumExtras;
-    [Export]
-    public int TotalComponents;
+    public Score Score;
 
-    Label scoreNode;
-    Label extraScoreNode;
-
+    private Label scoreNode;
+    private Label extraScoreNode;
 
     public override void _Ready()
     {
@@ -35,7 +29,7 @@ public partial class LevelComplete : Node
         tween.TweenProperty(scoreNode, "modulate:a", 1.0, FadeDuration)
             .SetTrans(Tween.TransitionType.Cubic);
         tween.Parallel()
-            .TweenMethod(Callable.From<int>(SetVisibleScore), 0, NumLiftedComponents, 2.0f);
+            .TweenMethod(Callable.From<int>(SetVisibleScore), 0, Score.NumLiftedComponents, 2.0f);
 
         extraScoreNode = GetNode<Label>("%ExtraScoreText");
         extraScoreNode.Modulate = new(Colors.White, 0);
@@ -43,7 +37,7 @@ public partial class LevelComplete : Node
         tween.TweenProperty(extraScoreNode, "modulate:a", 1.0, FadeDuration)
             .SetTrans(Tween.TransitionType.Cubic);
         tween.Parallel()
-            .TweenMethod(Callable.From<int>(SetVisibleExtraScore), 0, NumExtras, 2.0f);
+            .TweenMethod(Callable.From<int>(SetVisibleExtraScore), 0, Score.NumExtras, 2.0f);
 
         Button continueButton = GetNode<Button>("%ContinueButton");
         continueButton.Modulate = new(Colors.White, 0);
@@ -55,7 +49,7 @@ public partial class LevelComplete : Node
 
     private void SetVisibleScore(int count)
     {
-        scoreNode.Text = $"Components lifted: {count} / {TotalComponents}";
+        scoreNode.Text = $"Components lifted: {count} / {Score.TotalComponents}";
     }
 
     private void SetVisibleExtraScore(int count)

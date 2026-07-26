@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://c7eiwtda0q5p4"]
+
+[ext_resource type="Texture2D" uid="uid://uu4114xku38w" path="res://ui-themes/UIFatBorder.png" id="1_ypj05"]
+
+[resource]
+texture = ExtResource("1_ypj05")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
