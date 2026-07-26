@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_1ur03"]
 [ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_vmxb2"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="3_vmxb2"]
-[ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_u5qjk"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_168kw"]
+[ext_resource type="PackedScene" uid="uid://tp7iqlyptfia" path="res://rocket/rocket-components/nose-cone/scene_fat.tscn" id="5_doeej"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_0op4n"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="8_ijbcg"]
 [ext_resource type="PackedScene" uid="uid://bn7h154hc2vae" path="res://launch-tower/launch-tower.tscn" id="8_u5qjk"]
@@ -41,13 +41,10 @@ one_shot = true
 [node name="Engine" parent="RocketComponents" unique_id=375305117 instance=ExtResource("3_vmxb2")]
 position = Vector2(-22, -101)
 
-[node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_u5qjk")]
-position = Vector2(-54, -204)
-
-[node name="NoseCone2" parent="RocketComponents" unique_id=1881226673 instance=ExtResource("4_u5qjk")]
-position = Vector2(60, -202)
-
 [node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_168kw")]
+position = Vector2(-99, -106)
+
+[node name="FuelTank5" parent="RocketComponents" unique_id=1470725059 instance=ExtResource("5_168kw")]
 position = Vector2(-99, -106)
 
 [node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_168kw")]
@@ -61,6 +58,12 @@ position = Vector2(45, -147)
 
 [node name="Engine2" parent="RocketComponents" unique_id=1552468733 instance=ExtResource("3_vmxb2")]
 position = Vector2(29, -97)
+
+[node name="COOOONE" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("5_doeej")]
+position = Vector2(-77, -258)
+
+[node name="Scene" parent="RocketComponents" unique_id=220978378 instance=ExtResource("11_0op4n")]
+position = Vector2(-112, -198)
 
 [node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
 
@@ -81,16 +84,13 @@ position = Vector2(-197.00002, -20)
 scale = Vector2(2.453, 2.5)
 
 [node name="Crew" parent="OtherSelectables" unique_id=722783974 instance=ExtResource("10_doeej")]
-position = Vector2(98, -169)
+position = Vector2(154, -168)
 
 [node name="Crew2" parent="OtherSelectables" unique_id=950442686 instance=ExtResource("10_doeej")]
-position = Vector2(122, -169)
+position = Vector2(172, -169)
 
 [node name="Crew3" parent="OtherSelectables" unique_id=1761376723 instance=ExtResource("10_doeej")]
-position = Vector2(146, -170)
-
-[node name="Scene" parent="OtherSelectables" unique_id=220978378 instance=ExtResource("11_0op4n")]
-position = Vector2(-112, -198)
+position = Vector2(189, -169)
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 
