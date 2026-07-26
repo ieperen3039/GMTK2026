@@ -29,7 +29,6 @@ public partial class CrewMember : Grabbable
     {
         base._Process(delta);
 
-        GD.Print($"Animation = {animation.Animation}, Friction = {PhysicsMaterialOverride?.Friction}");
         switch (animation.Animation)
         {
             case AnimationNameStand:

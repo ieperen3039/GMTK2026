@@ -3,7 +3,7 @@ using Godot;
 public partial class Grabbable : RigidBody2D
 {
     public const float SnapSpeed = 20f;
-    public const float SnapDampening = 20f;
+    public const float SnapDampening = 30f;
     public const float MaxSpeedWhendragging = 1_000;
 
     protected bool isDragging = false;
