@@ -4,10 +4,12 @@ using System.Collections.Generic;
 
 public partial class Thruster : RocketComponent
 {
-    [Export]
-    private Vector2 InitialParticleVelocity = new(0, 500);
+    struct OriginalValues
+    {
+        public double Lifetime;
+    }
 
-    private List<CpuParticles2D> _particles = [];
+    private Dictionary<CpuParticles2D, OriginalValues> _particles = [];
     public override void _Ready()
     {
         base._Ready();
@@ -16,11 +18,41 @@ public partial class Thruster : RocketComponent
         {
             if (node is CpuParticles2D particle)
             {
-                _particles.Add(particle);
+                _particles.Add(particle, new() { Lifetime = particle.Lifetime });
                 particle.Emitting = false;
             }
         }
     }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+        float averageThrustFactor = 0;
+        int numThrusters = 0;
+        foreach (ThrustSource thruster in ThrustSources)
+        {
+            if (thruster.IsPassive) continue;
+            averageThrustFactor += thruster.ThrustFactor;
+            numThrusters++;
+        }
+        averageThrustFactor /= numThrusters;
+
+        foreach (var (particle, original) in _particles)
+        {
+            if (averageThrustFactor > 0.1)
+            {
+                particle.Emitting = true;
+                // squared thrust factor to make the effect more noticable
+                particle.Lifetime = original.Lifetime * averageThrustFactor * averageThrustFactor;
+            }
+            else
+            {
+                particle.Emitting = false;
+            }
+        }
+    }
+
 
     public void ActivateThruster()
     {
@@ -31,7 +63,7 @@ public partial class Thruster : RocketComponent
         }
 
         // Enable the visuals
-        foreach (CpuParticles2D particle in _particles)
+        foreach (var (particle, _) in _particles)
         {
             particle.Emitting = true;
         }
