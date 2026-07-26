@@ -31,7 +31,8 @@ public partial class Grabbable : RigidBody2D
             Vector2 targetVelocity = direction * SnapSpeed;
             Vector2 velocityDifference = targetVelocity - LinearVelocity;
             Vector2 globalOffset = GlobalTransform.BasisXform(localGrabOffset);
-            ApplyForce(velocityDifference * SnapDampening * pullFactor, globalOffset);
+            // for small masses, reduce the force to avoid slingshotting
+            ApplyForce(velocityDifference * SnapDampening * pullFactor * Mathf.Min(0.5f, Mass), globalOffset);
         }
     }
 
