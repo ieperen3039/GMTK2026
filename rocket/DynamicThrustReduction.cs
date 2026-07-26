@@ -78,7 +78,7 @@ public class DynamicThrustReduction
                 && !float.IsInfinity(targetTorque)
                 && Mathf.Abs(torque) >= MinimumControlTorque)
             {
-                stabilizer.SetThrustFactor(0.0f);
+                stabilizer.ThrustFactor = 0.0f;
                 GD.Print($"Stabilizer targetPowerLevel = OFF (torque = {torque})");
             }
             else
@@ -86,7 +86,7 @@ public class DynamicThrustReduction
                 // helpful torque, increase power until we run out of budget
                 float torqueBudgetLeft = maxAccumulatedTorque - accumulatedTorque;
                 float targetPowerLevel = Mathf.Clamp(torqueBudgetLeft / Mathf.Abs(torque), 0, 1);
-                stabilizer.SetThrustFactor(targetPowerLevel);
+                stabilizer.ThrustFactor = targetPowerLevel;
                 accumulatedTorque += Mathf.Abs(torque) * targetPowerLevel;
                 GD.Print($"Stabilizer targetPowerLevel = {targetPowerLevel} (torque = {torque}, torqueBudgetLeft = {maxAccumulatedTorque - accumulatedTorque})");
             }
@@ -94,7 +94,7 @@ public class DynamicThrustReduction
 
         if (leastEffectiveTorqueingThrusters.Count == 1)
         {
-            leastEffectiveTorqueingThrusters.Dequeue().SetThrustFactor(1.0f);
+            leastEffectiveTorqueingThrusters.Dequeue().ThrustFactor = 1.0f;
             GD.Print($"Thruster targetPowerLevel = MAX (it is the only thruster)");
         }
         else
@@ -110,7 +110,7 @@ public class DynamicThrustReduction
                     || float.IsInfinity(targetTorque)
                     || Mathf.Abs(torque) < MinimumControlTorque)
                 {
-                    thruster.SetThrustFactor(1.0f);
+                    thruster.ThrustFactor = 1.0f;
                     GD.Print($"Thruster targetPowerLevel = MAX (torque = {torque})");
                 }
                 else
@@ -118,7 +118,7 @@ public class DynamicThrustReduction
                     // opposite torque, reduce power if we run out of budget
                     float torqueBudgetLeft = maxAccumulatedTorque - accumulatedTorque;
                     float targetPowerLevel = Mathf.Clamp(torqueBudgetLeft / Mathf.Abs(torque), 0, 1);
-                    thruster.SetThrustFactor(targetPowerLevel);
+                    thruster.ThrustFactor = targetPowerLevel;
                     accumulatedTorque += Mathf.Abs(torque) * targetPowerLevel;
                     GD.Print($"Thruster targetPowerLevel = {targetPowerLevel} (torque = {torque}, torqueBudgetLeft = {maxAccumulatedTorque - accumulatedTorque})");
                 }

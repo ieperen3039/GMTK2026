@@ -29,7 +29,7 @@ public partial class Level : Node2D
 
     private IMouseTool defaultMouseTool;
     private IMouseTool mouseTool;
-    private RigidBody2D hoveredSelectable;
+    private Grabbable hoveredSelectable;
 
     private Timer timer;
     private CountdownTimer timer_ui;
@@ -60,7 +60,7 @@ public partial class Level : Node2D
         // setup grabbable listeners
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
-            if (child is RigidBody2D part)
+            if (child is Grabbable part)
             {
                 part.MouseEntered += () => OnHoverSelectable(part, true);
                 part.MouseExited += () => OnHoverSelectable(part, false);
@@ -81,7 +81,7 @@ public partial class Level : Node2D
 
         foreach (Node child in selectablesNode.GetChildren())
         {
-            if (child is RigidBody2D part)
+            if (child is Grabbable part)
             {
                 part.InputPickable = true;
                 part.MouseEntered += () => OnHoverSelectable(part, true);
@@ -106,7 +106,7 @@ public partial class Level : Node2D
         timer.Start();
     }
 
-    private void OnHoverSelectable(RigidBody2D part, bool setActive)
+    private void OnHoverSelectable(Grabbable part, bool setActive)
     {
         if (!setActive)
         {
@@ -289,7 +289,7 @@ public partial class Level : Node2D
 
         public void OnClick(Vector2 mousePosition)
         {
-            RigidBody2D selectable = parent.hoveredSelectable;
+            Grabbable selectable = parent.hoveredSelectable;
             GD.Print($"OnClick {selectable?.Name}");
             if (selectable != null)
             {
@@ -307,7 +307,7 @@ public partial class Level : Node2D
 
         public void OnRelease(Vector2 mousePosition)
         {
-            RigidBody2D selectable = parent.hoveredSelectable;
+            Grabbable selectable = parent.hoveredSelectable;
             if (selectable != null)
             {
                 Vector2 relativeClick = selectable.ToLocal(mousePosition);
@@ -327,6 +327,7 @@ public partial class Level : Node2D
 
         public void OnCancel()
         {
+            tape.Snap();
             parent.tapes.Remove(tape);
             parent.ductTapeInstancesNode.RemoveChild(tape);
             tape.QueueFree();
