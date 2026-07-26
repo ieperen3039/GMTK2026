@@ -5,22 +5,17 @@ using System;
 public partial class ThrustSource : Node2D
 {
     [Export]
-    public float ThrustPower;
+    public float ThrustPower {get; private set; }
     [Export]
-    public bool IsPassive;
+    public bool IsPassive {get; private set; }
 
-    private float thrustFactor = 0.0f;
+    public float ThrustFactor = 0.0f;
 
-    public bool EnableThrust => thrustFactor > 0.0f;
+    public bool EnableThrust => ThrustFactor > 0.0f;
 
-    public void SetThrustFactor(float fractionOfFull)
-    {
-        thrustFactor = fractionOfFull;
-    }
+    public void SetActivationThrustFactor() => ThrustFactor = (IsPassive ? 0 : 1);
 
-    public void SetActivationThrustFactor() => SetThrustFactor(IsPassive ? 0 : 1);
-
-    public Vector2 GetThrust() => GetThrustAt(thrustFactor);
+    public Vector2 GetThrust() => GetThrustAt(ThrustFactor);
 
     // returns (Global thrust vector, offset from parent in global space)
     public Vector2 GetThrustAt(float fractionOfFull)
@@ -29,7 +24,7 @@ public partial class ThrustSource : Node2D
     }
 
 
-    public Vector2 GetLocalThrust() => GetLocalThrustAt(thrustFactor);
+    public Vector2 GetLocalThrust() => GetLocalThrustAt(ThrustFactor);
 
     public virtual Vector2 GetLocalThrustAt(float fractionOfFull) => Vector2.Up * ThrustPower * fractionOfFull;
 

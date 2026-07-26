@@ -6,18 +6,18 @@ public partial class DuctTape : Node2D
     public enum StatusValue
     {
         Empty,
-        HalfConnected,
+        HalfConnected, // ComponentA is held by us
         FullConnected
     }
 
-    public const float MousePullFactor = 0.2f;
+    public const float MousePullFactor = 0.05f;
     public const float SnapSpeed = 1000f;
     public const float SnapDampening = 1f;
     private const float MaxForce = 100_000f;
 
-    public RigidBody2D ComponentA { get; private set; } = null;
+    public Grabbable ComponentA { get; private set; } = null;
     private Vector2 anchorA = new();
-    public RigidBody2D ComponentB { get; private set; } = null;
+    public Grabbable ComponentB { get; private set; } = null;
 
     private Vector2 anchorB = new();
 
@@ -34,7 +34,7 @@ public partial class DuctTape : Node2D
 
     public StatusValue Status => ComponentA == null ? StatusValue.Empty : (ComponentB == null ? StatusValue.HalfConnected : StatusValue.FullConnected);
 
-    public void Attach(RigidBody2D component, Vector2 localAttachmentPosition)
+    public void Attach(Grabbable component, Vector2 localAttachmentPosition)
     {
         switch (Status)
         {
@@ -44,12 +44,14 @@ public partial class DuctTape : Node2D
                 Position = component.Position;
                 ComponentA = component;
                 anchorA = localAttachmentPosition;
+                ComponentA.OnGrab(localAttachmentPosition, MousePullFactor);
                 Vector2 linePoint = ToLocal(GlobalAnchorA());
                 graphic.AddPoint(linePoint);
                 graphic.AddPoint(linePoint);
                 return;
 
             case StatusValue.HalfConnected:
+                ComponentA.OnRelease();
                 if (component == ComponentA)
                 {
                     GD.Print("Tape detach A");
@@ -90,11 +92,7 @@ public partial class DuctTape : Node2D
         graphic.SetPointPosition(0, ToLocal(globalAnchorA));
         graphic.SetPointPosition(1, ToLocal(mousePosition));
 
-        Vector2 direction = mousePosition - ComponentA.GlobalPosition;
-        Vector2 targetVelocity = direction * Grabbable.SnapSpeed * MousePullFactor;
-        Vector2 velocityDifference = targetVelocity - ComponentA.LinearVelocity;
-
-        ComponentA.ApplyForce(velocityDifference * Grabbable.SnapDampening * MousePullFactor);
+        // component A pull is handled by Grabbable
     }
 
     private void UpdateConnected(double delta)
@@ -119,8 +117,13 @@ public partial class DuctTape : Node2D
         if (gapAToB.Length() > length * 2) Snap();
     }
 
-    private void Snap()
+    public void Snap()
     {
+        if (Status == StatusValue.HalfConnected)
+        {
+            ComponentA.OnRelease();
+        }
+
         ComponentA = null;
         ComponentB = null;
         graphic.RemovePoint(1);

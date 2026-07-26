@@ -8,6 +8,7 @@ public partial class Grabbable : RigidBody2D
     protected bool isDragging = false;
     private Vector2 localGrabOffset = new();
     private PhysicsMaterial originalMaterial;
+    private float pullFactor = 1;
 
     // Called when the node enters the scene tree for the first time.
 
@@ -30,7 +31,7 @@ public partial class Grabbable : RigidBody2D
             Vector2 targetVelocity = direction * SnapSpeed;
             Vector2 velocityDifference = targetVelocity - LinearVelocity;
             Vector2 globalOffset = GlobalTransform.BasisXform(localGrabOffset);
-            ApplyForce(velocityDifference * SnapDampening, globalOffset);
+            ApplyForce(velocityDifference * SnapDampening * pullFactor, globalOffset);
         }
     }
 
@@ -40,9 +41,10 @@ public partial class Grabbable : RigidBody2D
         PhysicsMaterialOverride = originalMaterial;
     }
 
-    public void OnGrab(Vector2 localGrabOffset)
+    public void OnGrab(Vector2 localGrabOffset, float pullFactor = 1.0f)
     {
         this.localGrabOffset = localGrabOffset;
+        this.pullFactor = pullFactor;
         isDragging = true;
 
         PhysicsMaterialOverride = new PhysicsMaterial()

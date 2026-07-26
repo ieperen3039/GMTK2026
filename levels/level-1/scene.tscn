@@ -64,13 +64,13 @@ one_shot = true
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
 
 [node name="Engine" parent="RocketComponents" unique_id=375305117 instance=ExtResource("5_7741h")]
-position = Vector2(51, -83)
+position = Vector2(55, -94)
 
 [node name="NoseCone" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("4_llm56")]
 position = Vector2(-25, -165)
 
 [node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_xmw3k")]
-position = Vector2(-69, -90)
+position = Vector2(-12, -94)
 
 [node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_llm56")]
 position = Vector2(32, -162)
@@ -85,14 +85,13 @@ position = Vector2(116, -145)
 
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_vayes")]
 unique_name_in_owner = true
-position = Vector2(-144, -48)
+position = Vector2(-65, -35)
 input_pickable = true
 contact_monitor = true
 max_contacts_reported = 1
 
 [node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("8_7741h")]
-position = Vector2(0, -16)
-scale = Vector2(2, 2)
+position = Vector2(0, -8)
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 

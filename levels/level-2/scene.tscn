@@ -7,8 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="5_tfgyv"]
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_6itg2"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_4scl4"]
-[ext_resource type="PackedScene" uid="uid://dtbc1yy3xxe0b" path="res://rocket/rocket-components/fin-right/template.tscn" id="7_xm06s"]
-[ext_resource type="PackedScene" uid="uid://bi4yn7cwq1oyn" path="res://rocket/rocket-components/fin-left/template.tscn" id="8_okrdb"]
+[ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/stabilisation-thruster/scene.tscn" id="7_xm06s"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="8_y0sqk"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_okrdb"]
 
@@ -70,25 +69,25 @@ position = Vector2(-96, -186)
 position = Vector2(-28, -122)
 
 [node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_fudoe")]
-position = Vector2(-106, -132)
+position = Vector2(-114, -100)
 
 [node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_fudoe")]
 position = Vector2(83, -139)
 
 [node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_fudoe")]
-position = Vector2(-86, -79)
+position = Vector2(-19, -191)
 
 [node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_6itg2")]
-position = Vector2(20, -151)
+position = Vector2(34, -154)
 
 [node name="Engine2" parent="RocketComponents" unique_id=1552468733 instance=ExtResource("5_tfgyv")]
 position = Vector2(29, -97)
 
-[node name="RightFin" parent="RocketComponents" unique_id=1295776029 instance=ExtResource("7_xm06s")]
-position = Vector2(69, -198)
+[node name="StabilizerThr1" parent="RocketComponents" unique_id=379758665 instance=ExtResource("7_xm06s")]
+position = Vector2(-66, -129)
 
-[node name="LeftFin" parent="RocketComponents" unique_id=1440213093 instance=ExtResource("8_okrdb")]
-position = Vector2(-38, -186)
+[node name="StabilizerThr2" parent="RocketComponents" unique_id=1610155872 instance=ExtResource("7_xm06s")]
+position = Vector2(88, -86)
 
 [node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
 
@@ -100,8 +99,7 @@ contact_monitor = true
 max_contacts_reported = 1
 
 [node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("8_y0sqk")]
-position = Vector2(0, -16)
-scale = Vector2(2, 2)
+position = Vector2(0, -8)
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 
