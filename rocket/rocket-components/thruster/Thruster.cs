@@ -20,9 +20,6 @@ public partial class Thruster : RocketComponent
                 particle.Emitting = false;
             }
         }
-
-        // TODO remove
-        ActivateThruster();
     }
 
     public void ActivateThruster()
