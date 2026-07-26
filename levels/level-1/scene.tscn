@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dwmbn8u24wher"]
 
-[ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="1_68uyt"]
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_hh1ok"]
+[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_qpjtc"]
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="3_cfguj"]
 [ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_llm56"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="5_7741h"]
@@ -36,10 +36,7 @@ distance = -313.9372
 script = ExtResource("1_hh1ok")
 AltitudeGoal = 1000
 
-[node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
-position = Vector2(0, -720)
-scale = Vector2(2.453, 2.5)
-texture = ExtResource("1_68uyt")
+[node name="ParallaxBg" parent="." unique_id=932535934 instance=ExtResource("2_qpjtc")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(0, -240)
@@ -60,6 +57,7 @@ offset_bottom = 74.0
 grow_horizontal = 0
 theme = ExtResource("3_cfguj")
 text = "Tape"
+metadata/_edit_use_anchors_ = true
 
 [node name="Reset" type="Button" parent="CanvasLayer" unique_id=1623442626]
 unique_name_in_owner = true
@@ -69,6 +67,7 @@ offset_right = 118.0
 offset_bottom = 74.0
 theme = ExtResource("3_cfguj")
 text = "Reset"
+metadata/_edit_use_anchors_ = true
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
 wait_time = 30.0
@@ -99,9 +98,6 @@ position = Vector2(116, -145)
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_vayes")]
 unique_name_in_owner = true
 position = Vector2(-65, -35)
-input_pickable = true
-contact_monitor = true
-max_contacts_reported = 1
 
 [node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("8_7741h")]
 position = Vector2(0, -8)

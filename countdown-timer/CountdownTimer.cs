@@ -10,8 +10,7 @@ public partial class CountdownTimer : Grabbable
     private int _value;
 
     private AudioStreamPlayer2D audioPlayer;
-    // private AudioStreamOggVorbis[] counts;
-    private AudioStreamOggVorbis countdownAudio;
+    private AudioStreamOggVorbis[] counts;
     private int countIndex = 0;
 
     [Export]
@@ -31,23 +30,21 @@ public partial class CountdownTimer : Grabbable
         _tens = GetNode<Sprite2D>("%Tens");
         _ones = GetNode<Sprite2D>("%Ones");
         UpdateDisplay();
-        // bevat de hele countdown
-        countdownAudio = ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/one.ogg");
 
-        // counts = [
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/ignition-in-t-minus.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/ten.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/nine.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/eight.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/seven.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/six.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/five.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/four.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/three.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/two.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/one.ogg"),
-            // ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/zero.ogg"),
-        // ];
+        counts = [
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/ignition-in-t-minus.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/ten.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/nine.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/eight.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/seven.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/six.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/five.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/four.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/three.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/two.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/one.ogg"),
+            ResourceLoader.Load<AudioStreamOggVorbis>("res://countdown-timer/audio/zero.ogg"),
+        ];
 
 
         if (Engine.IsEditorHint())
@@ -66,31 +63,24 @@ public partial class CountdownTimer : Grabbable
 
         Value = Mathf.CeilToInt(_timer.TimeLeft);
 
-        if (_timer.TimeLeft < 14f && countIndex == 0)
+        if (countIndex == 0)
         {
-            audioPlayer.Stream = countdownAudio;
-            audioPlayer.Play();
-            countIndex++;
+            if (_timer.TimeLeft < 14.5f)
+            {
+                audioPlayer.Stream = counts[countIndex++];
+                audioPlayer.Play();
+            }
         }
-
-        // if (countIndex == 0)
-        // {
-        //     if (_timer.TimeLeft < 14.5f)
-        //     {
-        //         audioPlayer.Stream = counts[countIndex++];
-        //         audioPlayer.Play();
-        //     }
-        // }
-        // else if (countIndex == counts.Length)
-        // {
-        //     // done counting
-        // }
-        // else if ((12 - Value) > countIndex)
-        // {
-        //     GD.Print($"Playing {countIndex} ({Value})");
-        //     audioPlayer.Stream = counts[countIndex++];
-        //     audioPlayer.Play();
-        // }
+        else if (countIndex == counts.Length)
+        {
+            // done counting
+        }
+        else if ((12 - Value) > countIndex)
+        {
+            GD.Print($"Playing {countIndex} ({Value})");
+            audioPlayer.Stream = counts[countIndex++];
+            audioPlayer.Play();
+        }
     }
 
     public void Initialize(Timer timer)

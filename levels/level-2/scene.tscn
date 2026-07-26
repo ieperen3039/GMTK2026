@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1on805vn5qc"]
 
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_krbkv"]
-[ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="2_y0sqk"]
+[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_6itg2"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_fudoe"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="5_tfgyv"]
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_6itg2"]
@@ -35,10 +35,7 @@ distance = -313.9372
 script = ExtResource("1_krbkv")
 AltitudeGoal = 10000
 
-[node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
-position = Vector2(0, -720)
-scale = Vector2(2.453, 2.5)
-texture = ExtResource("2_y0sqk")
+[node name="ParallaxBg" parent="." unique_id=932535934 instance=ExtResource("2_6itg2")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(0, -240)
@@ -82,9 +79,6 @@ mass = 10.0
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_4scl4")]
 unique_name_in_owner = true
 position = Vector2(-145, -280)
-input_pickable = true
-contact_monitor = true
-max_contacts_reported = 1
 
 [node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("8_y0sqk")]
 position = Vector2(0, -8)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bas4k682farci"]
 
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_ogb2v"]
-[ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="2_cpmxm"]
+[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_enlji"]
 [ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="4_f7rp4"]
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="6_6hp3m"]
 [ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="6_bneui"]
@@ -29,11 +29,7 @@ distance = -313.9372
 [node name="Level" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_ogb2v")
 
-[node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
-visible = false
-position = Vector2(0, -720)
-scale = Vector2(2.453, 2.5)
-texture = ExtResource("2_cpmxm")
+[node name="ParallaxBg" parent="." unique_id=1362283845 instance=ExtResource("2_enlji")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(0, -240)
