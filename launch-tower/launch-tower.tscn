@@ -10,4 +10,4 @@ texture_repeat = 2
 position = Vector2(38, 52)
 texture = ExtResource("1_2ddov")
 region_enabled = true
-region_rect = Rect2(0, 0, 16, 144)
+region_rect = Rect2(0, 0, 16, 240)
