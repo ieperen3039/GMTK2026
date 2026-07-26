@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_ogb2v"]
 [ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="2_cpmxm"]
+[ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="4_f7rp4"]
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="6_6hp3m"]
-[ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_qs7qg"]
+[ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="6_bneui"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="9_1ierk"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_r5mn0"]
 
@@ -29,6 +30,7 @@ distance = -313.9372
 script = ExtResource("1_ogb2v")
 
 [node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
+visible = false
 position = Vector2(0, -720)
 scale = Vector2(2.453, 2.5)
 texture = ExtResource("2_cpmxm")
@@ -37,21 +39,25 @@ texture = ExtResource("2_cpmxm")
 position = Vector2(0, -240)
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 0.1
+wait_time = 100000.0
 one_shot = true
 
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
 
-[node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_qs7qg")]
-position = Vector2(0, -37.29)
+[node name="CrewComp" parent="RocketComponents" unique_id=217928142 instance=ExtResource("4_f7rp4")]
+position = Vector2(-58, -32)
 
 [node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
 
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("9_1ierk")]
 unique_name_in_owner = true
+position = Vector2(-137, -22)
 input_pickable = true
 contact_monitor = true
 max_contacts_reported = 1
+
+[node name="Crew1" parent="OtherSelectables" unique_id=722783974 instance=ExtResource("6_bneui")]
+position = Vector2(127, -179)
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 
