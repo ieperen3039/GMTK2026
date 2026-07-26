@@ -3,7 +3,6 @@
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_hc3nu"]
 [ext_resource type="Script" uid="uid://l56kfhys84o8" path="res://rocket/rocket-components/fin-left/Stabilizer.cs" id="2_x6xks"]
 [ext_resource type="Texture2D" uid="uid://mfkqygr1lmwu" path="res://rocket/rocket-components/fin-left/fin-left.tres" id="3_d55va"]
-[ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/ThrustSource.cs" id="4_e42m5"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/rocket-components/magnet/scene.tscn" id="5_x6xks"]
 
 [node name="Scene" type="RigidBody2D" unique_id=217928142]
@@ -19,11 +18,6 @@ polygon = PackedVector2Array(8, 16, 8, -16, -8, 16)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=534105907]
 texture = ExtResource("3_d55va")
-
-[node name="DragSource" type="Node2D" parent="." unique_id=905861806]
-position = Vector2(-8.000001, 15.000001)
-script = ExtResource("4_e42m5")
-ThrustPower = 100.0
 
 [node name="Magnet" parent="." unique_id=450049775 instance=ExtResource("5_x6xks")]
 position = Vector2(8, 0)

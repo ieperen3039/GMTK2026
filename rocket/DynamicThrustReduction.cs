@@ -35,7 +35,7 @@ public class DynamicThrustReduction
             float torqueEffectiveness = (downwardThrust == 0) ? 0 : (torque / downwardThrust);
             if (thruster.IsPassive)
             {
-                mostEffectiveTorqueingStabilizers.Enqueue(thruster, -torqueEffectiveness);
+                // mostEffectiveTorqueingStabilizers.Enqueue(thruster, -torqueEffectiveness);
             }
             else
             {
