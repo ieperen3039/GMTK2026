@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://ut5a4ys0imj5"]
+
+[ext_resource type="Script" uid="uid://drtap86kw6puo" path="res://levels/title-screen/TitleScreen.cs" id="1_6jkej"]
+[ext_resource type="Script" uid="uid://c44br52b04ecg" path="res://levels/title-screen/RandomComponentGenerator.cs" id="2_uw0dn"]
+[ext_resource type="AudioStream" uid="uid://xr2skvsiwxsi" path="res://levels/title-screen/WrapUpTitleTheme.ogg" id="3_w6ues"]
+[ext_resource type="PackedScene" uid="uid://cxme2bdwqcrwm" path="res://levels/title-screen/main_menu.tscn" id="4_neww6"]
+[ext_resource type="PackedScene" uid="uid://b1riprbftj6ig" path="res://levels/title-screen/level-selection.tscn" id="6_pnnfd"]
+[ext_resource type="PackedScene" uid="uid://cwnr2b1gsic8q" path="res://levels/title-screen/credits.tscn" id="7_0yfs4"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uw0dn"]
+normal = Vector2(1, 0)
+distance = -100.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_w6ues"]
+normal = Vector2(-1, 0)
+distance = -100.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6jkej"]
+distance = -80.0
+
+[node name="Scene" type="Control" unique_id=368995847]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6jkej")
+
+[node name="BackgroundPhysics" type="Node2D" parent="." unique_id=1946506649]
+position = Vector2(240, 480)
+script = ExtResource("2_uw0dn")
+
+[node name="BuildPhaseBounds" type="StaticBody2D" parent="BackgroundPhysics" unique_id=396498532]
+position = Vector2(0, -200)
+scale = Vector2(2.453, 2.5)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BackgroundPhysics/BuildPhaseBounds" unique_id=674953467]
+shape = SubResource("WorldBoundaryShape2D_uw0dn")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BackgroundPhysics/BuildPhaseBounds" unique_id=2089686868]
+shape = SubResource("WorldBoundaryShape2D_w6ues")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="BackgroundPhysics/BuildPhaseBounds" unique_id=1779812307]
+shape = SubResource("WorldBoundaryShape2D_6jkej")
+
+[node name="SpawnPosition" type="Marker2D" parent="BackgroundPhysics" unique_id=785821706]
+position = Vector2(6, -738)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1890902945]
+stream = ExtResource("3_w6ues")
+volume_db = -5.0
+autoplay = true
+
+[node name="MainMenu" parent="." unique_id=948485917 instance=ExtResource("4_neww6")]
+layout_mode = 1
+
+[node name="LevelSelection" parent="." unique_id=499166574 instance=ExtResource("6_pnnfd")]
+visible = false
+layout_mode = 1
+
+[node name="Credits" parent="." unique_id=852141576 instance=ExtResource("7_0yfs4")]
+visible = false
+layout_mode = 1

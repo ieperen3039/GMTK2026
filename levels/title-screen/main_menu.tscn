@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://cxme2bdwqcrwm"]
+
+[ext_resource type="Texture2D" uid="uid://50420jlglkum" path="res://levels/title-screen/Title.png" id="1_qsbwm"]
+[ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="2_yjbf4"]
+
+[node name="MainMenu" type="Control" unique_id=948485917]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=826228155]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -162.5
+offset_right = 106.0
+offset_bottom = 162.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameTitle" type="TextureRect" parent="VBoxContainer" unique_id=231145077]
+layout_mode = 2
+texture = ExtResource("1_qsbwm")
+stretch_mode = 2
+
+[node name="Start" type="Button" parent="VBoxContainer" unique_id=618955095]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_yjbf4")
+text = "Start Game"
+
+[node name="LevelSelection" type="Button" parent="VBoxContainer" unique_id=1142098236]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_yjbf4")
+text = "Level selection"
+
+[node name="Credits" type="Button" parent="VBoxContainer" unique_id=1225315077]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_yjbf4")
+text = "Credits"
+
+[node name="Filler" type="Control" parent="VBoxContainer" unique_id=1806673890]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="VBoxContainer" unique_id=613238095]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_yjbf4")
+text = "Exit"

@@ -16,7 +16,7 @@ public partial class RocketComponent : Grabbable
     private List<ThrustSource> thrustSources = [];
     private List<Magnet> magnets = [];
     private List<Tuple<Shape2D, Node2D>> collisionBoxes = [];
-
+    public bool PartOfRocket = false;
 
     public IReadOnlyList<ThrustSource> ThrustSources => thrustSources;
 

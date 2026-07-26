@@ -2,14 +2,12 @@
 
 [ext_resource type="Script" uid="uid://c6vsk2w1bpdpc" path="res://levels/level-complete/LevelComplete.cs" id="1_83n8o"]
 [ext_resource type="Texture2D" uid="uid://bobef6j2cr5w5" path="res://levels/level-complete/LevelCompleteBanner.png" id="2_db2jp"]
+[ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="3_db2jp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_teru1"]
 
 [node name="LevelCompletionNode" type="CanvasLayer" unique_id=652068365]
 script = ExtResource("1_83n8o")
-NumLiftedComponents = 8
-NumExtras = 1
-TotalComponents = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=336808735]
 anchors_preset = 13
@@ -39,6 +37,7 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 5
+theme = ExtResource("3_db2jp")
 text = "Components lifted: {} / {}"
 label_settings = SubResource("LabelSettings_teru1")
 horizontal_alignment = 1
@@ -52,6 +51,7 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 5
+theme = ExtResource("3_db2jp")
 text = "Extra objects: {}"
 label_settings = SubResource("LabelSettings_teru1")
 horizontal_alignment = 1
@@ -66,4 +66,5 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("3_db2jp")
 text = "Continue"

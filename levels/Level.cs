@@ -34,6 +34,8 @@ public partial class Level : Node2D
     private Timer timer;
     private CountdownTimer timer_ui;
 
+    private Score score = new();
+
     private bool isLevelComplete = false;
     private bool shouldBuildRocket = false;
 
@@ -159,9 +161,9 @@ public partial class Level : Node2D
     private void OnCountdownZero()
     {
         // NOTE: overwrite _default_ tool
-        defaultMouseTool = new NullTool();
-        ResetMouseTool();
-        hoveredSelectable = null;
+        // defaultMouseTool = new NullTool();
+        // ResetMouseTool();
+        // hoveredSelectable = null;
 
         buildPhaseBounds.ProcessMode = ProcessModeEnum.Disabled;
 
@@ -212,13 +214,19 @@ public partial class Level : Node2D
                 numExtras++;
             }
         }
+        
+        score = new()
+        {
+            TotalComponents = numRocketComponents,
+            NumLiftedComponents = numLiftedComponents,
+            NumExtras = numExtras,
+        };
 
         LevelComplete levelCompleteScreen = levelCompleteScene.Instantiate<LevelComplete>();
         // chain level complete signal to this level complete signal
         levelCompleteScreen.OnNextLevel += () => EmitSignal(SignalName.OnNextLevel);
-        levelCompleteScreen.TotalComponents = numRocketComponents;
-        levelCompleteScreen.NumLiftedComponents = numLiftedComponents;
-        levelCompleteScreen.NumExtras = numExtras;
+
+        levelCompleteScreen.Score = score;
         camera.Reparent(levelCompleteScreen);
         AddChild(levelCompleteScreen);
     }
@@ -254,7 +262,11 @@ public partial class Level : Node2D
         }
     }
 
+    public Score GetScore() => score;
+
     // player can apply tape to rocket components
+
+
     private class TapeTool : IMouseTool
     {
         public Level parent;
@@ -337,11 +349,14 @@ public partial class Level : Node2D
         public void OnClick(Vector2 mousePosition)
         {
             RigidBody2D thing = parent.hoveredSelectable;
-            if (thing is Grabbable component)
+            if (thing is Grabbable grabbable)
             {
-                grabbed = component;
-                Vector2 relativeClick = component.ToLocal(mousePosition);
-                component.OnGrab(relativeClick);
+                // prevent grabbing rocket components
+                if (thing is RocketComponent component && component.PartOfRocket) return;
+
+                grabbed = grabbable;
+                Vector2 relativeClick = grabbable.ToLocal(mousePosition);
+                grabbable.OnGrab(relativeClick);
             }
         }
 

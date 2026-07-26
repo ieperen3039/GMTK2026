@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cwnr2b1gsic8q"]
+
+[ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="1_lcyte"]
+
+[node name="Credits" type="Control" unique_id=852141576]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="." unique_id=1598350234]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 107.0
+offset_top = 131.0
+offset_right = -107.0
+offset_bottom = -131.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control" unique_id=957533854]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lcyte")
+
+[node name="Label" type="Label" parent="Control/Panel" unique_id=1581976676]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 19.0
+offset_right = -18.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game created by
+ieperen3039 and JDEngi
+
+Music inspired by
+Brittle Rille - Kevin MacLeod"
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="Control" unique_id=2120857016]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_lcyte")
+text = "Back"

@@ -11,7 +11,7 @@ public partial class DuctTape : Node2D
     }
 
     public const float MousePullFactor = 0.2f;
-    public const float SnapSpeed = 400f;
+    public const float SnapSpeed = 1000f;
     public const float SnapDampening = 1f;
     private const float MaxForce = 100_000f;
 
