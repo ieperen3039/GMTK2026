@@ -194,12 +194,14 @@ public partial class Level : Node2D
         if (altitude > AltitudeGoal && !isLevelComplete)
         {
             // TODO show warning that not all crew are present
-            if (controlComponent is CrewCompartment cc && cc.NumCrewInside >= numCrewInLevel)
+            if (controlComponent is CrewCompartment cc && cc.NumCrewInside < numCrewInLevel)
             {
-                GD.Print("Level Complete!");
-                isLevelComplete = true;
-                OnLevelComplete();
+                return;
             }
+            
+            GD.Print("Level Complete!");
+            isLevelComplete = true;
+            OnLevelComplete();
         }
     }
 

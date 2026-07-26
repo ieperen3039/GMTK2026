@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1on805vn5qc"]
 
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_1ur03"]
-[ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="2_ijbcg"]
+[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_vmxb2"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="3_vmxb2"]
 [ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_u5qjk"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_168kw"]
@@ -32,22 +32,11 @@ distance = -100.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s1ev"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_teru1"]
-normal = Vector2(1, 0)
-distance = -313.90134
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5tnor"]
-normal = Vector2(-0.99999434, -0.003355726)
-distance = -313.9372
-
 [node name="Level" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_1ur03")
 AltitudeGoal = 10000
 
-[node name="LevelBg" type="Sprite2D" parent="." unique_id=837035217]
-position = Vector2(0, -720)
-scale = Vector2(2.453, 2.5)
-texture = ExtResource("2_ijbcg")
+[node name="ParallaxBg" parent="." unique_id=1362283845 instance=ExtResource("2_vmxb2")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(0, -240)
@@ -90,9 +79,6 @@ position = Vector2(29, -97)
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_0op4n")]
 unique_name_in_owner = true
 position = Vector2(104, -283)
-input_pickable = true
-contact_monitor = true
-max_contacts_reported = 1
 
 [node name="Launchpad" type="StaticBody2D" parent="OtherSelectables" unique_id=2100259278]
 position = Vector2(0, -32)
@@ -135,12 +121,6 @@ scale = Vector2(2.453, 2.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder" unique_id=56533830]
 shape = SubResource("WorldBoundaryShape2D_0s1ev")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBorder" unique_id=1357787768]
-shape = SubResource("WorldBoundaryShape2D_teru1")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBorder" unique_id=180391062]
-shape = SubResource("WorldBoundaryShape2D_5tnor")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1594752960]
 stream = ExtResource("8_ijbcg")

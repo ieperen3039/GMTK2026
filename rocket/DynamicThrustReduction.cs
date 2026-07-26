@@ -6,7 +6,7 @@ using static System.TupleExtensions;
 public class DynamicThrustReduction
 {
     // radians per pixel offset
-    public const float XOffsetCorrectionFactor = 0.005f;
+    public const float XOffsetCorrectionFactor = 0.001f;
 
     public const float AngleCorrectionSpeed = 0.1f;
     public const float AngleCorrectionDampening = 50.0f;
@@ -35,7 +35,7 @@ public class DynamicThrustReduction
             float torqueEffectiveness = (downwardThrust == 0) ? 0 : (torque / downwardThrust);
             if (thruster.IsPassive)
             {
-                mostEffectiveTorqueingStabilizers.Enqueue(thruster, -torqueEffectiveness);
+                // mostEffectiveTorqueingStabilizers.Enqueue(thruster, -torqueEffectiveness);
             }
             else
             {
@@ -62,35 +62,37 @@ public class DynamicThrustReduction
         float desiredTorqueChange = (targetTorque - currentTorque) * TorqueCorrectionStrength;
         float totalTorqueInDirectionOfDesired = (currentTorque > targetTorque) ? totalPosTorque : totalNegTorque;
 
-        GD.Print($"targetTorque = {targetTorque}, desiredTorqueChange = {desiredTorqueChange}");
+        GD.Print($"rocket relative COM = {rocket.CenterOfMass}, global COM = {rocket.ToGlobal(rocket.CenterOfMass)}");
+        GD.Print($"currentTorque = {currentTorque}, targetTorque = {targetTorque}, desiredTorqueChange = {desiredTorqueChange}");
 
         float accumulatedTorque = 0;
         float maxAccumulatedTorque = totalTorqueInDirectionOfDesired - Mathf.Abs(desiredTorqueChange);
+        GD.Print($"totalTorqueInDirectionOfDesired = {totalTorqueInDirectionOfDesired}, maxAccumulatedTorque = {maxAccumulatedTorque}");
 
-        while (mostEffectiveTorqueingStabilizers.Count > 0)
-        {
-            // MOST effective stabilizer first
-            ThrustSource stabilizer = mostEffectiveTorqueingStabilizers.Dequeue();
-            float torque = torques[stabilizer];
+        // while (mostEffectiveTorqueingStabilizers.Count > 0)
+        // {
+        //     // MOST effective stabilizer first
+        //     ThrustSource stabilizer = mostEffectiveTorqueingStabilizers.Dequeue();
+        //     float torque = torques[stabilizer];
 
-            // if torque does NOT help move total to target, deactivate
-            if ((torque > 0) != (targetTorque > currentTorque)
-                && !float.IsInfinity(targetTorque)
-                && Mathf.Abs(torque) >= MinimumControlTorque)
-            {
-                stabilizer.ThrustFactor = 0.0f;
-                GD.Print($"Stabilizer targetPowerLevel = OFF (torque = {torque})");
-            }
-            else
-            {
-                // helpful torque, increase power until we run out of budget
-                float torqueBudgetLeft = maxAccumulatedTorque - accumulatedTorque;
-                float targetPowerLevel = Mathf.Clamp(torqueBudgetLeft / Mathf.Abs(torque), 0, 1);
-                stabilizer.ThrustFactor = targetPowerLevel;
-                accumulatedTorque += Mathf.Abs(torque) * targetPowerLevel;
-                GD.Print($"Stabilizer targetPowerLevel = {targetPowerLevel} (torque = {torque}, torqueBudgetLeft = {maxAccumulatedTorque - accumulatedTorque})");
-            }
-        }
+        //     // if torque does NOT help move total to target, deactivate
+        //     if ((torque > 0) != (targetTorque > currentTorque)
+        //         && !float.IsInfinity(targetTorque)
+        //         && Mathf.Abs(torque) >= MinimumControlTorque)
+        //     {
+        //         stabilizer.ThrustFactor = 0.0f;
+        //         GD.Print($"Stabilizer targetPowerLevel = OFF (torque = {torque})");
+        //     }
+        //     else
+        //     {
+        //         // helpful torque, increase power until we run out of budget
+        //         float torqueBudgetLeft = maxAccumulatedTorque - accumulatedTorque;
+        //         float targetPowerLevel = Mathf.Clamp(torqueBudgetLeft / Mathf.Abs(torque), 0, 1);
+        //         stabilizer.ThrustFactor = targetPowerLevel;
+        //         accumulatedTorque += Mathf.Abs(torque) * targetPowerLevel;
+        //         GD.Print($"{stabilizer.Name} targetPowerLevel = {targetPowerLevel} (torque = {torque}, torqueBudgetLeft = {maxAccumulatedTorque - accumulatedTorque})");
+        //     }
+        // }
 
         if (leastEffectiveTorqueingThrusters.Count == 1)
         {
