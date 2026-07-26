@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="1_68uyt"]
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_hh1ok"]
+[ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="3_cfguj"]
 [ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="4_llm56"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="5_7741h"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_xmw3k"]
@@ -47,15 +48,26 @@ offset = Vector2(-240, -480)
 transform = Transform2D(1, 0, 0, 1, -240, -480)
 
 [node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=1047236533]
-anchors_preset = -1
-anchor_left = 0.81200004
-anchor_right = 0.96400005
-offset_left = -9.76001
-offset_top = 27.0
-offset_right = -10.199982
-offset_bottom = 78.0
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -114.0
+offset_top = 23.0
+offset_right = -21.0
+offset_bottom = 74.0
+grow_horizontal = 0
+theme = ExtResource("3_cfguj")
 text = "Tape"
-metadata/_edit_use_anchors_ = true
+
+[node name="Reset" type="Button" parent="CanvasLayer" unique_id=1623442626]
+unique_name_in_owner = true
+offset_left = 26.0
+offset_top = 23.0
+offset_right = 118.0
+offset_bottom = 74.0
+theme = ExtResource("3_cfguj")
+text = "Reset"
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
 wait_time = 25.0

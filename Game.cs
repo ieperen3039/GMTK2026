@@ -71,6 +71,7 @@ public partial class Game : Node
         PackedScene packedScene = levelScenes[levelIndex];
         currentLevel = packedScene.Instantiate<Level>();
         currentLevel.OnNextLevel += NextLevel;
+        currentLevel.OnReset += () => StartLevel(levelIndex);
         AddChild(currentLevel);
     }
 

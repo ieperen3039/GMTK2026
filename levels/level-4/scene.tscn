@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_ogb2v"]
 [ext_resource type="Texture2D" uid="uid://65s2uynwxxen" path="res://levels/level-1/bg.png" id="2_cpmxm"]
+[ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="6_6hp3m"]
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_qs7qg"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="9_1ierk"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_r5mn0"]
@@ -34,21 +35,6 @@ texture = ExtResource("2_cpmxm")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(0, -240)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=475960895]
-offset = Vector2(-240, -480)
-transform = Transform2D(1, 0, 0, 1, -240, -480)
-
-[node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=1047236533]
-anchors_preset = -1
-anchor_left = 0.81200004
-anchor_right = 0.96400005
-offset_left = -9.76001
-offset_top = 27.0
-offset_right = -10.199982
-offset_bottom = 78.0
-text = "Tape"
-metadata/_edit_use_anchors_ = true
 
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
 wait_time = 0.1
@@ -95,3 +81,29 @@ shape = SubResource("WorldBoundaryShape2D_5tnor")
 stream = ExtResource("11_r5mn0")
 volume_db = -5.0
 autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1646573139]
+offset = Vector2(-240, -480)
+transform = Transform2D(1, 0, 0, 1, -240, -480)
+
+[node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=2128727772]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -114.0
+offset_top = 23.0
+offset_right = -21.0
+offset_bottom = 74.0
+grow_horizontal = 0
+theme = ExtResource("6_6hp3m")
+text = "Tape"
+
+[node name="Reset" type="Button" parent="CanvasLayer" unique_id=178634191]
+unique_name_in_owner = true
+offset_left = 26.0
+offset_top = 23.0
+offset_right = 118.0
+offset_bottom = 74.0
+theme = ExtResource("6_6hp3m")
+text = "Reset"
