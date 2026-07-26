@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 // Attach this script to an AudioStreamPlayer (or AudioStreamPlayer2D/3D) node.
@@ -33,6 +34,8 @@ public partial class ThrusterSFX : AudioStreamPlayer2D
 		gen.BufferLength = 0.2f; // seconds of buffered audio
 		Stream = gen;
 		_sampleHz = gen.MixRate;
+
+		PitchScale = _rng.RandfRange(0.90f, 1.1f);
 
 		// 1. Get the index of your specific audio bus (case-sensitive)
 		_sfxBusIdx = AudioServer.GetBusIndex("RocketEngine");
