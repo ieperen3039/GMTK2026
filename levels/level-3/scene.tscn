@@ -12,6 +12,7 @@
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="9_vmxb2"]
 [ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="10_doeej"]
 [ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="11_0op4n"]
+[ext_resource type="Texture2D" uid="uid://bmhmen7fpgecv" path="res://levels/finish-line/finishline.png" id="13_0op4n"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
 normal = Vector2(1, 0)
@@ -140,3 +141,8 @@ offset_right = 118.0
 offset_bottom = 74.0
 theme = ExtResource("9_vmxb2")
 text = "Reset"
+
+[node name="Finishline" type="Sprite2D" parent="." unique_id=1289300858]
+z_index = 6
+position = Vector2(0, -10000)
+texture = ExtResource("13_0op4n")
