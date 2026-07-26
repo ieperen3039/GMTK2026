@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dtbc1yy3xxe0b" path="res://rocket/rocket-components/fin-right/template.tscn" id="10_0v2iv"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_0v2iv"]
 [ext_resource type="PackedScene" uid="uid://73ile0xgnbys" path="res://rocket/rocket-components/traffic-cone/scene.tscn" id="12_qpjtc"]
+[ext_resource type="Texture2D" uid="uid://bmhmen7fpgecv" path="res://levels/finish-line/finishline.png" id="14_fh1wl"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
 normal = Vector2(1, 0)
@@ -122,3 +123,8 @@ shape = SubResource("WorldBoundaryShape2D_0s1ev")
 stream = ExtResource("11_0v2iv")
 volume_db = -5.0
 autoplay = true
+
+[node name="Finishline" type="Sprite2D" parent="." unique_id=1113979400]
+z_index = 2
+position = Vector2(0, -994)
+texture = ExtResource("14_fh1wl")
