@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="4_f7rp4"]
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="6_6hp3m"]
 [ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="6_bneui"]
-[ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_qs7qg"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="9_1ierk"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_r5mn0"]
 
@@ -45,11 +44,8 @@ one_shot = true
 
 [node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
 
-[node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_qs7qg")]
-position = Vector2(-137, -49)
-
 [node name="CrewComp" parent="RocketComponents" unique_id=217928142 instance=ExtResource("4_f7rp4")]
-position = Vector2(39, -26)
+position = Vector2(-58, -32)
 
 [node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
 

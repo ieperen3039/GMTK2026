@@ -4,6 +4,7 @@ public partial class Grabbable : RigidBody2D
 {
     public const float SnapSpeed = 20f;
     public const float SnapDampening = 20f;
+    public const float MaxSpeedWhendragging = 1_000;
 
     protected bool isDragging = false;
     private Vector2 localGrabOffset = new();
@@ -33,6 +34,7 @@ public partial class Grabbable : RigidBody2D
             Vector2 globalOffset = GlobalTransform.BasisXform(localGrabOffset);
             // for small masses, reduce the force to avoid slingshotting
             ApplyForce(velocityDifference * SnapDampening * pullFactor * Mathf.Min(0.5f, Mass), globalOffset);
+            LinearVelocity = LinearVelocity.LimitLength(MaxSpeedWhendragging);
         }
     }
 
