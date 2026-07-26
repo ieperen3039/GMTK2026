@@ -8,19 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_doeej"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_0op4n"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="8_ijbcg"]
+[ext_resource type="PackedScene" uid="uid://bn7h154hc2vae" path="res://launch-tower/launch-tower.tscn" id="8_u5qjk"]
+[ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="9_168kw"]
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="9_vmxb2"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_teru1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
-size = Vector2(320, 42)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xm06s"]
-size = Vector2(46, 253)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fudoe"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y0sqk"]
+[ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="10_doeej"]
+[ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="11_0op4n"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
 normal = Vector2(1, 0)
@@ -78,31 +70,31 @@ position = Vector2(29, -97)
 
 [node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_0op4n")]
 unique_name_in_owner = true
-position = Vector2(104, -283)
+position = Vector2(-184, -112)
 
-[node name="Launchpad" type="StaticBody2D" parent="OtherSelectables" unique_id=2100259278]
-position = Vector2(0, -32)
-physics_material_override = SubResource("PhysicsMaterial_teru1")
+[node name="LaunchTower" parent="OtherSelectables" unique_id=1243787554 instance=ExtResource("8_u5qjk")]
+position = Vector2(180, -28)
+scale = Vector2(2, 2)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherSelectables/Launchpad" unique_id=1798477531]
-position = Vector2(0, 10)
-scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("RectangleShape2D_teru1")
+[node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("9_168kw")]
+position = Vector2(181, -20)
+scale = Vector2(2.453, 2.5)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="OtherSelectables/Launchpad" unique_id=1929609098]
-position = Vector2(106.00001, -107.5)
-scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("RectangleShape2D_xm06s")
+[node name="Platform2" parent="OtherSelectables" unique_id=1654837316 instance=ExtResource("9_168kw")]
+position = Vector2(-197.00002, -20)
+scale = Vector2(2.453, 2.5)
 
-[node name="graphic2" type="Sprite2D" parent="OtherSelectables/Launchpad" unique_id=1490955525]
-position = Vector2(106, -101.499985)
-scale = Vector2(46.000004, 263.00006)
-texture = SubResource("PlaceholderTexture2D_fudoe")
+[node name="Crew" parent="OtherSelectables" unique_id=722783974 instance=ExtResource("10_doeej")]
+position = Vector2(218, -55)
 
-[node name="graphic" type="Sprite2D" parent="OtherSelectables/Launchpad" unique_id=1711688620]
-position = Vector2(0, 10.499999)
-scale = Vector2(319.99997, 42.999996)
-texture = SubResource("PlaceholderTexture2D_y0sqk")
+[node name="Crew2" parent="OtherSelectables" unique_id=950442686 instance=ExtResource("10_doeej")]
+position = Vector2(240, -55)
+
+[node name="Crew3" parent="OtherSelectables" unique_id=1761376723 instance=ExtResource("10_doeej")]
+position = Vector2(264, -55)
+
+[node name="Scene" parent="OtherSelectables" unique_id=220978378 instance=ExtResource("11_0op4n")]
+position = Vector2(-112, -198)
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
 

@@ -2,12 +2,19 @@
 
 [ext_resource type="Texture2D" uid="uid://dqkfckyud02tv" path="res://launch-tower/launch-tower beam.png" id="1_2ddov"]
 
-[node name="LaunchTower" type="Node2D" unique_id=1243787554]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
+size = Vector2(16, 218)
+
+[node name="LaunchTower" type="StaticBody2D" unique_id=1059885327]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1149425452]
 texture_filter = 2
 texture_repeat = 2
-position = Vector2(38, 52)
+position = Vector2(0, -120)
 texture = ExtResource("1_2ddov")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 240)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1091598237]
+position = Vector2(0, -130)
+shape = SubResource("RectangleShape2D_teru1")
