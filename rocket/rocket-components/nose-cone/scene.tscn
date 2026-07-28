@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://60t44lhrpce4"]
 
-[ext_resource type="Texture2D" uid="uid://ck8roj6dp5hwn" path="res://rocket/rocket-components/nose-cone/nose-cone.tres" id="1_f1hfi"]
+[ext_resource type="Texture2D" uid="uid://ck8roj6dp5hwn" path="res://rocket/rocket-components/nose-cone/nose-cone-left.tres" id="1_f1hfi"]
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_prxsn"]
 [ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_uc78f"]
+[ext_resource type="Texture2D" uid="uid://crxgi31ot7hyt" path="res://rocket/rocket-components/nose-cone/nose-cone-right.tres" id="3_r4g57"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="4_q206d"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_p4jg2"]
@@ -19,6 +20,11 @@ script = ExtResource("2_uc78f")
 shape = SubResource("ConvexPolygonShape2D_p4jg2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=534105907]
+position = Vector2(8, 0)
+texture = ExtResource("3_r4g57")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=413783565]
+position = Vector2(-8, 0)
 texture = ExtResource("1_f1hfi")
 
 [node name="Magnet" parent="." unique_id=1363214683 instance=ExtResource("4_q206d")]

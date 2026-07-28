@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://m7cwvckwpmts"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_swjj1"]
+[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_848kw"]
+[ext_resource type="Texture2D" uid="uid://c8y80ic2lwa3f" path="res://rocket/rocket-components/fuel-tank/fuel-tank-top.tres" id="3_848kw"]
+[ext_resource type="Texture2D" uid="uid://cl8qvrvqsommx" path="res://rocket/rocket-components/fuel-tank/fuel-tank-bottom.tres" id="3_bbvcl"]
+[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="4_1dsr7"]
+[ext_resource type="Texture2D" uid="uid://msq3vfgiw4as" path="res://rocket/rocket-components/fuel-tank/fuel-tank-middle.tres" id="5_bbvcl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
+size = Vector2(32, 64)
+
+[node name="Scene" type="RigidBody2D" unique_id=217928142]
+input_pickable = true
+mass = 2.0
+physics_material_override = ExtResource("1_swjj1")
+script = ExtResource("2_848kw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=565845095]
+shape = SubResource("RectangleShape2D_teru1")
+
+[node name="SpriteTop" type="Sprite2D" parent="." unique_id=534105907]
+position = Vector2(0, -24)
+texture = ExtResource("3_848kw")
+
+[node name="SpriteBottom" type="Sprite2D" parent="." unique_id=1256959426]
+position = Vector2(0, 24)
+texture = ExtResource("3_bbvcl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1380938958]
+position = Vector2(0, 8)
+scale = Vector2(-1, -1)
+texture = ExtResource("5_bbvcl")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=268293683]
+position = Vector2(0, -8)
+scale = Vector2(-1, -1)
+texture = ExtResource("5_bbvcl")
+
+[node name="BottomMagnet" parent="." unique_id=450049775 instance=ExtResource("4_1dsr7")]
+position = Vector2(0, 32)
+
+[node name="TopMagnet" parent="." unique_id=1927370537 instance=ExtResource("4_1dsr7")]
+position = Vector2(0, -32)
+
+[node name="SideMagnetLeft" parent="." unique_id=840785814 instance=ExtResource("4_1dsr7")]
+position = Vector2(-16, -16)
+
+[node name="SideMagnetRight" parent="." unique_id=1405503887 instance=ExtResource("4_1dsr7")]
+position = Vector2(16, -16)
+
+[node name="SideMagnetLeft2" parent="." unique_id=1363214683 instance=ExtResource("4_1dsr7")]
+position = Vector2(-16, 16)
+
+[node name="SideMagnetRight2" parent="." unique_id=950608788 instance=ExtResource("4_1dsr7")]
+position = Vector2(16, 16)

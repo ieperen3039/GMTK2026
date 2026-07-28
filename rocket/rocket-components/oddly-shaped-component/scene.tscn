@@ -13,9 +13,6 @@ size = Vector2(30, 64)
 script = ExtResource("1_yupri")
 metadata/_custom_type_script = "uid://du3u0mmw6vgwl"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1535651053]
-texture = ExtResource("2_t68eu")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=823414726]
 position = Vector2(-15, 16)
 shape = SubResource("RectangleShape2D_apetm")
@@ -23,3 +20,6 @@ shape = SubResource("RectangleShape2D_apetm")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=220049455]
 position = Vector2(15, -16)
 shape = SubResource("RectangleShape2D_7btu4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1535651053]
+texture = ExtResource("2_t68eu")

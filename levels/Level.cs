@@ -11,6 +11,8 @@ public partial class Level : Node2D
     public delegate void OnNextLevelEventHandler();
     [Signal]
     public delegate void OnResetEventHandler();
+    [Signal]
+    public delegate void OnReturnEventHandler();
 
     private const int AltitudeScoreZone = 100;
 
@@ -32,6 +34,8 @@ public partial class Level : Node2D
 
     private IMouseTool defaultMouseTool;
     private IMouseTool mouseTool;
+    private Button tapeToolButton;
+
     private Grabbable hoveredSelectable;
 
     private Timer timer;
@@ -58,20 +62,67 @@ public partial class Level : Node2D
         selectablesNode = GetNode<Node>("OtherSelectables");
         GetNode<Node2D>("Finishline").Position = new(0, -AltitudeGoal);
 
+        // reset ui offset
+        CanvasLayer ui = GetNode<CanvasLayer>("UI");
+        ui.Offset = Vector2.Zero;
+
+        Briefing briefing = GetNode<Briefing>("%Briefing");
+        briefing.StartButton.Pressed += StartGame;
+        briefing.MainMenuButton.Pressed += () => EmitSignal(SignalName.OnReturn);
+
         ductTapeInstancesNode = new Node { Name = "DuctTapeInstances" };
         AddChild(ductTapeInstancesNode);
 
         defaultMouseTool = new GrabTool(this);
         mouseTool = defaultMouseTool;
+
+        foreach (Node child in rocketComponentsNode.GetChildren())
+        {
+            if (child is RocketComponent part)
+            {
+                numRocketComponents++;
+                part.Freeze = true;
+            }
+        }
+
+        foreach (Node child in selectablesNode.GetChildren())
+        {
+            if (child is RigidBody2D part)
+            {
+                part.Freeze = true;
+            }
+        }
+
+        // Setup the timer
+        timer.Timeout += OnCountdownZero;
+    }
+
+    private void StartGame()
+    {
+        GetNode<Briefing>("%Briefing").QueueFree();
+        GetNode<Control>("%GameUi").Visible = true;
+
+        // Setup buttons
+        tapeToolButton = GetNode<Button>("%SetTapeTool");
+        tapeToolButton.ButtonDown += SetTapeTool;
+        tapeToolButton.ButtonUp += ResetMouseTool;
+        Button resetButton = GetNode<Button>("%Reset");
+        resetButton.Pressed += () => EmitSignal(SignalName.OnReset);
+        timer.Start();
+
         Random rng = new();
 
         // setup grabbable listeners
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
-            if (child is Grabbable part)
+            if (child is RocketComponent part)
             {
-                Util.Toss(part, rng);
+                part.Freeze = false;
+                part.LinearVelocity = Vector2.Zero;
+                part.AngularVelocity = 0f;
 
+                Util.Toss(part, rng);
+                part.InputPickable = true;
                 part.MouseEntered += () => OnHoverSelectable(part, true);
                 part.MouseExited += () => OnHoverSelectable(part, false);
 
@@ -84,13 +135,13 @@ public partial class Level : Node2D
 
                     controlComponent = control;
                 }
-
-                if (part is RocketComponent) numRocketComponents++;
             }
         }
 
         foreach (Node child in selectablesNode.GetChildren())
         {
+            if (child is RigidBody2D body) body.Freeze = false;
+
             if (child is Grabbable part)
             {
                 part.InputPickable = true;
@@ -106,20 +157,8 @@ public partial class Level : Node2D
 
         if (controlComponent == null)
         {
-            throw new Exception($"No control components in scene");
+            GD.PrintErr($"No control components in scene");
         }
-
-        // Setup buttons
-        CanvasLayer canvasLayer = GetNode<CanvasLayer>("CanvasLayer");
-        canvasLayer.Offset = Vector2.Zero;
-        Button tapeToolButton = GetNode<Button>("%SetTapeTool");
-        tapeToolButton.Pressed += SetTapeTool;
-        Button resetButton = GetNode<Button>("%Reset");
-        resetButton.Pressed += () => EmitSignal(SignalName.OnReset);
-
-        // Setup the timer
-        timer.Timeout += OnCountdownZero;
-        timer.Start();
     }
 
     private void OnHoverSelectable(Grabbable part, bool setActive)
@@ -140,7 +179,14 @@ public partial class Level : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        timerGraphic.SetValue(timer.TimeLeft);
+        if (timer.IsStopped())
+        {
+            timerGraphic.SetValue(timer.WaitTime);
+        }
+        else
+        {
+            timerGraphic.SetValue(timer.TimeLeft);
+        }
 
         foreach (DuctTape tape in tapes)
         {
@@ -205,7 +251,7 @@ public partial class Level : Node2D
             {
                 return;
             }
-            
+
             GD.Print("Level Complete!");
             isLevelComplete = true;
             OnLevelComplete();
@@ -249,6 +295,7 @@ public partial class Level : Node2D
     private void ResetMouseTool()
     {
         mouseTool.OnCancel();
+        tapeToolButton.SetPressedNoSignal(false);
         mouseTool = defaultMouseTool;
     }
 

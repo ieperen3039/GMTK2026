@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://b8x3fllvhc31t"]
+
+[ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="1_73e77"]
+[ext_resource type="Script" uid="uid://74hfgu68p46b" path="res://levels/Briefing.cs" id="2_uvr74"]
+
+[node name="Briefing" type="Control" unique_id=561301093]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_73e77")
+script = ExtResource("2_uvr74")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1458414918]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=1838802079]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BriefingRoom" type="Control" parent="VBoxContainer/Panel" unique_id=2050214305]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 19.0
+offset_right = -18.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1498615067]
+layout_mode = 2
+
+[node name="ButtonMainMenu" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1760059344]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Main menu"
+
+[node name="ButtonStart" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1256242158]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Start"

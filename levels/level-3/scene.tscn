@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dxb1p88f8djuc"]
 
 [ext_resource type="PackedScene" uid="uid://brbphpk1yrjqc" path="res://levels/level-base.tscn" id="1_m2rw6"]
+[ext_resource type="StyleBox" uid="uid://bju8heskucri1" path="res://ui-themes/gold_small_style_box_texture.tres" id="2_u5qjk"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="2_vmxb2"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_168kw"]
 [ext_resource type="PackedScene" uid="uid://tp7iqlyptfia" path="res://rocket/rocket-components/nose-cone/scene_fat.tscn" id="5_doeej"]
@@ -9,47 +10,158 @@
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="9_168kw"]
 [ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="10_doeej"]
 [ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="11_0op4n"]
+[ext_resource type="PackedScene" uid="uid://m7cwvckwpmts" path="res://rocket/rocket-components/fuel-tank/scene_1x2.tscn" id="11_168kw"]
 
 [node name="BaseLevel" unique_id=1782678356 instance=ExtResource("1_m2rw6")]
 AltitudeGoal = 10000
 
-[node name="LevelTimer" parent="." index="4" unique_id=317409736]
+[node name="LevelTimer" parent="." index="3" unique_id=317409736]
 wait_time = 40.0
 
-[node name="RocketComponents" type="Node" parent="." index="8" unique_id=627111615]
+[node name="Briefing" parent="." index="8" unique_id=561301093]
+offset_left = -159.0
+offset_top = -420.0
+offset_right = 159.0
+offset_bottom = -84.0
 
-[node name="Engine" parent="RocketComponents" index="0" unique_id=1039960409 instance=ExtResource("2_vmxb2")]
-position = Vector2(-22, -101)
+[node name="Panel2" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" parent_id_path=PackedInt32Array(561301093, 2050214305) index="0" unique_id=424598696]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.514
+anchor_right = 1.0
+offset_left = 0.052001953
+offset_top = 36.0
+offset_right = 2.0
+offset_bottom = 87.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("2_u5qjk")
 
-[node name="FuelTank1" parent="RocketComponents" index="1" unique_id=217928142 instance=ExtResource("5_168kw")]
-position = Vector2(-99, -106)
+[node name="descComponents" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel2" index="0" unique_id=2138595802]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Countdown:"
+scroll_active = false
+vertical_alignment = 1
 
-[node name="FuelTank5" parent="RocketComponents" index="2" unique_id=1423883616 instance=ExtResource("5_168kw")]
-position = Vector2(-99, -106)
+[node name="RichTextLabel" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" parent_id_path=PackedInt32Array(561301093, 2050214305) index="1" unique_id=1842463607]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "We've got crew! Toss them into orbit!"
 
-[node name="FuelTank2" parent="RocketComponents" index="3" unique_id=753470201 instance=ExtResource("5_168kw")]
-position = Vector2(-3, -227)
+[node name="Panel3" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" parent_id_path=PackedInt32Array(561301093, 2050214305) index="2" unique_id=1517169955]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.007
+anchor_right = 1.0
+offset_left = -1.0259999
+offset_top = 96.0
+offset_right = 1.0
+offset_bottom = 198.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("2_u5qjk")
 
-[node name="FuelTank3" parent="RocketComponents" index="4" unique_id=1007578237 instance=ExtResource("5_168kw")]
-position = Vector2(-7, -148)
+[node name="descComponents" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel3" index="0" unique_id=847643371]
+layout_mode = 1
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 115.0
+offset_bottom = 25.0
+theme_override_font_sizes/normal_font_size = 14
+text = "Rocket parts:"
+scroll_active = false
+vertical_alignment = 1
 
-[node name="FuelTank4" parent="RocketComponents" index="5" unique_id=1599240470 instance=ExtResource("5_168kw")]
-position = Vector2(45, -147)
+[node name="Panel4" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" parent_id_path=PackedInt32Array(561301093, 2050214305) index="3" unique_id=394046314]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.007
+anchor_right = 0.49300003
+offset_left = -1.0259999
+offset_top = 203.0
+offset_right = 143.974
+offset_bottom = 254.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("2_u5qjk")
 
-[node name="Engine2" parent="RocketComponents" index="6" unique_id=367263358 instance=ExtResource("2_vmxb2")]
-position = Vector2(29, -97)
+[node name="descComponents" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel4" index="0" unique_id=541066997]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 3.0
+offset_right = -161.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Put the crew in here:"
+scroll_active = false
+vertical_alignment = 1
 
-[node name="COOOONE" parent="RocketComponents" index="7" unique_id=1365596330 instance=ExtResource("5_doeej")]
-position = Vector2(-77, -258)
+[node name="descComponents2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel4" index="1" unique_id=1263871978]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 6.0
+offset_right = -7.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "It's also your controller"
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 1
 
-[node name="Scene" parent="RocketComponents" index="8" unique_id=1138033148 instance=ExtResource("11_0op4n")]
-position = Vector2(-112, -198)
+[node name="Panel5" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" parent_id_path=PackedInt32Array(561301093, 2050214305) index="4" unique_id=1653097209]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0035460992
+anchor_top = 0.1434263
+anchor_right = 0.4680851
+anchor_bottom = 0.1434263
+offset_bottom = 51.0
+theme_override_styles/panel = ExtResource("2_u5qjk")
+metadata/_edit_use_anchors_ = true
+
+[node name="descComponents" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel5" index="0" unique_id=264382489]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 5.0
+offset_right = -7.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Crew"
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="OtherSelectables" type="Node" parent="." index="9" unique_id=369671201]
 
 [node name="CountdownTimer" parent="OtherSelectables" index="0" unique_id=1515224007 instance=ExtResource("7_0op4n")]
 unique_name_in_owner = true
-position = Vector2(143, -327)
+position = Vector2(117, -340)
 
 [node name="LaunchTower" parent="OtherSelectables" index="1" unique_id=1181244718 instance=ExtResource("8_u5qjk")]
 position = Vector2(180, -28)
@@ -64,10 +176,47 @@ position = Vector2(-197.00002, -20)
 scale = Vector2(2.453, 2.5)
 
 [node name="Crew" parent="OtherSelectables" index="4" unique_id=722783974 instance=ExtResource("10_doeej")]
-position = Vector2(154, -168)
+position = Vector2(-120, -339)
 
 [node name="Crew2" parent="OtherSelectables" index="5" unique_id=9052973 instance=ExtResource("10_doeej")]
-position = Vector2(172, -169)
+position = Vector2(-97, -339)
 
 [node name="Crew3" parent="OtherSelectables" index="6" unique_id=229295276 instance=ExtResource("10_doeej")]
-position = Vector2(189, -169)
+position = Vector2(-73, -339)
+
+[node name="RocketComponents" type="Node" parent="." index="10" unique_id=627111615]
+
+[node name="Engine" parent="RocketComponents" index="0" unique_id=1039960409 instance=ExtResource("2_vmxb2")]
+position = Vector2(117, -226)
+
+[node name="FuelTank1" parent="RocketComponents" index="1" unique_id=217928142 instance=ExtResource("5_168kw")]
+position = Vector2(29, -275)
+
+[node name="FuelTank5" parent="RocketComponents" index="2" unique_id=1423883616 instance=ExtResource("5_168kw")]
+position = Vector2(73, -275)
+
+[node name="FuelTank2" parent="RocketComponents" index="3" unique_id=753470201 instance=ExtResource("5_168kw")]
+position = Vector2(-15, -275)
+
+[node name="FuelTank3" parent="RocketComponents" index="4" unique_id=1007578237 instance=ExtResource("5_168kw")]
+position = Vector2(-35, -226)
+
+[node name="FuelTank4" parent="RocketComponents" index="5" unique_id=1599240470 instance=ExtResource("5_168kw")]
+position = Vector2(117, -275)
+
+[node name="Engine2" parent="RocketComponents" index="6" unique_id=367263358 instance=ExtResource("2_vmxb2")]
+position = Vector2(75, -226)
+
+[node name="COOOONE" parent="RocketComponents" index="7" unique_id=1365596330 instance=ExtResource("5_doeej")]
+position = Vector2(21, -226)
+
+[node name="CrewBox" parent="RocketComponents" index="8" unique_id=1138033148 instance=ExtResource("11_0op4n")]
+position = Vector2(0, -170)
+
+[node name="LongTank" parent="RocketComponents" index="9" unique_id=192567211 instance=ExtResource("11_168kw")]
+position = Vector2(-78, -242)
+
+[node name="LongTank2" parent="RocketComponents" index="10" unique_id=1089481680 instance=ExtResource("11_168kw")]
+position = Vector2(-118, -242)
+
+[editable path="Briefing"]
