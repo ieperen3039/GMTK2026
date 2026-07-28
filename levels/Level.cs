@@ -46,7 +46,7 @@ public partial class Level : Node2D
     private int numCrewInLevel = 0;
     private bool isLevelComplete = false;
     private bool shouldBuildRocket = false;
-
+    private bool isGameStarted = false;
 
     public override void _Ready()
     {
@@ -99,6 +99,7 @@ public partial class Level : Node2D
 
     private void StartGame()
     {
+        isGameStarted = true;
         GetNode<Briefing>("%Briefing").QueueFree();
         GetNode<Control>("%GameUi").Visible = true;
 
@@ -183,7 +184,7 @@ public partial class Level : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (timer.IsStopped())
+        if (!isGameStarted)
         {
             timerGraphic.SetValue(timer.WaitTime);
         }
@@ -235,10 +236,7 @@ public partial class Level : Node2D
         {
             if (node is Thruster component)
             {
-                if (component is Thruster)
-                {
-                    component.ActivateThruster();
-                }
+                component.ActivateThruster();
             }
         }
 
