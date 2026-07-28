@@ -60,6 +60,8 @@ public partial class RocketComponent : Grabbable
     {
         base._PhysicsProcess(delta);
 
+        if (Freeze) return;
+
         if (!isDragging)
         {
             // note that thruster should be off at the start of the game

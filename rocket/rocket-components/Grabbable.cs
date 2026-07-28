@@ -25,7 +25,7 @@ public partial class Grabbable : RigidBody2D
     // Called every physics update. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
     {
-        if (isDragging)
+        if (isDragging && !Freeze)
         {
             Vector2 targetPosition = GetGlobalMousePosition();
             Vector2 direction = targetPosition - ToGlobal(localGrabOffset);
