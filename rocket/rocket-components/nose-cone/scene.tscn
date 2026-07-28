@@ -12,8 +12,6 @@ points = PackedVector2Array(16, 16, 14, 0, 10, -9, 0, -16, -10, -9, -14, 0, -16,
 [node name="Scene" type="RigidBody2D" unique_id=1365596330]
 input_pickable = true
 physics_material_override = ExtResource("1_prxsn")
-linear_damp = 1.0
-angular_damp = 1.0
 script = ExtResource("2_uc78f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=565845095]

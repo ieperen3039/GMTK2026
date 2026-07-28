@@ -19,10 +19,11 @@ public partial class RandomComponentGenerator : Node2D
     {
         SpawnPosition = GetNode<Marker2D>("SpawnPosition").Position;
         componentScenes = [
-            new(ResourceLoader.Load<PackedScene>("uid://3ypjldxcxkvw"), 20), // tank
+            new(ResourceLoader.Load<PackedScene>("uid://3ypjldxcxkvw"), 10), // tank
             new(ResourceLoader.Load<PackedScene>("uid://d3sd7kyiugv60"), 5), // cone
-            new(ResourceLoader.Load<PackedScene>("uid://c4x5k3q1n002b"), 5), // thruster
-            new(ResourceLoader.Load<PackedScene>("uid://b5v30djg1rxq8"), 10), // mini thruster
+            new(ResourceLoader.Load<PackedScene>("uid://c4x5k3q1n002b"), 4), // thruster
+            new(ResourceLoader.Load<PackedScene>("uid://b5v30djg1rxq8"), 5), // mini thruster
+            new(ResourceLoader.Load<PackedScene>("uid://73ile0xgnbys"), 2), // traffic cone
             new(ResourceLoader.Load<PackedScene>("uid://s7v7dbr5g7n4"), 1), // bowling ball
         ];
 
