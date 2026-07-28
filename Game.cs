@@ -72,6 +72,7 @@ public partial class Game : Node
         currentLevel = packedScene.Instantiate<Level>();
         currentLevel.OnNextLevel += NextLevel;
         currentLevel.OnReset += () => StartLevel(levelIndex);
+        currentLevel.OnReturn += ShowTitleScreen;
         AddChild(currentLevel);
     }
 
@@ -82,11 +83,13 @@ public partial class Game : Node
         {
             currentLevel.QueueFree();
             RemoveChild(currentLevel);
+            currentLevel = null;
         }
         else if (titleScreen != null)
         {
             titleScreen.QueueFree();
             RemoveChild(titleScreen);
+            titleScreen = null;
         }
     }
 
