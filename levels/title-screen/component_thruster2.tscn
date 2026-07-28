@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://b5v30djg1rxq8"]
+
+[ext_resource type="Script" uid="uid://dqpuhxaf1q1kk" path="res://levels/title-screen/TitleScreenThruster.cs" id="2_2y83g"]
+[ext_resource type="Texture2D" uid="uid://dg8ypi70khfpw" path="res://rocket/rocket-components/thrusters/flame-particles/red-particle.tres" id="3_l4ecf"]
+[ext_resource type="Texture2D" uid="uid://cmsxsbbyl3keh" path="res://rocket/rocket-components/thrusters/flame-particles/orange-particle.tres" id="4_gw12l"]
+[ext_resource type="Texture2D" uid="uid://7fvdg0btkttd" path="res://rocket/rocket-components/thrusters/flame-particles/yellow-particle.tres" id="5_eqngy"]
+[ext_resource type="Texture2D" uid="uid://c0kbmas1o14k8" path="res://rocket/rocket-components/thrusters/flame-particles/white-particle.tres" id="6_y21d4"]
+[ext_resource type="Texture2D" uid="uid://d3vtwxv701qcm" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/stabilisation-thruster.tres" id="7_u6ilr"]
+[ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/thrusters/ThrustSource.cs" id="8_wump0"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dxifs"]
+friction = 0.2
+bounce = 0.3
+
+[node name="Scene" type="RigidBody2D" unique_id=379758665]
+mass = 0.25
+physics_material_override = SubResource("PhysicsMaterial_dxifs")
+script = ExtResource("2_2y83g")
+ThrustPower = 2000.0
+
+[node name="ExhaustParticles" type="Node2D" parent="." unique_id=962285839]
+position = Vector2(0, 16)
+
+[node name="RedParticles" type="CPUParticles2D" parent="ExhaustParticles" unique_id=1272872411]
+amount = 100
+texture = ExtResource("3_l4ecf")
+lifetime = 0.1
+emission_shape = 1
+emission_sphere_radius = 6.63
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, -250)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.62
+angular_velocity_min = -75.48
+angular_velocity_max = 66.8
+scale_amount_min = 0.5
+
+[node name="OrangeParticles" type="CPUParticles2D" parent="ExhaustParticles" unique_id=1070367947]
+amount = 50
+texture = ExtResource("4_gw12l")
+lifetime = 0.09
+emission_shape = 1
+emission_sphere_radius = 4.43
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, -250)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.62
+angular_velocity_min = -75.48
+angular_velocity_max = 66.8
+scale_amount_min = 0.5
+
+[node name="YellowParticles" type="CPUParticles2D" parent="ExhaustParticles" unique_id=262912695]
+amount = 10
+texture = ExtResource("5_eqngy")
+lifetime = 0.08
+emission_shape = 1
+emission_sphere_radius = 3.0
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, -250)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.62
+angular_velocity_min = -75.48
+angular_velocity_max = 66.8
+scale_amount_min = 0.5
+
+[node name="WhiteParticles" type="CPUParticles2D" parent="ExhaustParticles" unique_id=56203969]
+amount = 10
+texture = ExtResource("6_y21d4")
+lifetime = 0.05
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, -250)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.62
+angular_velocity_min = -75.48
+angular_velocity_max = 66.8
+scale_amount_min = 0.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=170421902]
+polygon = PackedVector2Array(0, -16, -4, -13, -8, -6, -8, 12, -5, 12, -5, 16, 5, 16, 5, 12, 8, 12, 8, -6, 4, -13)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2093309254]
+texture = ExtResource("7_u6ilr")
+
+[node name="ThrustSource" type="Node2D" parent="." unique_id=1356779313]
+position = Vector2(0, 13)
+script = ExtResource("8_wump0")
+ThrustPower = 2000.0

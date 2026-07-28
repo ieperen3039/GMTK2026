@@ -63,12 +63,15 @@ public partial class Level : Node2D
 
         defaultMouseTool = new GrabTool(this);
         mouseTool = defaultMouseTool;
+        Random rng = new();
 
         // setup grabbable listeners
         foreach (Node child in rocketComponentsNode.GetChildren())
         {
             if (child is Grabbable part)
             {
+                Util.Toss(part, rng);
+
                 part.MouseEntered += () => OnHoverSelectable(part, true);
                 part.MouseExited += () => OnHoverSelectable(part, false);
 

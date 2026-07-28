@@ -1,9 +1,10 @@
 using Godot;
 using System;
 
-[Tool]
 public partial class CountdownTimer : Grabbable
 {
+    [Export]
+    public bool Quiet;
     private Sprite2D _tens;
     private Sprite2D _ones;
     private int shownValue;
@@ -11,6 +12,7 @@ public partial class CountdownTimer : Grabbable
     private AudioStreamPlayer2D audioPlayer;
     private AudioStreamOggVorbis[] counts;
     private int countIndex = 0;
+
 
     [Export]
     public int Value
@@ -61,7 +63,7 @@ public partial class CountdownTimer : Grabbable
         _tens.Frame = clamped / 10;
         _ones.Frame = clamped % 10;
 
-        if (!Engine.IsEditorHint())
+        if (!Quiet)
         {
             if (shownValue >= 0 && shownValue < counts.Length)
             {

@@ -10,6 +10,7 @@ public partial class CrewMember : Grabbable
     private const float TargetWalkSpeed = 5f;
     private const float FallVelocity = 10f;
     private float WalkForce;
+    private bool WalkLeft = true;
 
     private AnimatedSprite2D animation;
 
@@ -56,13 +57,19 @@ public partial class CrewMember : Grabbable
         if (!isDragging && animation.Animation == AnimationNameWalk)
         {
             Sleeping = false;
-            // also pull up a little for the sake of figting friction
-            // LinearVelocity = new Vector2(-TargetWalkSpeed, 1);
-
             float fractionOfTargetSpeed = Mathf.Abs(LinearVelocity.X / TargetWalkSpeed);
             float totalWalkForce = WalkForce * (1.1f - Mathf.Clamp(fractionOfTargetSpeed, 0, 1));
-            // also pull up a little for the sake of figting friction
-            ApplyCentralForce(new Vector2(-totalWalkForce, -Mass * 400));
+
+            if (WalkLeft)
+            {
+                // also pull up a little for the sake of figting friction
+                ApplyCentralForce(new Vector2(-totalWalkForce, -Mass * 400));
+            }
+            else
+            {
+                // also pull up a little for the sake of figting friction
+                ApplyCentralForce(new Vector2(totalWalkForce, -Mass * 400));
+            }
         }
     }
 

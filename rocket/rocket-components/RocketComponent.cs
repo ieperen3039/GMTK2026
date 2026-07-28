@@ -6,9 +6,6 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class RocketComponent : Grabbable
 {
-    public const float InitialVelocity = 50.0f;
-    public const float InitialRotation = 10.0f;
-    
     // in pixels;
     private const float RocketCheckMargin = 2;
 
@@ -30,10 +27,6 @@ public partial class RocketComponent : Grabbable
         AngularDamp = 1.0f;
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
-
-        Random rng = new();
-        AngularVelocity = InitialRotation * rng.NextSingle();
-        LinearVelocity = RandomUnitVector(rng) * InitialVelocity;
 
         foreach (Node child in GetChildren())
         {
@@ -120,11 +113,5 @@ public partial class RocketComponent : Grabbable
 
     private void OnMouseExited()
     {
-    }
-
-    private static Vector2 RandomUnitVector(Random rng)
-    {
-        return new Vector2(1, 0)
-            .Rotated(2 * Mathf.Pi * rng.NextSingle());
     }
 }
