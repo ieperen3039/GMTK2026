@@ -19,8 +19,7 @@ public class DynamicThrustReduction
         if (thrusters.Count == 0) return;
 
         Dictionary<ThrustSource, float> torques = new();
-        PriorityQueue<ThrustSource, float> leastEffectiveTorqueingThrusters = new();
-        PriorityQueue<ThrustSource, float> mostEffectiveTorqueingStabilizers = new();
+        PriorityQueue<ThrustSource, float> mostEffectiveTorqueingThrusters = new();
         float totalPosTorque = 0;
         float totalNegTorque = 0; // abs value
 
@@ -33,14 +32,7 @@ public class DynamicThrustReduction
 
             float downwardThrust = globalThrustVector.Cross(Vector2.Down);
             float torqueEffectiveness = (downwardThrust == 0) ? 0 : (torque / downwardThrust);
-            if (thruster.IsPassive)
-            {
-                // mostEffectiveTorqueingStabilizers.Enqueue(thruster, -torqueEffectiveness);
-            }
-            else
-            {
-                leastEffectiveTorqueingThrusters.Enqueue(thruster, torqueEffectiveness);
-            }
+            mostEffectiveTorqueingThrusters.Enqueue(thruster, -torqueEffectiveness);
 
             if (torque < 0) totalNegTorque -= torque;
             else totalPosTorque += torque;
@@ -51,7 +43,7 @@ public class DynamicThrustReduction
         rocket.Inertia = 1.0f / PhysicsServer2D.BodyGetDirectState(rocket.GetRid()).InverseInertia;
 
         float offset = Game.CentralXCoordinate - rocket.GlobalPosition.X;
-        float desiredRotation = offset * XOffsetCorrectionFactor + rotationTarget * PlayerControlRotation;
+        float desiredRotation = Mathf.Clamp(offset * XOffsetCorrectionFactor, 0.2f, 0.2f) + rotationTarget * PlayerControlRotation;
         float currentRotation = Util.RotationRelativeToUp(rocket.Rotation);
         float rotationDifference = Mathf.Clamp(desiredRotation - currentRotation, -Mathf.Pi, Mathf.Pi);
         float desiredAngularVelocity = rotationDifference * AngleCorrectionSpeed;
@@ -69,42 +61,17 @@ public class DynamicThrustReduction
         float maxAccumulatedTorque = totalTorqueInDirectionOfDesired - Mathf.Abs(desiredTorqueChange);
         GD.Print($"totalTorqueInDirectionOfDesired = {totalTorqueInDirectionOfDesired}, maxAccumulatedTorque = {maxAccumulatedTorque}");
 
-        // while (mostEffectiveTorqueingStabilizers.Count > 0)
-        // {
-        //     // MOST effective stabilizer first
-        //     ThrustSource stabilizer = mostEffectiveTorqueingStabilizers.Dequeue();
-        //     float torque = torques[stabilizer];
-
-        //     // if torque does NOT help move total to target, deactivate
-        //     if ((torque > 0) != (targetTorque > currentTorque)
-        //         && !float.IsInfinity(targetTorque)
-        //         && Mathf.Abs(torque) >= MinimumControlTorque)
-        //     {
-        //         stabilizer.ThrustFactor = 0.0f;
-        //         GD.Print($"Stabilizer targetPowerLevel = OFF (torque = {torque})");
-        //     }
-        //     else
-        //     {
-        //         // helpful torque, increase power until we run out of budget
-        //         float torqueBudgetLeft = maxAccumulatedTorque - accumulatedTorque;
-        //         float targetPowerLevel = Mathf.Clamp(torqueBudgetLeft / Mathf.Abs(torque), 0, 1);
-        //         stabilizer.ThrustFactor = targetPowerLevel;
-        //         accumulatedTorque += Mathf.Abs(torque) * targetPowerLevel;
-        //         GD.Print($"{stabilizer.Name} targetPowerLevel = {targetPowerLevel} (torque = {torque}, torqueBudgetLeft = {maxAccumulatedTorque - accumulatedTorque})");
-        //     }
-        // }
-
-        if (leastEffectiveTorqueingThrusters.Count == 1)
+        if (mostEffectiveTorqueingThrusters.Count == 1)
         {
-            leastEffectiveTorqueingThrusters.Dequeue().ThrustFactor = 1.0f;
+            mostEffectiveTorqueingThrusters.Dequeue().ThrustFactor = 1.0f;
             GD.Print($"Thruster targetPowerLevel = MAX (it is the only thruster)");
         }
         else
         {
-            while (leastEffectiveTorqueingThrusters.Count > 0)
+            while (mostEffectiveTorqueingThrusters.Count > 0)
             {
-                // LEAST effective thruster first
-                ThrustSource thruster = leastEffectiveTorqueingThrusters.Dequeue();
+                // MOST effective thruster first
+                ThrustSource thruster = mostEffectiveTorqueingThrusters.Dequeue();
                 float torque = torques[thruster];
 
                 // if torque helps move total to target, go full blast

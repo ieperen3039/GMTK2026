@@ -37,7 +37,6 @@ public partial class Thruster : RocketComponent
         int numThrusters = 0;
         foreach (ThrustSource thruster in ThrustSources)
         {
-            if (thruster.IsPassive) continue;
             averageThrustFactor += thruster.ThrustFactor;
             numThrusters++;
         }

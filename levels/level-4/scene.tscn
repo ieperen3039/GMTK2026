@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="4_ogb2v"]
 [ext_resource type="PackedScene" uid="uid://bn7h154hc2vae" path="res://launch-tower/launch-tower.tscn" id="5_bneui"]
 [ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="6_bneui"]
-[ext_resource type="PackedScene" uid="uid://s7v7dbr5g7n4" path="res://rocket/rocket-components/bowling-ball/scene.tscn" id="7_2rg67"]
 [ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/scene.tscn" id="7_cpmxm"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="7_er6ob"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="9_1ierk"]
@@ -16,7 +15,7 @@
 AltitudeGoal = 10000
 
 [node name="LevelTimer" parent="." index="3" unique_id=317409736]
-wait_time = 70.0
+wait_time = 50.0
 
 [node name="Briefing" parent="." index="8" unique_id=561301093]
 offset_left = -167.0
@@ -33,7 +32,7 @@ offset_bottom = -16.0
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.75
-anchor_top = 0.16666663
+anchor_top = 0.11274506
 anchor_right = 0.99975026
 anchor_bottom = 0.11274506
 offset_bottom = 51.0
@@ -181,11 +180,7 @@ position = Vector2(23, -242)
 [node name="Thruster4" parent="RocketComponents" index="6" unique_id=1191888711 instance=ExtResource("4_ogb2v")]
 position = Vector2(57, -242)
 
-[node name="BowlingBall" parent="RocketComponents" index="7" unique_id=392779649 instance=ExtResource("7_2rg67")]
-position = Vector2(142, -60)
-mass = 5.0
-
-[node name="Scene4" parent="RocketComponents" index="8" unique_id=379758665 instance=ExtResource("7_cpmxm")]
+[node name="Scene4" parent="RocketComponents" index="7" unique_id=379758665 instance=ExtResource("7_cpmxm")]
 position = Vector2(58, -288)
 
 [node name="OtherSelectables" type="Node" parent="." index="10" unique_id=1537484713]

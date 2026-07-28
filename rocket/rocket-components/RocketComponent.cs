@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public partial class RocketComponent : Grabbable
 {
     // in pixels;
-    private const float RocketCheckMargin = 2;
+    private const float RocketCheckMargin = 5;
 
     public const float AnglePull = 5f;
     private List<ThrustSource> thrustSources = [];

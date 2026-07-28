@@ -6,14 +6,12 @@ public partial class ThrustSource : Node2D
 {
     [Export]
     public float ThrustPower {get; private set; }
-    [Export]
-    public bool IsPassive {get; private set; }
 
     public float ThrustFactor = 0.0f;
 
     public bool EnableThrust => ThrustFactor > 0.0f;
 
-    public void SetActivationThrustFactor() => ThrustFactor = (IsPassive ? 0 : 1);
+    public void SetActivationThrustFactor() => ThrustFactor = 1;
 
     public Vector2 GetThrust() => GetThrustAt(ThrustFactor);
 

@@ -14,7 +14,7 @@ public partial class Level : Node2D
     [Signal]
     public delegate void OnReturnEventHandler();
 
-    private const int AltitudeScoreZone = 100;
+    private const int AltitudeScoreZone = 500;
 
     [Export]
     private int AltitudeGoal;
