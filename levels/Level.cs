@@ -140,7 +140,11 @@ public partial class Level : Node2D
 
         foreach (Node child in selectablesNode.GetChildren())
         {
-            if (child is RigidBody2D body) body.Freeze = false;
+            if (child is RigidBody2D body) {
+                body.Freeze = false;
+                body.LinearVelocity = Vector2.Zero;
+                body.AngularVelocity = 0f;
+            }
 
             if (child is Grabbable part)
             {
