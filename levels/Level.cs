@@ -198,7 +198,7 @@ public partial class Level : Node2D
         if (Input.IsActionJustPressed("toggle_tape"))
         {
             // set active if not already active
-            tapeToolButton.SetPressed(tapeToolButton.IsPressed());
+            tapeToolButton.SetPressed(!tapeToolButton.IsPressed());
         }
 
         if (shouldBuildRocket)

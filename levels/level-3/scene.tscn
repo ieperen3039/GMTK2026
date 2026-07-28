@@ -16,7 +16,7 @@
 AltitudeGoal = 10000
 
 [node name="LevelTimer" parent="." index="3" unique_id=317409736]
-wait_time = 40.0
+wait_time = 45.0
 
 [node name="Briefing" parent="." index="8" unique_id=561301093]
 offset_left = -159.0
@@ -119,7 +119,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 160.0
 offset_top = 6.0
-offset_right = -7.0
+offset_right = -15.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -198,25 +198,22 @@ position = Vector2(73, -275)
 [node name="FuelTank2" parent="RocketComponents" index="3" unique_id=753470201 instance=ExtResource("5_168kw")]
 position = Vector2(-15, -275)
 
-[node name="FuelTank3" parent="RocketComponents" index="4" unique_id=1007578237 instance=ExtResource("5_168kw")]
-position = Vector2(-35, -226)
-
-[node name="FuelTank4" parent="RocketComponents" index="5" unique_id=1599240470 instance=ExtResource("5_168kw")]
+[node name="FuelTank4" parent="RocketComponents" index="4" unique_id=1599240470 instance=ExtResource("5_168kw")]
 position = Vector2(117, -275)
 
-[node name="Engine2" parent="RocketComponents" index="6" unique_id=367263358 instance=ExtResource("2_vmxb2")]
+[node name="Engine2" parent="RocketComponents" index="5" unique_id=367263358 instance=ExtResource("2_vmxb2")]
 position = Vector2(75, -226)
 
-[node name="COOOONE" parent="RocketComponents" index="7" unique_id=1365596330 instance=ExtResource("5_doeej")]
-position = Vector2(21, -226)
+[node name="COOOONE" parent="RocketComponents" index="6" unique_id=1365596330 instance=ExtResource("5_doeej")]
+position = Vector2(7, -226)
 
-[node name="CrewBox" parent="RocketComponents" index="8" unique_id=1138033148 instance=ExtResource("11_0op4n")]
+[node name="CrewBox" parent="RocketComponents" index="7" unique_id=1138033148 instance=ExtResource("11_0op4n")]
 position = Vector2(0, -170)
 
-[node name="LongTank" parent="RocketComponents" index="9" unique_id=192567211 instance=ExtResource("11_168kw")]
+[node name="LongTank" parent="RocketComponents" index="8" unique_id=192567211 instance=ExtResource("11_168kw")]
 position = Vector2(-78, -242)
 
-[node name="LongTank2" parent="RocketComponents" index="10" unique_id=1089481680 instance=ExtResource("11_168kw")]
+[node name="LongTank2" parent="RocketComponents" index="9" unique_id=1089481680 instance=ExtResource("11_168kw")]
 position = Vector2(-118, -242)
 
 [editable path="Briefing"]
