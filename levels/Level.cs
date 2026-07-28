@@ -35,7 +35,7 @@ public partial class Level : Node2D
     private Grabbable hoveredSelectable;
 
     private Timer timer;
-    private CountdownTimer timer_ui;
+    private CountdownTimer timerGraphic;
 
     private Score score = new();
 
@@ -53,7 +53,7 @@ public partial class Level : Node2D
         camera = GetNode<Camera2D>("Camera2D");
         rocketComponentsNode = GetNode<Node>("RocketComponents");
         timer = GetNode<Timer>("LevelTimer");
-        timer_ui = GetNode<CountdownTimer>("%CountdownTimer");
+        timerGraphic = GetNode<CountdownTimer>("%CountdownTimer");
         buildPhaseBounds = GetNode<CollisionObject2D>("BuildPhaseBounds");
         selectablesNode = GetNode<Node>("OtherSelectables");
         GetNode<Node2D>("Finishline").Position = new(0, -AltitudeGoal);
@@ -115,7 +115,6 @@ public partial class Level : Node2D
         resetButton.Pressed += () => EmitSignal(SignalName.OnReset);
 
         // Setup the timer
-        timer_ui.Initialize(timer);
         timer.Timeout += OnCountdownZero;
         timer.Start();
     }
@@ -138,6 +137,8 @@ public partial class Level : Node2D
 
     public override void _PhysicsProcess(double delta)
     {
+        timerGraphic.SetValue(timer.TimeLeft);
+
         foreach (DuctTape tape in tapes)
         {
             tape.Update(delta);
