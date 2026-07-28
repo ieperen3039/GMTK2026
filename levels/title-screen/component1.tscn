@@ -2,7 +2,7 @@
 
 [ext_resource type="PhysicsMaterial" uid="uid://dgdaeemlvanm7" path="res://levels/title-screen/title_screen_component_physics.tres" id="1_tv6lf"]
 [ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_awvtc"]
-[ext_resource type="Texture2D" uid="uid://ck8roj6dp5hwn" path="res://rocket/rocket-components/nose-cone/nose-cone.tres" id="3_nn046"]
+[ext_resource type="Texture2D" uid="uid://ck8roj6dp5hwn" path="res://rocket/rocket-components/nose-cone/nose-cone-left.tres" id="3_nn046"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_40nxh"]
 points = PackedVector2Array(16, 16, 14, 0, 10, -9, 0, -16, -10, -9, -14, 0, -16, 16)

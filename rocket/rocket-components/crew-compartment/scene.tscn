@@ -6,16 +6,22 @@
 [ext_resource type="Texture2D" uid="uid://cgpjv2uphpvqb" path="res://rocket/rocket-components/crew-compartment/full-compartment.tres" id="4_ltycx"]
 [ext_resource type="Texture2D" uid="uid://c3esik4vlu27l" path="res://rocket/rocket-components/crew-compartment/empty-compartment.tres" id="5_5jqal"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
-size = Vector2(32, 32)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5tnor"]
 size = Vector2(34, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
+size = Vector2(32, 32)
 
 [node name="Scene" type="RigidBody2D" unique_id=217928142]
 input_pickable = true
 physics_material_override = ExtResource("1_ltycx")
 script = ExtResource("2_5jqal")
+
+[node name="CrewCollectionHitbox" type="Area2D" parent="." unique_id=1152810628]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrewCollectionHitbox" unique_id=1570176298]
+shape = SubResource("RectangleShape2D_5tnor")
+debug_color = Color(0.1426534, 0.6461214, 0, 0.41960785)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=565845095]
 shape = SubResource("RectangleShape2D_teru1")
@@ -37,8 +43,3 @@ texture = ExtResource("4_ltycx")
 
 [node name="Empty" type="Sprite2D" parent="." unique_id=1284471202]
 texture = ExtResource("5_5jqal")
-
-[node name="CrewCollectionHitbox" type="Area2D" parent="." unique_id=1152810628]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CrewCollectionHitbox" unique_id=1570176298]
-shape = SubResource("RectangleShape2D_5tnor")

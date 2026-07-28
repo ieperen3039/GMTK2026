@@ -2,11 +2,13 @@
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_yhc36"]
 [ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_nhwap"]
-[ext_resource type="Texture2D" uid="uid://ck8roj6dp5hwn" path="res://rocket/rocket-components/nose-cone/nose-cone.tres" id="3_rft1a"]
+[ext_resource type="Texture2D" uid="uid://ck8roj6dp5hwn" path="res://rocket/rocket-components/nose-cone/nose-cone-left.tres" id="3_rft1a"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="4_2c7ku"]
+[ext_resource type="Texture2D" uid="uid://crxgi31ot7hyt" path="res://rocket/rocket-components/nose-cone/nose-cone-right.tres" id="4_nhwap"]
+[ext_resource type="Texture2D" uid="uid://cd536sc34im8h" path="res://rocket/rocket-components/nose-cone/nose-cone-midde.tres" id="5_rft1a"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_p4jg2"]
-points = PackedVector2Array(32, 16, 27, -1, 15, -11, 0, -16, -14, -11, -26, -1, -32, 16)
+points = PackedVector2Array(32, 16, 32, 11, 30, 0, 26, -8, 20, -14, 16, -16, -16, -16, -20, -14, -26, -8, -30, 0, -32, 11, -32, 16)
 
 [node name="Scene" type="RigidBody2D" unique_id=1365596330]
 input_pickable = true
@@ -19,8 +21,23 @@ script = ExtResource("2_nhwap")
 shape = SubResource("ConvexPolygonShape2D_p4jg2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=534105907]
-scale = Vector2(2, 1)
+position = Vector2(-24, 0)
 texture = ExtResource("3_rft1a")
 
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1711375463]
+position = Vector2(24, 0)
+texture = ExtResource("4_nhwap")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=154948891]
+position = Vector2(-4.7683716e-07, 0)
+scale = Vector2(16, 1)
+texture = ExtResource("5_rft1a")
+
 [node name="Magnet" parent="." unique_id=1363214683 instance=ExtResource("4_2c7ku")]
-position = Vector2(0, 16)
+position = Vector2(-16, 16)
+
+[node name="Magnet3" parent="." unique_id=1689996933 instance=ExtResource("4_2c7ku")]
+position = Vector2(0, -16)
+
+[node name="Magnet2" parent="." unique_id=1885768638 instance=ExtResource("4_2c7ku")]
+position = Vector2(16, 16)
