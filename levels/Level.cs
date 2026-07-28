@@ -105,8 +105,7 @@ public partial class Level : Node2D
 
         // Setup buttons
         tapeToolButton = GetNode<Button>("%SetTapeTool");
-        tapeToolButton.ButtonDown += SetTapeTool;
-        tapeToolButton.ButtonUp += ResetMouseTool;
+        tapeToolButton.Toggled += SetTapeTool;
         Button resetButton = GetNode<Button>("%Reset");
         resetButton.Pressed += () => EmitSignal(SignalName.OnReset);
         timer.Start();
@@ -141,7 +140,8 @@ public partial class Level : Node2D
 
         foreach (Node child in selectablesNode.GetChildren())
         {
-            if (child is RigidBody2D body) {
+            if (child is RigidBody2D body)
+            {
                 body.Freeze = false;
                 body.LinearVelocity = Vector2.Zero;
                 body.AngularVelocity = 0f;
@@ -200,8 +200,8 @@ public partial class Level : Node2D
 
         if (Input.IsActionJustPressed("toggle_tape"))
         {
-            if (mouseTool is TapeTool) ResetMouseTool();
-            else SetTapeTool();
+            // set active if not already active
+            tapeToolButton.SetPressed(tapeToolButton.IsPressed());
         }
 
         if (shouldBuildRocket)
@@ -220,11 +220,7 @@ public partial class Level : Node2D
         }
     }
 
-    private void SetTapeTool()
-    {
-        mouseTool.OnCancel();
-        mouseTool = new TapeTool(this);
-    }
+    private void SetTapeTool(bool setActive) => SetMouseTool(setActive ? new TapeTool(this) : defaultMouseTool);
 
     // attach camera to largest component tree, activate all engines
     private void OnCountdownZero()
@@ -263,7 +259,6 @@ public partial class Level : Node2D
     private void OnLevelComplete()
     {
         // first count the score
-
         score = new() { TotalComponents = numRocketComponents, };
 
         float minimumAltitudeToCount = AltitudeGoal - AltitudeScoreZone;
@@ -294,11 +289,12 @@ public partial class Level : Node2D
         AddChild(levelCompleteScreen);
     }
 
-    private void ResetMouseTool()
+    private void SetMouseTool(IMouseTool newMouseTool)
     {
         mouseTool.OnCancel();
-        tapeToolButton.SetPressedNoSignal(false);
-        mouseTool = defaultMouseTool;
+        mouseTool = newMouseTool;
+        tapeToolButton.SetPressedNoSignal(newMouseTool is TapeTool);
+        GD.Print($"mouseTool = {mouseTool.GetType().Name}");
     }
 
 
@@ -308,7 +304,7 @@ public partial class Level : Node2D
         {
             if (mouseEvent.ButtonIndex == MouseButton.Right)
             {
-                ResetMouseTool();
+                SetMouseTool(defaultMouseTool);
             }
             else if (mouseEvent.ButtonIndex == MouseButton.Left)
             {
@@ -338,7 +334,6 @@ public partial class Level : Node2D
 
         public TapeTool(Level parent)
         {
-            GD.Print("TapeTool");
             this.parent = parent;
             tape = NewTape();
         }
@@ -354,7 +349,6 @@ public partial class Level : Node2D
         public void OnClick(Vector2 mousePosition)
         {
             Grabbable selectable = parent.hoveredSelectable;
-            GD.Print($"OnClick {selectable?.Name}");
             if (selectable != null)
             {
                 Vector2 relativeClick = selectable.ToLocal(mousePosition);
@@ -405,7 +399,6 @@ public partial class Level : Node2D
 
         public GrabTool(Level parent)
         {
-            GD.Print("GrabTool");
             this.parent = parent;
             this.grabbed = null;
         }
