@@ -21,4 +21,4 @@ shape = SubResource("CapsuleShape2D_teru1")
 
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=1230547999]
 sprite_frames = ExtResource("1_w3wfc")
-animation = &"Stand"
+animation = &"Walk"

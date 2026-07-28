@@ -61,7 +61,9 @@ public partial class CrewMember : Grabbable
         base._PhysicsProcess(delta);
 
         WalkLeft = GlobalPosition.X < WalkTarget.GlobalPosition.X;
-        if (WalkLeft) Scale = new(-1, 1);
+
+        if (WalkLeft) animation.Scale = new(-1, 1);
+        else animation.Scale = new(1, 1);
 
         if (!isDragging && animation.Animation == AnimationNameWalk)
         {
@@ -72,12 +74,12 @@ public partial class CrewMember : Grabbable
             if (WalkLeft)
             {
                 // also pull up a little for the sake of figting friction
-                ApplyCentralForce(new Vector2(-totalWalkForce, -Mass * 400));
+                ApplyCentralForce(new Vector2(totalWalkForce, -Mass * 400));
             }
             else
             {
                 // also pull up a little for the sake of figting friction
-                ApplyCentralForce(new Vector2(totalWalkForce, -Mass * 400));
+                ApplyCentralForce(new Vector2(-totalWalkForce, -Mass * 400));
             }
         }
     }

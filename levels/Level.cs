@@ -150,9 +150,10 @@ public partial class Level : Node2D
                 part.MouseExited += () => OnHoverSelectable(part, false);
             }
 
-            if (child is CrewMember)
+            if (child is CrewMember crew)
             {
                 numCrewInLevel++;
+                crew.WalkTarget = controlComponent;
             }
         }
 
