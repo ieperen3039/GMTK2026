@@ -118,6 +118,8 @@ public partial class Level : Node2D
             if (child is RocketComponent part)
             {
                 part.Freeze = false;
+                part.LinearVelocity = Vector2.Zero;
+                part.AngularVelocity = 0f;
 
                 Util.Toss(part, rng);
                 part.InputPickable = true;
