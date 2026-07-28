@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://cklehvaf6ly0i" path="res://background/lower-mountains.tres" id="3_6ugg7"]
 [ext_resource type="Texture2D" uid="uid://d21djt13tewj7" path="res://background/tree-line.tres" id="4_13wal"]
 [ext_resource type="Texture2D" uid="uid://k1hqm4vo8ykd" path="res://background/meadow.tres" id="5_vmyv2"]
-[ext_resource type="Texture2D" uid="uid://bmhmen7fpgecv" path="res://levels/finishline.png" id="6_0ub3o"]
 
 [node name="ParallaxBg" type="Node" unique_id=1362283845]
 
@@ -57,7 +56,3 @@ repeat_times = 2
 [node name="Sprite2D" type="Sprite2D" parent="Meadow" unique_id=818846849]
 position = Vector2(240, 240)
 texture = ExtResource("5_vmyv2")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Meadow" unique_id=847121432]
-position = Vector2(247, -10000)
-texture = ExtResource("6_0ub3o")
