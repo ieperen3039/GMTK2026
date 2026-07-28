@@ -126,8 +126,7 @@ public partial class DuctTape : Node2D
 
         ComponentA = null;
         ComponentB = null;
-        graphic.RemovePoint(1);
-        graphic.RemovePoint(0);
+        graphic.ClearPoints();
     }
 
 

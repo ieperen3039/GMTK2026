@@ -89,7 +89,7 @@ texture = ExtResource("1_ro0od")
 [node name="ThrustSource" type="Node2D" parent="." unique_id=746120437]
 position = Vector2(0, 16)
 script = ExtResource("3_00yy8")
-ThrustPower = 5000.0
+ThrustPower = 7000.0
 
 [node name="TopMagnet" parent="." unique_id=450049775 instance=ExtResource("4_hrefm")]
 position = Vector2(0, -16)

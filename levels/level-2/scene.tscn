@@ -13,6 +13,9 @@
 [node name="BaseLevel" unique_id=1782678356 instance=ExtResource("1_fudoe")]
 AltitudeGoal = 20000
 
+[node name="LevelTimer" parent="." index="4" unique_id=317409736]
+wait_time = 45.0
+
 [node name="RocketComponents" type="Node" parent="." index="8" unique_id=1208970143]
 
 [node name="Engine" parent="RocketComponents" index="0" unique_id=1039960409 instance=ExtResource("5_tfgyv")]
@@ -40,7 +43,7 @@ position = Vector2(-66, -129)
 position = Vector2(60, -214)
 
 [node name="BowlingBall" parent="RocketComponents" index="8" unique_id=392779649 instance=ExtResource("12_6itg2")]
-position = Vector2(0, -592)
+position = Vector2(-9, -401)
 
 [node name="OtherSelectables" type="Node" parent="." index="9" unique_id=535106724]
 

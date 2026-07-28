@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b4jwngxg0cvuj" path="res://background/skybox.png" id="1_4xylt"]
 [ext_resource type="Texture2D" uid="uid://c7pp4o8jscc6g" path="res://background/upper-mountains.tres" id="2_0ub3o"]
+[ext_resource type="Texture2D" uid="uid://bifnr36wec58w" path="res://background/bg-clouds.tres" id="2_6ugg7"]
 [ext_resource type="Texture2D" uid="uid://cklehvaf6ly0i" path="res://background/lower-mountains.tres" id="3_6ugg7"]
 [ext_resource type="Texture2D" uid="uid://d21djt13tewj7" path="res://background/tree-line.tres" id="4_13wal"]
 [ext_resource type="Texture2D" uid="uid://k1hqm4vo8ykd" path="res://background/meadow.tres" id="5_vmyv2"]
@@ -9,17 +10,27 @@
 [node name="ParallaxBg" type="Node" unique_id=1362283845]
 
 [node name="Skybox" type="Parallax2D" parent="." unique_id=1914231962]
-scroll_scale = Vector2(0, 0)
+scroll_scale = Vector2(0.1, 0.1)
 scroll_offset = Vector2(-240, -240)
 repeat_size = Vector2(480, 0)
 repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Skybox" unique_id=809678329]
-position = Vector2(240, -660)
+position = Vector2(240, -700)
 texture = ExtResource("1_4xylt")
 
+[node name="Clouds" type="Parallax2D" parent="." unique_id=966836897]
+scroll_scale = Vector2(0.15, 0.15)
+scroll_offset = Vector2(-240, -240)
+repeat_size = Vector2(480, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Clouds" unique_id=165807449]
+position = Vector2(240, 240)
+texture = ExtResource("2_6ugg7")
+
 [node name="UpperMountains" type="Parallax2D" parent="." unique_id=1284716303]
-scroll_scale = Vector2(0.1, 0.1)
+scroll_scale = Vector2(0.2, 0.2)
 scroll_offset = Vector2(-240, -240)
 repeat_size = Vector2(480, 0)
 repeat_times = 2
@@ -29,7 +40,7 @@ position = Vector2(240, 240)
 texture = ExtResource("2_0ub3o")
 
 [node name="LowerMountains" type="Parallax2D" parent="." unique_id=586091106]
-scroll_scale = Vector2(0.2, 0.2)
+scroll_scale = Vector2(0.3, 0.3)
 scroll_offset = Vector2(-240, -240)
 repeat_size = Vector2(480, 0)
 repeat_times = 2

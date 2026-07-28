@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://73ile0xgnbys" path="res://rocket/rocket-components/traffic-cone/scene.tscn" id="12_qpjtc"]
 
 [node name="BaseLevel" unique_id=1782678356 instance=ExtResource("12_cfguj")]
+AltitudeGoal = 1000
 
 [node name="LevelTimer" parent="." index="4" unique_id=317409736]
 wait_time = 25.0
