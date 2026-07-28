@@ -18,15 +18,15 @@ public partial class TitleScreen : Control
         levelSelectionMenu = GetNode<Control>("LevelSelection");
         creditsMenu = GetNode<Control>("Credits");
 
-        Button StartButton = mainMenu.GetNode<Button>("%Start");
+        Button StartButton = mainMenu.GetNode<Button>("%ButtonStart");
         StartButton.Pressed += () => EmitSignal(SignalName.OnLevelSelect, 0);
 
-        mainMenu.GetNode<Button>("%Exit").Pressed += () => GetTree().Quit();
-        mainMenu.GetNode<Button>("%Credits").Pressed += SetCredits;
-        mainMenu.GetNode<Button>("%LevelSelection").Pressed += SetLevelSelection;
+        mainMenu.GetNode<Button>("%ButtonExit").Pressed += () => GetTree().Quit();
+        mainMenu.GetNode<Button>("%ButtonCredits").Pressed += SetCredits;
+        mainMenu.GetNode<Button>("%ButtonLevelSelection").Pressed += SetLevelSelection;
 
-        levelSelectionMenu.GetNode<Button>("%Back").Pressed += SetMainMenu;
-        creditsMenu.GetNode<Button>("%Back").Pressed += SetMainMenu;
+        levelSelectionMenu.GetNode<Button>("%ButtonBack").Pressed += SetMainMenu;
+        creditsMenu.GetNode<Button>("%ButtonBack").Pressed += SetMainMenu;
 
         Container container = levelSelectionMenu.GetNode<Container>("%LevelButtons");
 
@@ -63,6 +63,5 @@ public partial class TitleScreen : Control
         mainMenu.Visible = true;
         levelSelectionMenu.Visible = false;
         creditsMenu.Visible = false;
-
     }
 }

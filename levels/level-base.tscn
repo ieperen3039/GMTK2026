@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_1rnsa"]
 [ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_c7fb4"]
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="3_1isni"]
+[ext_resource type="PackedScene" uid="uid://b8x3fllvhc31t" path="res://levels/briefing.tscn" id="6_w0bne"]
 [ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="13_h4qhd"]
 [ext_resource type="Texture2D" uid="uid://bmhmen7fpgecv" path="res://levels/finishline.png" id="14_aes3n"]
 
@@ -29,34 +30,6 @@ texture = ExtResource("14_aes3n")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
 position = Vector2(0, -240)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=475960895]
-offset = Vector2(-240, -480)
-transform = Transform2D(1, 0, 0, 1, -240, -480)
-
-[node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=1047236533]
-unique_name_in_owner = true
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -114.0
-offset_top = 23.0
-offset_right = -21.0
-offset_bottom = 74.0
-grow_horizontal = 0
-theme = ExtResource("3_1isni")
-text = "Tape"
-metadata/_edit_use_anchors_ = true
-
-[node name="Reset" type="Button" parent="CanvasLayer" unique_id=1623442626]
-unique_name_in_owner = true
-offset_left = 26.0
-offset_top = 23.0
-offset_right = 118.0
-offset_bottom = 74.0
-theme = ExtResource("3_1isni")
-text = "Reset"
-metadata/_edit_use_anchors_ = true
-
 [node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
 wait_time = 30.0
 one_shot = true
@@ -81,3 +54,61 @@ shape = SubResource("WorldBoundaryShape2D_0s1ev")
 stream = ExtResource("13_h4qhd")
 volume_db = -5.0
 autoplay = true
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=475960895]
+offset = Vector2(-240, -480)
+transform = Transform2D(1, 0, 0, 1, -240, -480)
+
+[node name="GameUi" type="Control" parent="UI" unique_id=1453695955]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SetTapeTool" type="Button" parent="UI/GameUi" unique_id=1047236533]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -114.0
+offset_top = 23.0
+offset_right = -21.0
+offset_bottom = 74.0
+grow_horizontal = 0
+theme = ExtResource("3_1isni")
+toggle_mode = true
+text = "Tape"
+metadata/_edit_use_anchors_ = true
+
+[node name="Reset" type="Button" parent="UI/GameUi" unique_id=1623442626]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 26.0
+offset_top = 23.0
+offset_right = 118.0
+offset_bottom = 74.0
+theme = ExtResource("3_1isni")
+text = "Reset"
+metadata/_edit_use_anchors_ = true
+
+[node name="Briefing" parent="." unique_id=561301093 instance=ExtResource("6_w0bne")]
+unique_name_in_owner = true
+z_index = -1
+z_as_relative = false
+custom_minimum_size = Vector2(10, 10)
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -184.0
+offset_top = -423.0
+offset_right = 184.0
+offset_bottom = -134.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[editable path="Briefing"]

@@ -22,7 +22,7 @@ distance = -224.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6jkej"]
 distance = -150.0
 
-[node name="Scene" type="Control" unique_id=368995847]
+[node name="StartScreen" type="Control" unique_id=368995847]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15

@@ -80,7 +80,7 @@ size_flags_vertical = 3
 theme = ExtResource("1_t7rro")
 text = "Level 4"
 
-[node name="Back" type="Button" parent="Control" unique_id=863779557]
+[node name="ButtonBack" type="Button" parent="Control" unique_id=863779557]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12

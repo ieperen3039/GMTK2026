@@ -30,19 +30,19 @@ layout_mode = 2
 texture = ExtResource("1_qsbwm")
 stretch_mode = 2
 
-[node name="Start" type="Button" parent="VBoxContainer" unique_id=618955095]
+[node name="ButtonStart" type="Button" parent="VBoxContainer" unique_id=618955095]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_yjbf4")
 text = "Start Game"
 
-[node name="LevelSelection" type="Button" parent="VBoxContainer" unique_id=1142098236]
+[node name="ButtonLevelSelection" type="Button" parent="VBoxContainer" unique_id=1142098236]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_yjbf4")
 text = "Level selection"
 
-[node name="Credits" type="Button" parent="VBoxContainer" unique_id=1225315077]
+[node name="ButtonCredits" type="Button" parent="VBoxContainer" unique_id=1225315077]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_yjbf4")
@@ -52,7 +52,7 @@ text = "Credits"
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Exit" type="Button" parent="VBoxContainer" unique_id=613238095]
+[node name="ButtonExit" type="Button" parent="VBoxContainer" unique_id=613238095]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_yjbf4")
