@@ -52,11 +52,14 @@ public partial class Level : Node2D
 
         camera = GetNode<Camera2D>("Camera2D");
         rocketComponentsNode = GetNode<Node>("RocketComponents");
-        ductTapeInstancesNode = GetNode<Node>("DuctTapeInstances");
         timer = GetNode<Timer>("LevelTimer");
         timer_ui = GetNode<CountdownTimer>("%CountdownTimer");
         buildPhaseBounds = GetNode<CollisionObject2D>("BuildPhaseBounds");
         selectablesNode = GetNode<Node>("OtherSelectables");
+        GetNode<Node2D>("Finishline").Position = new(0, -AltitudeGoal);
+
+        ductTapeInstancesNode = new Node { Name = "DuctTapeInstances" };
+        AddChild(ductTapeInstancesNode);
 
         defaultMouseTool = new GrabTool(this);
         mouseTool = defaultMouseTool;

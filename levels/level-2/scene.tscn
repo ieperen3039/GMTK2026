@@ -1,137 +1,58 @@
-[gd_scene format=3 uid="uid://c88r4v8fv86a3"]
+[gd_scene format=3 uid="uid://bkub6b2wxvc3h"]
 
-[ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_krbkv"]
-[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_6itg2"]
+[ext_resource type="PackedScene" uid="uid://brbphpk1yrjqc" path="res://levels/level-base.tscn" id="1_fudoe"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_fudoe"]
-[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="5_tfgyv"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="5_tfgyv"]
 [ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="6_6itg2"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_4scl4"]
-[ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/stabilisation-thruster/scene.tscn" id="7_xm06s"]
+[ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/scene.tscn" id="7_xm06s"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="8_y0sqk"]
 [ext_resource type="PackedScene" uid="uid://73ile0xgnbys" path="res://rocket/rocket-components/traffic-cone/scene.tscn" id="10_6itg2"]
-[ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="11_6itg2"]
-[ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="11_okrdb"]
 [ext_resource type="PackedScene" uid="uid://s7v7dbr5g7n4" path="res://rocket/rocket-components/bowling-ball/scene.tscn" id="12_6itg2"]
-[ext_resource type="Texture2D" uid="uid://bmhmen7fpgecv" path="res://levels/finish-line/finishline.png" id="13_4scl4"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
-normal = Vector2(1, 0)
-distance = -100.0
+[node name="BaseLevel" unique_id=1782678356 instance=ExtResource("1_fudoe")]
+AltitudeGoal = 20000
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7741h"]
-normal = Vector2(-1, 0)
-distance = -100.0
+[node name="RocketComponents" type="Node" parent="." index="8" unique_id=1208970143]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s1ev"]
-
-[node name="Level" type="Node2D" unique_id=1782678356]
-script = ExtResource("1_krbkv")
-AltitudeGoal = 10000
-
-[node name="ParallaxBg" parent="." unique_id=932535934 instance=ExtResource("2_6itg2")]
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
-position = Vector2(0, -240)
-
-[node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 60.0
-one_shot = true
-
-[node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
-
-[node name="Engine" parent="RocketComponents" unique_id=375305117 instance=ExtResource("5_tfgyv")]
+[node name="Engine" parent="RocketComponents" index="0" unique_id=1039960409 instance=ExtResource("5_tfgyv")]
 position = Vector2(-19, -132)
 
-[node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_fudoe")]
+[node name="FuelTank1" parent="RocketComponents" index="1" unique_id=217928142 instance=ExtResource("5_fudoe")]
 position = Vector2(-41, -51)
 
-[node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_fudoe")]
+[node name="FuelTank2" parent="RocketComponents" index="2" unique_id=889207740 instance=ExtResource("5_fudoe")]
 position = Vector2(83, -139)
 
-[node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_fudoe")]
+[node name="FuelTank3" parent="RocketComponents" index="3" unique_id=1562038213 instance=ExtResource("5_fudoe")]
 position = Vector2(-19, -191)
 
-[node name="Controller" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("6_6itg2")]
+[node name="Controller" parent="RocketComponents" index="4" unique_id=1726531230 instance=ExtResource("6_6itg2")]
 position = Vector2(34, -154)
 
-[node name="Engine2" parent="RocketComponents" unique_id=1552468733 instance=ExtResource("5_tfgyv")]
+[node name="Engine2" parent="RocketComponents" index="5" unique_id=1662701509 instance=ExtResource("5_tfgyv")]
 position = Vector2(29, -97)
 
-[node name="StabilizerThr1" parent="RocketComponents" unique_id=379758665 instance=ExtResource("7_xm06s")]
+[node name="StabilizerThr1" parent="RocketComponents" index="6" unique_id=379758665 instance=ExtResource("7_xm06s")]
 position = Vector2(-66, -129)
 
-[node name="StabilizerThr2" parent="RocketComponents" unique_id=1610155872 instance=ExtResource("7_xm06s")]
+[node name="StabilizerThr2" parent="RocketComponents" index="7" unique_id=1327759689 instance=ExtResource("7_xm06s")]
 position = Vector2(60, -214)
 
-[node name="BowlingBall" parent="RocketComponents" unique_id=848770531 instance=ExtResource("12_6itg2")]
+[node name="BowlingBall" parent="RocketComponents" index="8" unique_id=392779649 instance=ExtResource("12_6itg2")]
 position = Vector2(0, -592)
-mass = 10.0
 
-[node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
+[node name="OtherSelectables" type="Node" parent="." index="9" unique_id=535106724]
 
-[node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_4scl4")]
+[node name="CountdownTimer" parent="OtherSelectables" index="0" unique_id=1515224007 instance=ExtResource("7_4scl4")]
 unique_name_in_owner = true
 position = Vector2(-145, -280)
 
-[node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("8_y0sqk")]
+[node name="Platform1" parent="OtherSelectables" index="1" unique_id=499166670 instance=ExtResource("8_y0sqk")]
 position = Vector2(0, -8)
 
-[node name="Cone2" parent="OtherSelectables" unique_id=557487131 instance=ExtResource("10_6itg2")]
+[node name="Cone2" parent="OtherSelectables" index="2" unique_id=1573511453 instance=ExtResource("10_6itg2")]
 position = Vector2(-221, -16)
 
-[node name="Cone3" parent="OtherSelectables" unique_id=13783316 instance=ExtResource("10_6itg2")]
+[node name="Cone3" parent="OtherSelectables" index="3" unique_id=1312827169 instance=ExtResource("10_6itg2")]
 position = Vector2(222, -16)
-
-[node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
-
-[node name="BuildPhaseBounds" type="StaticBody2D" parent="." unique_id=573926186]
-position = Vector2(0, -200)
-scale = Vector2(2.453, 2.5)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="BuildPhaseBounds" unique_id=1160610206]
-shape = SubResource("WorldBoundaryShape2D_r5p6b")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="BuildPhaseBounds" unique_id=1343654671]
-shape = SubResource("WorldBoundaryShape2D_7741h")
-
-[node name="WorldBorder" type="StaticBody2D" parent="." unique_id=1699988788]
-scale = Vector2(2.453, 2.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder" unique_id=56533830]
-shape = SubResource("WorldBoundaryShape2D_0s1ev")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=262715566]
-stream = ExtResource("11_okrdb")
-volume_db = -5.0
-autoplay = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1390186731]
-offset = Vector2(-240, -480)
-transform = Transform2D(1, 0, 0, 1, -240, -480)
-
-[node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=324032844]
-unique_name_in_owner = true
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -114.0
-offset_top = 23.0
-offset_right = -21.0
-offset_bottom = 74.0
-grow_horizontal = 0
-theme = ExtResource("11_6itg2")
-text = "Tape"
-
-[node name="Reset" type="Button" parent="CanvasLayer" unique_id=1802273607]
-unique_name_in_owner = true
-offset_left = 26.0
-offset_top = 23.0
-offset_right = 118.0
-offset_bottom = 74.0
-theme = ExtResource("11_6itg2")
-text = "Reset"
-
-[node name="Finishline" type="Sprite2D" parent="." unique_id=1256936740]
-z_index = 6
-position = Vector2(0, -9999)
-texture = ExtResource("13_4scl4")

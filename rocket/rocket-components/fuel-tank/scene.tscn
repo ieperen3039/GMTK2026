@@ -3,7 +3,7 @@
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_mls8d"]
 [ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_kdwyy"]
 [ext_resource type="Texture2D" uid="uid://cl8qvrvqsommx" path="res://rocket/rocket-components/fuel-tank/fuel-tank.tres" id="3_8mitb"]
-[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/rocket-components/magnet/scene.tscn" id="4_3x05p"]
+[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="4_3x05p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(32, 32)

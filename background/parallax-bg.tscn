@@ -5,12 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://cklehvaf6ly0i" path="res://background/lower-mountains.tres" id="3_6ugg7"]
 [ext_resource type="Texture2D" uid="uid://d21djt13tewj7" path="res://background/tree-line.tres" id="4_13wal"]
 [ext_resource type="Texture2D" uid="uid://k1hqm4vo8ykd" path="res://background/meadow.tres" id="5_vmyv2"]
-[ext_resource type="Texture2D" uid="uid://bmhmen7fpgecv" path="res://levels/finish-line/finishline.png" id="6_0ub3o"]
+[ext_resource type="Texture2D" uid="uid://bmhmen7fpgecv" path="res://levels/finishline.png" id="6_0ub3o"]
 
 [node name="ParallaxBg" type="Node" unique_id=1362283845]
 
 [node name="Skybox" type="Parallax2D" parent="." unique_id=1914231962]
-scroll_scale = Vector2(0, 0.1)
+scroll_scale = Vector2(0, 0)
 scroll_offset = Vector2(-240, -240)
 repeat_size = Vector2(480, 0)
 repeat_times = 2
@@ -20,7 +20,7 @@ position = Vector2(240, -660)
 texture = ExtResource("1_4xylt")
 
 [node name="UpperMountains" type="Parallax2D" parent="." unique_id=1284716303]
-scroll_scale = Vector2(0.2, 0.2)
+scroll_scale = Vector2(0.1, 0.1)
 scroll_offset = Vector2(-240, -240)
 repeat_size = Vector2(480, 0)
 repeat_times = 2
@@ -30,7 +30,7 @@ position = Vector2(240, 240)
 texture = ExtResource("2_0ub3o")
 
 [node name="LowerMountains" type="Parallax2D" parent="." unique_id=586091106]
-scroll_scale = Vector2(0.3, 0.3)
+scroll_scale = Vector2(0.2, 0.2)
 scroll_offset = Vector2(-240, -240)
 repeat_size = Vector2(480, 0)
 repeat_times = 2

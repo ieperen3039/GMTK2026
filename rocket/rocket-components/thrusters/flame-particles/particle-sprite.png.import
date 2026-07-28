@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmhmen7fpgecv"
-path="res://.godot/imported/finishline.png-abf8f0da848d4fda2d4a3467dc820ce2.ctex"
+uid="uid://5jty3cjo2s2m"
+path="res://.godot/imported/particle-sprite.png-78740b3bef419db926236e4200839c5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/finish-line/finishline.png"
-dest_files=["res://.godot/imported/finishline.png-abf8f0da848d4fda2d4a3467dc820ce2.ctex"]
+source_file="res://rocket/rocket-components/thrusters/flame-particles/particle-sprite.png"
+dest_files=["res://.godot/imported/particle-sprite.png-78740b3bef419db926236e4200839c5a.ctex"]
 
 [params]
 

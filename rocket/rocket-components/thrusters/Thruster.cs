@@ -17,7 +17,9 @@ public partial class Thruster : RocketComponent
         _sfx = GetNode<ThrusterSFX>("ThrusterSFX");
         _sfx.Playing = false;
 
-        foreach (Node node in GetNode<Node2D>("ExhaustParticles").GetChildren())
+        Node2D particlesNode = GetNode<Node2D>("ExhaustParticles");
+        particlesNode.Visible = true;
+        foreach (Node node in particlesNode.GetChildren())
         {
             if (node is CpuParticles2D particle)
             {

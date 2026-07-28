@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_b2wx3"]
 [ext_resource type="Texture2D" uid="uid://du7g0lrj2krmc" path="res://rocket/rocket-components/traffic-cone/traffic-cone-sprite.tres" id="2_2m6h8"]
-[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/rocket-components/magnet/scene.tscn" id="3_116ew"]
+[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="3_116ew"]
 
 [node name="TrafficCone" type="RigidBody2D" unique_id=1573511453]
 script = ExtResource("1_b2wx3")

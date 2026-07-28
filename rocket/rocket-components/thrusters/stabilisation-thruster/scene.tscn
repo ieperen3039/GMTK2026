@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://vgso4xp2l1yw"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_s7mit"]
-[ext_resource type="Script" uid="uid://c4mpc1loy7hmh" path="res://rocket/rocket-components/thruster/Thruster.cs" id="2_4mpob"]
-[ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/ThrustSource.cs" id="2_s7mit"]
-[ext_resource type="Texture2D" uid="uid://dg8ypi70khfpw" path="res://rocket/rocket-components/thruster/flame-particles/red-particle.tres" id="3_4mpob"]
-[ext_resource type="Texture2D" uid="uid://cmsxsbbyl3keh" path="res://rocket/rocket-components/thruster/flame-particles/orange-particle.tres" id="4_3441p"]
-[ext_resource type="Texture2D" uid="uid://d3vtwxv701qcm" path="res://rocket/rocket-components/stabilisation-thruster/stabilisation-thruster.tres" id="4_y5kgx"]
-[ext_resource type="Texture2D" uid="uid://7fvdg0btkttd" path="res://rocket/rocket-components/thruster/flame-particles/yellow-particle.tres" id="5_rount"]
-[ext_resource type="Texture2D" uid="uid://c0kbmas1o14k8" path="res://rocket/rocket-components/thruster/flame-particles/white-particle.tres" id="6_lyhlf"]
-[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/rocket-components/magnet/scene.tscn" id="9_3441p"]
-[ext_resource type="PackedScene" uid="uid://6hadi0aiwebx" path="res://rocket/rocket-components/thruster-sfx/ThrusterSFX.tscn" id="10_rount"]
+[ext_resource type="Script" uid="uid://c4mpc1loy7hmh" path="res://rocket/rocket-components/thrusters/Thruster.cs" id="2_4mpob"]
+[ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/thrusters/ThrustSource.cs" id="2_s7mit"]
+[ext_resource type="Texture2D" uid="uid://dg8ypi70khfpw" path="res://rocket/rocket-components/thrusters/flame-particles/red-particle.tres" id="3_4mpob"]
+[ext_resource type="Texture2D" uid="uid://cmsxsbbyl3keh" path="res://rocket/rocket-components/thrusters/flame-particles/orange-particle.tres" id="4_3441p"]
+[ext_resource type="Texture2D" uid="uid://d3vtwxv701qcm" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/stabilisation-thruster.tres" id="4_y5kgx"]
+[ext_resource type="Texture2D" uid="uid://7fvdg0btkttd" path="res://rocket/rocket-components/thrusters/flame-particles/yellow-particle.tres" id="5_rount"]
+[ext_resource type="Texture2D" uid="uid://c0kbmas1o14k8" path="res://rocket/rocket-components/thrusters/flame-particles/white-particle.tres" id="6_lyhlf"]
+[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="9_3441p"]
+[ext_resource type="PackedScene" uid="uid://6hadi0aiwebx" path="res://rocket/rocket-components/thrusters/thruster-sfx/ThrusterSFX.tscn" id="10_rount"]
 
 [node name="Scene" type="RigidBody2D" unique_id=379758665]
 mass = 0.25
@@ -17,6 +17,7 @@ physics_material_override = ExtResource("1_s7mit")
 script = ExtResource("2_4mpob")
 
 [node name="ExhaustParticles" type="Node2D" parent="." unique_id=962285839]
+visible = false
 position = Vector2(0, 16)
 
 [node name="RedParticles" type="CPUParticles2D" parent="ExhaustParticles" unique_id=1272872411]

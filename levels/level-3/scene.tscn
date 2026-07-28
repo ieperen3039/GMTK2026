@@ -1,148 +1,73 @@
-[gd_scene format=3 uid="uid://b1on805vn5qc"]
+[gd_scene format=3 uid="uid://dxb1p88f8djuc"]
 
-[ext_resource type="Script" uid="uid://swgn684tjdjo" path="res://levels/Level.cs" id="1_1ur03"]
-[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_vmxb2"]
-[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thruster/thruster.tscn" id="3_vmxb2"]
+[ext_resource type="PackedScene" uid="uid://brbphpk1yrjqc" path="res://levels/level-base.tscn" id="1_m2rw6"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="2_vmxb2"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_168kw"]
 [ext_resource type="PackedScene" uid="uid://tp7iqlyptfia" path="res://rocket/rocket-components/nose-cone/scene_fat.tscn" id="5_doeej"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_0op4n"]
-[ext_resource type="AudioStream" uid="uid://dhbidru5xeob2" path="res://levels/WrapUpPlayTheme.ogg" id="8_ijbcg"]
 [ext_resource type="PackedScene" uid="uid://bn7h154hc2vae" path="res://launch-tower/launch-tower.tscn" id="8_u5qjk"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="9_168kw"]
-[ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="9_vmxb2"]
 [ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="10_doeej"]
 [ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="11_0op4n"]
-[ext_resource type="Texture2D" uid="uid://bmhmen7fpgecv" path="res://levels/finish-line/finishline.png" id="13_0op4n"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r5p6b"]
-normal = Vector2(1, 0)
-distance = -100.0
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7741h"]
-normal = Vector2(-1, 0)
-distance = -100.0
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s1ev"]
-
-[node name="Level" type="Node2D" unique_id=1782678356]
-script = ExtResource("1_1ur03")
+[node name="BaseLevel" unique_id=1782678356 instance=ExtResource("1_m2rw6")]
 AltitudeGoal = 10000
 
-[node name="ParallaxBg" parent="." unique_id=1362283845 instance=ExtResource("2_vmxb2")]
+[node name="LevelTimer" parent="." index="4" unique_id=317409736]
+wait_time = 40.0
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=908776142]
-position = Vector2(0, -240)
+[node name="RocketComponents" type="Node" parent="." index="8" unique_id=627111615]
 
-[node name="LevelTimer" type="Timer" parent="." unique_id=317409736]
-wait_time = 30.0
-one_shot = true
-
-[node name="RocketComponents" type="Node" parent="." unique_id=1569107246]
-
-[node name="Engine" parent="RocketComponents" unique_id=375305117 instance=ExtResource("3_vmxb2")]
+[node name="Engine" parent="RocketComponents" index="0" unique_id=1039960409 instance=ExtResource("2_vmxb2")]
 position = Vector2(-22, -101)
 
-[node name="FuelTank1" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_168kw")]
+[node name="FuelTank1" parent="RocketComponents" index="1" unique_id=217928142 instance=ExtResource("5_168kw")]
 position = Vector2(-99, -106)
 
-[node name="FuelTank5" parent="RocketComponents" unique_id=1470725059 instance=ExtResource("5_168kw")]
+[node name="FuelTank5" parent="RocketComponents" index="2" unique_id=1423883616 instance=ExtResource("5_168kw")]
 position = Vector2(-99, -106)
 
-[node name="FuelTank2" parent="RocketComponents" unique_id=1836670224 instance=ExtResource("5_168kw")]
+[node name="FuelTank2" parent="RocketComponents" index="3" unique_id=753470201 instance=ExtResource("5_168kw")]
 position = Vector2(-3, -227)
 
-[node name="FuelTank3" parent="RocketComponents" unique_id=1479277628 instance=ExtResource("5_168kw")]
+[node name="FuelTank3" parent="RocketComponents" index="4" unique_id=1007578237 instance=ExtResource("5_168kw")]
 position = Vector2(-7, -148)
 
-[node name="FuelTank4" parent="RocketComponents" unique_id=1527314734 instance=ExtResource("5_168kw")]
+[node name="FuelTank4" parent="RocketComponents" index="5" unique_id=1599240470 instance=ExtResource("5_168kw")]
 position = Vector2(45, -147)
 
-[node name="Engine2" parent="RocketComponents" unique_id=1552468733 instance=ExtResource("3_vmxb2")]
+[node name="Engine2" parent="RocketComponents" index="6" unique_id=367263358 instance=ExtResource("2_vmxb2")]
 position = Vector2(29, -97)
 
-[node name="COOOONE" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("5_doeej")]
+[node name="COOOONE" parent="RocketComponents" index="7" unique_id=1365596330 instance=ExtResource("5_doeej")]
 position = Vector2(-77, -258)
 
-[node name="Scene" parent="RocketComponents" unique_id=220978378 instance=ExtResource("11_0op4n")]
+[node name="Scene" parent="RocketComponents" index="8" unique_id=1138033148 instance=ExtResource("11_0op4n")]
 position = Vector2(-112, -198)
 
-[node name="OtherSelectables" type="Node" parent="." unique_id=1364525790]
+[node name="OtherSelectables" type="Node" parent="." index="9" unique_id=369671201]
 
-[node name="CountdownTimer" parent="OtherSelectables" unique_id=2072769234 instance=ExtResource("7_0op4n")]
+[node name="CountdownTimer" parent="OtherSelectables" index="0" unique_id=1515224007 instance=ExtResource("7_0op4n")]
 unique_name_in_owner = true
 position = Vector2(143, -327)
 
-[node name="LaunchTower" parent="OtherSelectables" unique_id=1243787554 instance=ExtResource("8_u5qjk")]
+[node name="LaunchTower" parent="OtherSelectables" index="1" unique_id=1181244718 instance=ExtResource("8_u5qjk")]
 position = Vector2(180, -28)
 scale = Vector2(2, 2)
 
-[node name="Platform1" parent="OtherSelectables" unique_id=499166670 instance=ExtResource("9_168kw")]
+[node name="Platform1" parent="OtherSelectables" index="2" unique_id=499166670 instance=ExtResource("9_168kw")]
 position = Vector2(181, -20)
 scale = Vector2(2.453, 2.5)
 
-[node name="Platform2" parent="OtherSelectables" unique_id=1654837316 instance=ExtResource("9_168kw")]
+[node name="Platform2" parent="OtherSelectables" index="3" unique_id=1763560869 instance=ExtResource("9_168kw")]
 position = Vector2(-197.00002, -20)
 scale = Vector2(2.453, 2.5)
 
-[node name="Crew" parent="OtherSelectables" unique_id=722783974 instance=ExtResource("10_doeej")]
+[node name="Crew" parent="OtherSelectables" index="4" unique_id=722783974 instance=ExtResource("10_doeej")]
 position = Vector2(154, -168)
 
-[node name="Crew2" parent="OtherSelectables" unique_id=950442686 instance=ExtResource("10_doeej")]
+[node name="Crew2" parent="OtherSelectables" index="5" unique_id=9052973 instance=ExtResource("10_doeej")]
 position = Vector2(172, -169)
 
-[node name="Crew3" parent="OtherSelectables" unique_id=1761376723 instance=ExtResource("10_doeej")]
+[node name="Crew3" parent="OtherSelectables" index="6" unique_id=229295276 instance=ExtResource("10_doeej")]
 position = Vector2(189, -169)
-
-[node name="DuctTapeInstances" type="Node" parent="." unique_id=337911418]
-
-[node name="BuildPhaseBounds" type="StaticBody2D" parent="." unique_id=573926186]
-position = Vector2(0, -200)
-scale = Vector2(2.453, 2.5)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="BuildPhaseBounds" unique_id=1160610206]
-shape = SubResource("WorldBoundaryShape2D_r5p6b")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="BuildPhaseBounds" unique_id=1343654671]
-shape = SubResource("WorldBoundaryShape2D_7741h")
-
-[node name="WorldBorder" type="StaticBody2D" parent="." unique_id=1699988788]
-scale = Vector2(2.453, 2.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder" unique_id=56533830]
-shape = SubResource("WorldBoundaryShape2D_0s1ev")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1594752960]
-stream = ExtResource("8_ijbcg")
-volume_db = -5.0
-autoplay = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1106884027]
-offset = Vector2(-240, -480)
-transform = Transform2D(1, 0, 0, 1, -240, -480)
-
-[node name="SetTapeTool" type="Button" parent="CanvasLayer" unique_id=53735273]
-unique_name_in_owner = true
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -114.0
-offset_top = 23.0
-offset_right = -21.0
-offset_bottom = 74.0
-grow_horizontal = 0
-theme = ExtResource("9_vmxb2")
-text = "Tape"
-
-[node name="Reset" type="Button" parent="CanvasLayer" unique_id=1380222058]
-unique_name_in_owner = true
-offset_left = 26.0
-offset_top = 23.0
-offset_right = 118.0
-offset_bottom = 74.0
-theme = ExtResource("9_vmxb2")
-text = "Reset"
-
-[node name="Finishline" type="Sprite2D" parent="." unique_id=1289300858]
-z_index = 6
-position = Vector2(0, -10000)
-texture = ExtResource("13_0op4n")
