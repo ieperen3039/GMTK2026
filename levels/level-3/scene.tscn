@@ -211,7 +211,7 @@ position = Vector2(7, -226)
 position = Vector2(0, -170)
 
 [node name="LongTank" parent="RocketComponents" index="8" unique_id=192567211 instance=ExtResource("11_168kw")]
-position = Vector2(-78, -242)
+position = Vector2(-66, -242)
 
 [node name="LongTank2" parent="RocketComponents" index="9" unique_id=1089481680 instance=ExtResource("11_168kw")]
 position = Vector2(-118, -242)

@@ -32,9 +32,9 @@ offset_bottom = -16.0
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.75
-anchor_top = 0.11274506
-anchor_right = 0.99975026
-anchor_bottom = 0.11274506
+anchor_top = 0.15126055
+anchor_right = 0.9997502
+anchor_bottom = 0.11274508
 offset_bottom = 51.0
 theme_override_styles/panel = ExtResource("2_ogb2v")
 metadata/_edit_use_anchors_ = true
@@ -143,14 +143,15 @@ layout_mode = 0
 offset_right = 289.0
 offset_bottom = 23.0
 theme_override_font_sizes/normal_font_size = 14
-text = "Our R&D nerds have made... something..."
+text = "Our R&D nerds have made... something?"
 scroll_active = false
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="5" unique_id=608817867]
 layout_mode = 0
-offset_top = 26.0
-offset_right = 211.0
-offset_bottom = 89.0
+offset_left = 1.0
+offset_top = 23.0
+offset_right = 212.0
+offset_bottom = 86.0
 theme_override_font_sizes/normal_font_size = 14
 text = "Anyway it's up to you to get it into orbit. This should be plenty of thrusters for this job."
 scroll_active = false
@@ -190,7 +191,7 @@ position = Vector2(180, -28)
 scale = Vector2(2, 2)
 
 [node name="Crew" parent="OtherSelectables" index="1" unique_id=722783974 instance=ExtResource("6_bneui")]
-position = Vector2(130, -348)
+position = Vector2(128, -350)
 
 [node name="Platform1" parent="OtherSelectables" index="2" unique_id=499166670 instance=ExtResource("7_er6ob")]
 position = Vector2(181, -20)
@@ -202,6 +203,6 @@ scale = Vector2(2.453, 2.5)
 
 [node name="CountdownTimer" parent="OtherSelectables" index="4" unique_id=1515224007 instance=ExtResource("9_1ierk")]
 unique_name_in_owner = true
-position = Vector2(122, -191)
+position = Vector2(121, -192)
 
 [editable path="Briefing"]

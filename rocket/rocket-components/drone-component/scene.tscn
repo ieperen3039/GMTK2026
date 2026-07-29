@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://detetjh868f4w" path="res://rocket/rocket-components/ControlComponent.cs" id="1_lpyc2"]
 [ext_resource type="Texture2D" uid="uid://db4ftxu17phl5" path="res://rocket/rocket-components/drone-component/drone-controller.tres" id="2_5nt64"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="3_he0p5"]
+[ext_resource type="AudioStream" uid="uid://cy55xrqkmux73" path="res://sfx/clang4.ogg" id="4_u8cl0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(32, 16)
@@ -21,3 +22,8 @@ position = Vector2(0, 8)
 
 [node name="TopMagnet" parent="." unique_id=1925542722 instance=ExtResource("3_he0p5")]
 position = Vector2(0, -8)
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=1584049652]
+stream = ExtResource("4_u8cl0")
+volume_db = -5.0
+pitch_scale = 1.25

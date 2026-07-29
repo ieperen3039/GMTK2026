@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://l56kfhys84o8" path="res://rocket/rocket-components/fin-left/Stabilizer.cs" id="2_x6xks"]
 [ext_resource type="Texture2D" uid="uid://mfkqygr1lmwu" path="res://rocket/rocket-components/fin-left/fin-left.tres" id="3_d55va"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="5_x6xks"]
+[ext_resource type="AudioStream" uid="uid://cy55xrqkmux73" path="res://sfx/clang4.ogg" id="5_ya6k2"]
 
 [node name="Scene" type="RigidBody2D" unique_id=217928142]
 input_pickable = true
@@ -23,3 +24,8 @@ texture = ExtResource("3_d55va")
 [node name="Magnet" parent="." unique_id=450049775 instance=ExtResource("5_x6xks")]
 position = Vector2(8, 0)
 PullStrength = 100.0
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=532355472]
+stream = ExtResource("5_ya6k2")
+volume_db = -5.0
+pitch_scale = 2.0

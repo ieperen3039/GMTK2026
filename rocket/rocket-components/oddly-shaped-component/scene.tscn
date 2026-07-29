@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_yupri"]
 [ext_resource type="Texture2D" uid="uid://c3shej0f6y657" path="res://rocket/rocket-components/oddly-shaped-component/oddly-shaped-sprite.tres" id="2_t68eu"]
+[ext_resource type="AudioStream" uid="uid://cyxl2k3w4xk4v" path="res://sfx/clang_long.ogg" id="3_t68eu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_apetm"]
 size = Vector2(30, 64)
@@ -23,3 +24,8 @@ shape = SubResource("RectangleShape2D_7btu4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1535651053]
 texture = ExtResource("2_t68eu")
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=369618324]
+stream = ExtResource("3_t68eu")
+volume_db = -5.0
+pitch_scale = 0.5

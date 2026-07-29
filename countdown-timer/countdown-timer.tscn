@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dpdgawotgy53l" path="res://countdown-timer/CountdownTimer.cs" id="1_vwdx4"]
 [ext_resource type="Texture2D" uid="uid://bqe2j87nb0662" path="res://countdown-timer/graphic/countdown-timer.png" id="2_vwdx4"]
 [ext_resource type="AudioStream" uid="uid://bdwi8qwaapvh5" path="res://countdown-timer/audio/ignition-in-t-minus.ogg" id="5_1ib3g"]
+[ext_resource type="AudioStream" uid="uid://cy55xrqkmux73" path="res://sfx/clang4.ogg" id="6_kmy5u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(32, 32)
@@ -40,3 +41,8 @@ vframes = 4
 unique_name_in_owner = true
 stream = ExtResource("5_1ib3g")
 pitch_scale = 0.95
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=1706788841]
+stream = ExtResource("6_kmy5u")
+volume_db = -5.0
+pitch_scale = 1.49

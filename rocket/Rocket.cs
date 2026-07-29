@@ -75,6 +75,7 @@ public partial class Rocket : RigidBody2D
                 toRemove.Add(component);
                 foreach(ThrustSource thruster in component.ThrustSources)
                 {
+                    thruster.SetActivationThrustFactor();
                     thrusters.Remove(thruster);
                 }
             }

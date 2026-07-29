@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="4_j8b3a"]
 [ext_resource type="Texture2D" uid="uid://cgpjv2uphpvqb" path="res://rocket/rocket-components/crew-compartment/full-compartment.tres" id="4_ltycx"]
 [ext_resource type="Texture2D" uid="uid://c3esik4vlu27l" path="res://rocket/rocket-components/crew-compartment/empty-compartment.tres" id="5_5jqal"]
+[ext_resource type="AudioStream" uid="uid://bobxmb4oirjqs" path="res://sfx/tok.ogg" id="6_r8rla"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5tnor"]
 size = Vector2(34, 34)
@@ -43,3 +44,7 @@ texture = ExtResource("4_ltycx")
 
 [node name="Empty" type="Sprite2D" parent="." unique_id=1284471202]
 texture = ExtResource("5_5jqal")
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=2046847319]
+stream = ExtResource("6_r8rla")
+volume_db = -5.0

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_uc78f"]
 [ext_resource type="Texture2D" uid="uid://crxgi31ot7hyt" path="res://rocket/rocket-components/nose-cone/nose-cone-right.tres" id="3_r4g57"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="4_q206d"]
+[ext_resource type="AudioStream" uid="uid://cy55xrqkmux73" path="res://sfx/clang4.ogg" id="6_xj7nh"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_p4jg2"]
 points = PackedVector2Array(16, 16, 14, 0, 10, -9, 0, -16, -10, -9, -14, 0, -16, 16)
@@ -27,3 +28,8 @@ texture = ExtResource("1_f1hfi")
 
 [node name="Magnet" parent="." unique_id=1363214683 instance=ExtResource("4_q206d")]
 position = Vector2(0, 16)
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=148932027]
+stream = ExtResource("6_xj7nh")
+volume_db = -5.0
+pitch_scale = 1.49

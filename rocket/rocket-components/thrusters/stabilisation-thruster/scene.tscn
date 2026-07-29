@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c0kbmas1o14k8" path="res://rocket/rocket-components/thrusters/flame-particles/white-particle.tres" id="6_lyhlf"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="9_3441p"]
 [ext_resource type="PackedScene" uid="uid://6hadi0aiwebx" path="res://rocket/rocket-components/thrusters/thruster-sfx/ThrusterSFX.tscn" id="10_rount"]
+[ext_resource type="AudioStream" uid="uid://cy55xrqkmux73" path="res://sfx/clang4.ogg" id="11_5ixvu"]
 
 [node name="Scene" type="RigidBody2D" unique_id=379758665]
 mass = 0.25
@@ -96,3 +97,8 @@ position = Vector2(-8, 0)
 position = Vector2(8, 0)
 
 [node name="ThrusterSFX" parent="." unique_id=708308183 instance=ExtResource("10_rount")]
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=1633926365]
+stream = ExtResource("11_5ixvu")
+volume_db = -5.0
+pitch_scale = 1.5

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cl8qvrvqsommx" path="res://rocket/rocket-components/fuel-tank/fuel-tank-bottom.tres" id="3_8mitb"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="4_3x05p"]
 [ext_resource type="Texture2D" uid="uid://c8y80ic2lwa3f" path="res://rocket/rocket-components/fuel-tank/fuel-tank-top.tres" id="4_71d0m"]
+[ext_resource type="AudioStream" uid="uid://cyxl2k3w4xk4v" path="res://sfx/clang_long.ogg" id="6_r5rmo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(32, 32)
@@ -37,3 +38,8 @@ texture = ExtResource("4_71d0m")
 [node name="SpriteBottom" type="Sprite2D" parent="." unique_id=2012303781]
 position = Vector2(0, 8)
 texture = ExtResource("3_8mitb")
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=444482563]
+stream = ExtResource("6_r5rmo")
+volume_db = -5.0
+pitch_scale = 0.9
