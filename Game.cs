@@ -9,16 +9,25 @@ public partial class Game : Node
     public const uint CollisionLayerGrabbable = 0b_0001;
     public const uint CollisionLayerMagnet = 0b_0001;
     public const int CentralXCoordinate = 0;
+
+    public const float FadeOutDuration = 0.25f;
+    public const float FadeInDuration = 0.25f;
+
+    private CanvasItem fader;
+    private Node activeScene;
+
     private PackedScene titleScreenScene;
     private PackedScene[] levelScenes;
     private Score[] scores;
 
     private int _currentLevelIdx = 0;
     private Level currentLevel;
-    private TitleScreen titleScreen;
 
     public override void _Ready()
     {
+        fader = GetNode<CanvasItem>("%Fader");
+        fader.Modulate = new Color(1, 1, 1, 0);
+
         titleScreenScene = ResourceLoader.Load<PackedScene>("res://levels/title-screen/scene.tscn");
         levelScenes = [
             ResourceLoader.Load<PackedScene>("res://levels/level-1/scene.tscn"),
@@ -28,21 +37,38 @@ public partial class Game : Node
         ];
         scores = new Score[levelScenes.Length];
 
-        ShowTitleScreen();
+        TitleScreen titleScreen = titleScreenScene.Instantiate<TitleScreen>();
+        titleScreen.OnLevelSelect += StartLevel;
+        AddChild(titleScreen);
+        activeScene = titleScreen;
+    }
+
+    void TransitionTo(Node nextScene)
+    {
+        Tween tween = GetTree().CreateTween();
+        tween.TweenProperty(fader, "modulate", new Color(1, 1, 1, 1), FadeOutDuration);
+        tween.TweenCallback(Callable.From(() =>
+        {
+            activeScene.QueueFree();
+            RemoveChild(activeScene);
+            AddChild(nextScene);
+            activeScene = nextScene;
+        }));
+        tween.TweenProperty(fader, "modulate", new Color(1, 1, 1, 0), FadeOutDuration);
+
     }
 
     void ShowTitleScreen()
     {
-        CleanupCurrentScene();
-        titleScreen = titleScreenScene.Instantiate<TitleScreen>();
+        currentLevel = null;
+        TitleScreen titleScreen = titleScreenScene.Instantiate<TitleScreen>();
         titleScreen.OnLevelSelect += StartLevel;
-        AddChild(titleScreen);
+        TransitionTo(titleScreen);
     }
 
     private void StartLevel(int levelIndex)
     {
         _currentLevelIdx = levelIndex;
-        CleanupCurrentScene();
         InstantiateLevel(levelIndex);
     }
 
@@ -50,10 +76,6 @@ public partial class Game : Node
     void NextLevel()
     {
         scores[_currentLevelIdx] = currentLevel.GetScore();
-
-        // TODO add fader
-        CleanupCurrentScene();
-
         _currentLevelIdx++;
 
         if (_currentLevelIdx == levelScenes.Length)
@@ -73,24 +95,6 @@ public partial class Game : Node
         currentLevel.OnNextLevel += NextLevel;
         currentLevel.OnReset += () => StartLevel(levelIndex);
         currentLevel.OnReturn += ShowTitleScreen;
-        AddChild(currentLevel);
+        TransitionTo(currentLevel);
     }
-
-
-    private void CleanupCurrentScene()
-    {
-        if (currentLevel != null)
-        {
-            currentLevel.QueueFree();
-            RemoveChild(currentLevel);
-            currentLevel = null;
-        }
-        else if (titleScreen != null)
-        {
-            titleScreen.QueueFree();
-            RemoveChild(titleScreen);
-            titleScreen = null;
-        }
-    }
-
 }

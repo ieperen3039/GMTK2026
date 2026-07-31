@@ -5,4 +5,17 @@
 [node name="Game" type="Node" unique_id=1705638661]
 script = ExtResource("1_80nbo")
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=723390932]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=360882825]
+
+[node name="Fader" type="ColorRect" parent="CanvasLayer" unique_id=1708561772]
+unique_name_in_owner = true
+top_level = true
+z_index = 10
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
