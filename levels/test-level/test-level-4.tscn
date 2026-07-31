@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://2nrcrl4nkds2"]
+
+[ext_resource type="Script" uid="uid://brkylaolc3bu4" path="res://levels/test-level/TestLevel.cs" id="1_tt41q"]
+[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_cidmj"]
+[ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="3_c4as1"]
+[ext_resource type="PackedScene" uid="uid://dkohpn7rytwjv" path="res://rocket/rocket-components/oddly-shaped-component/scene.tscn" id="4_jntux"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="5_fe1f6"]
+[ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/scene.tscn" id="6_ygw5v"]
+[ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_rbg3q"]
+[ext_resource type="PackedScene" uid="uid://dkrndcqjmeo20" path="res://levels/test-level/proto-ducttape.tscn" id="8_ntr45"]
+[ext_resource type="PackedScene" uid="uid://s7v7dbr5g7n4" path="res://rocket/rocket-components/bowling-ball/scene.tscn" id="9_0q84p"]
+
+[node name="BaseLevel" type="Node2D" unique_id=1782678356]
+script = ExtResource("1_tt41q")
+
+[node name="ComIndicator" type="Polygon2D" parent="." unique_id=25721837]
+visible = false
+z_index = 2
+color = Color(0.0333333, 1, 0, 0.5019608)
+polygon = PackedVector2Array(1, 2, 2, 1, 2, -1, 1, -2, -1, -2, -2, -1, -2, 1, -1, 2)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=114027]
+
+[node name="ParallaxBg" parent="." unique_id=932535934 instance=ExtResource("2_cidmj")]
+
+[node name="RocketComponents" type="Node" parent="." unique_id=1960437399]
+
+[node name="CrewComp" parent="RocketComponents" unique_id=217928142 instance=ExtResource("3_c4as1")]
+position = Vector2(-50, -84)
+
+[node name="Thing" parent="RocketComponents" unique_id=1416954186 instance=ExtResource("4_jntux")]
+position = Vector2(-17, -100)
+rotation = 1.5707964
+mass = 5.0
+
+[node name="Thing2" parent="RocketComponents" unique_id=1279390398 instance=ExtResource("4_jntux")]
+position = Vector2(15, -131)
+rotation = 1.5707964
+mass = 5.0
+
+[node name="Thruster4" parent="RocketComponents" unique_id=1039960409 instance=ExtResource("5_fe1f6")]
+position = Vector2(49, -52)
+
+[node name="Thruster5" parent="RocketComponents" unique_id=1024315288 instance=ExtResource("5_fe1f6")]
+position = Vector2(16, -52)
+
+[node name="Thruster6" parent="RocketComponents" unique_id=1290919572 instance=ExtResource("5_fe1f6")]
+position = Vector2(-50, -52)
+
+[node name="Thruster7" parent="RocketComponents" unique_id=1787485030 instance=ExtResource("5_fe1f6")]
+position = Vector2(-17, -52)
+
+[node name="Scene4" parent="RocketComponents" unique_id=379758665 instance=ExtResource("6_ygw5v")]
+position = Vector2(-75, -82)
+
+[node name="CountdownTimer" parent="RocketComponents" unique_id=1515224007 instance=ExtResource("7_rbg3q")]
+position = Vector2(49, -84)
+
+[node name="DuctTapeInstances" type="Node" parent="." unique_id=2056786848]
+
+[node name="Ducttape3" parent="DuctTapeInstances" unique_id=504966669 instance=ExtResource("8_ntr45")]
+points = PackedVector2Array(-75, -99, -58, -122)
+
+[node name="Ducttape4" parent="DuctTapeInstances" unique_id=302137951 instance=ExtResource("8_ntr45")]
+points = PackedVector2Array(-75, -78, -51, -56)
+
+[node name="BowlingBall" parent="." unique_id=392779649 instance=ExtResource("9_0q84p")]
+position = Vector2(-7, -288)

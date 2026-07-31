@@ -3,7 +3,6 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
-[GlobalClass]
 public partial class RocketComponent : Grabbable
 {
     // in pixels;

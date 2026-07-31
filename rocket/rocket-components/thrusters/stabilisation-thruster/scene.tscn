@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://vgso4xp2l1yw"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_s7mit"]
+[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/rocket-material.tres" id="1_s7mit"]
 [ext_resource type="Script" uid="uid://c4mpc1loy7hmh" path="res://rocket/rocket-components/thrusters/Thruster.cs" id="2_4mpob"]
 [ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/thrusters/ThrustSource.cs" id="2_s7mit"]
 [ext_resource type="Texture2D" uid="uid://dg8ypi70khfpw" path="res://rocket/rocket-components/thrusters/flame-particles/red-particle.tres" id="3_4mpob"]
@@ -80,21 +80,23 @@ angular_velocity_max = 66.8
 scale_amount_min = 0.5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=170421902]
+position = Vector2(0, -5)
 polygon = PackedVector2Array(0, -16, -4, -13, -8, -6, -8, 12, -5, 12, -5, 16, 5, 16, 5, 12, 8, 12, 8, -6, 4, -13)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2093309254]
+position = Vector2(0, -5)
 texture = ExtResource("4_y5kgx")
 
 [node name="ThrustSource" type="Node2D" parent="." unique_id=1356779313]
-position = Vector2(0, 13)
+position = Vector2(0, 8)
 script = ExtResource("2_s7mit")
 ThrustPower = 2000.0
 
 [node name="Magnet" parent="." unique_id=1363214683 instance=ExtResource("9_3441p")]
-position = Vector2(-8, 0)
+position = Vector2(-7.999999, -5)
 
 [node name="Magnet2" parent="." unique_id=621223619 instance=ExtResource("9_3441p")]
-position = Vector2(8, 0)
+position = Vector2(8, -5)
 
 [node name="ThrusterSFX" parent="." unique_id=708308183 instance=ExtResource("10_rount")]
 

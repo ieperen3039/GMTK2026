@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dkrndcqjmeo20"]
+
+[ext_resource type="Script" uid="uid://cb28ad53mk8ux" path="res://levels/test-level/ProtoDuctTape.cs" id="1_qjl3v"]
+
+[node name="Ducttape" type="Line2D" unique_id=1479068681]
+points = PackedVector2Array(-4, 0, 4, 0)
+width = 5.0
+default_color = Color(1, 1, 1, 0.46666667)
+script = ExtResource("1_qjl3v")

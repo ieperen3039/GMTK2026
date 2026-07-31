@@ -22,7 +22,6 @@ public partial class Magnet : Area2D
     {
         if (body is Magnet other)
         {
-            GD.Print($"Magnet {Name} connect to {body.Name}");
             connectedTo = other;
         }
     }
@@ -31,7 +30,6 @@ public partial class Magnet : Area2D
     {
         if (body is Magnet && connectedTo != null)
         {
-            GD.Print($"Magnet {Name} disconnect from {body.Name}");
             connectedTo = null;
         }
     }

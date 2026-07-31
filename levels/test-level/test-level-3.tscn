@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://bvhiu5y8pybup"]
+
+[ext_resource type="Script" uid="uid://brkylaolc3bu4" path="res://levels/test-level/TestLevel.cs" id="1_8d4ym"]
+[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_v0ny3"]
+[ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="3_i6buh"]
+[ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_8d4ym"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="5_8y0l2"]
+[ext_resource type="PackedScene" uid="uid://tp7iqlyptfia" path="res://rocket/rocket-components/nose-cone/scene_fat.tscn" id="6_v0ny3"]
+[ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_f3i6u"]
+[ext_resource type="PackedScene" uid="uid://m7cwvckwpmts" path="res://rocket/rocket-components/fuel-tank/scene_1x2.tscn" id="8_i6buh"]
+[ext_resource type="PackedScene" uid="uid://dkrndcqjmeo20" path="res://levels/test-level/proto-ducttape.tscn" id="8_jpbuu"]
+
+[node name="BaseLevel" type="Node2D" unique_id=1782678356]
+script = ExtResource("1_8d4ym")
+
+[node name="ComIndicator" type="Polygon2D" parent="." unique_id=25721837]
+visible = false
+z_index = 2
+color = Color(0.0333333, 1, 0, 0.5019608)
+polygon = PackedVector2Array(1, 2, 2, 1, 2, -1, 1, -2, -1, -2, -2, -1, -2, 1, -1, 2)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=114027]
+
+[node name="ParallaxBg" parent="." unique_id=932535934 instance=ExtResource("2_v0ny3")]
+
+[node name="RocketComponents" type="Node" parent="." unique_id=1960437399]
+
+[node name="CountdownTimer" parent="RocketComponents" unique_id=1515224007 instance=ExtResource("7_f3i6u")]
+unique_name_in_owner = true
+position = Vector2(18, -232)
+
+[node name="Engine" parent="RocketComponents" unique_id=1039960409 instance=ExtResource("5_8y0l2")]
+position = Vector2(17, -36)
+
+[node name="FuelTank5" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_8d4ym")]
+position = Vector2(-17, -134)
+
+[node name="FuelTank4" parent="RocketComponents" unique_id=1286298189 instance=ExtResource("5_8d4ym")]
+position = Vector2(18, -134)
+
+[node name="FuelTank8" parent="RocketComponents" unique_id=693202973 instance=ExtResource("5_8d4ym")]
+position = Vector2(-17, -166)
+
+[node name="FuelTank9" parent="RocketComponents" unique_id=741440947 instance=ExtResource("5_8d4ym")]
+position = Vector2(18, -166)
+
+[node name="FuelTank6" parent="RocketComponents" unique_id=583209505 instance=ExtResource("5_8d4ym")]
+position = Vector2(-17, -199)
+
+[node name="FuelTank7" parent="RocketComponents" unique_id=1924881822 instance=ExtResource("5_8d4ym")]
+position = Vector2(18, -199)
+
+[node name="Engine2" parent="RocketComponents" unique_id=1988162977 instance=ExtResource("5_8y0l2")]
+position = Vector2(-17, -36)
+
+[node name="COOOONE" parent="RocketComponents" unique_id=1365596330 instance=ExtResource("6_v0ny3")]
+position = Vector2(1, -264)
+
+[node name="CrewBox" parent="RocketComponents" unique_id=2118227677 instance=ExtResource("3_i6buh")]
+position = Vector2(-17, -232)
+
+[node name="LongTank" parent="RocketComponents" unique_id=2005921595 instance=ExtResource("8_i6buh")]
+position = Vector2(-17, -86)
+
+[node name="LongTank2" parent="RocketComponents" unique_id=263648179 instance=ExtResource("8_i6buh")]
+position = Vector2(18, -85)
+
+[node name="DuctTapeInstances" type="Node" parent="." unique_id=2056786848]
+
+[node name="Ducttape" parent="DuctTapeInstances" unique_id=1479068681 instance=ExtResource("8_jpbuu")]
+position = Vector2(-1, 0)
+points = PackedVector2Array(-29, -59, -29, -50)
+
+[node name="Ducttape6" parent="DuctTapeInstances" unique_id=425667252 instance=ExtResource("8_jpbuu")]
+position = Vector2(-1, 0)
+points = PackedVector2Array(-3, -59, -3, -50)
+
+[node name="Ducttape2" parent="DuctTapeInstances" unique_id=1788389463 instance=ExtResource("8_jpbuu")]
+position = Vector2(1, 0)
+points = PackedVector2Array(3, -59, 3, -50)
+
+[node name="Ducttape5" parent="DuctTapeInstances" unique_id=1204559593 instance=ExtResource("8_jpbuu")]
+position = Vector2(1, 0)
+points = PackedVector2Array(29, -58, 29, -50)
+
+[node name="Ducttape3" parent="DuctTapeInstances" unique_id=456801028 instance=ExtResource("8_jpbuu")]
+position = Vector2(-1, -65)
+points = PackedVector2Array(-17, -61, -16, -38)
+
+[node name="Ducttape4" parent="DuctTapeInstances" unique_id=2083674160 instance=ExtResource("8_jpbuu")]
+position = Vector2(1, -65)
+points = PackedVector2Array(16, -60, 16, -39)
