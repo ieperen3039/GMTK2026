@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://s7v7dbr5g7n4" path="res://rocket/rocket-components/bowling-ball/scene.tscn" id="12_6itg2"]
 
 [node name="BaseLevel" unique_id=1782678356 instance=ExtResource("1_fudoe")]
-AltitudeGoal = 20000
+AltitudeGoal = 15000
 
 [node name="LevelTimer" parent="." index="3" unique_id=317409736]
 wait_time = 50.0

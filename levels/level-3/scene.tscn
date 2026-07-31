@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://m7cwvckwpmts" path="res://rocket/rocket-components/fuel-tank/scene_1x2.tscn" id="11_168kw"]
 
 [node name="BaseLevel" unique_id=1782678356 instance=ExtResource("1_m2rw6")]
-AltitudeGoal = 10000
+AltitudeGoal = 12000
 
 [node name="LevelTimer" parent="." index="3" unique_id=317409736]
 wait_time = 55.0

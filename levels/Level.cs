@@ -25,7 +25,7 @@ public partial class Level : Node2D
 
     private List<DuctTape> tapes = new();
     private Camera2D camera;
-    private List<RocketComponent> rocketComponents;
+    private List<RocketComponent> rocketComponents = new();
     private Node ductTapeInstancesNode;
     private Node selectablesNode;
     private ControlComponent controlComponent;
