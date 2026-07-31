@@ -10,7 +10,7 @@ public class DynamicThrustReduction
     public const float XMomentumCorrectionFactor = 0.01f;
 
     public const float AngleCorrectionSpeed = 0.1f;
-    public const float AngleCorrectionDampening = 5.0f;
+    public const float AngleCorrectionDampening = 20.0f;
     public const float TorqueCorrectionStrength = 0.9f;
     public const float PlayerControlRotation = 0.5f;
     public const float MinimumControlTorque = 10f;
@@ -61,10 +61,10 @@ public class DynamicThrustReduction
         float desiredTorqueChange = (targetTorque - currentTorque) * TorqueCorrectionStrength;
         float totalTorqueInDirectionOfDesired = (currentTorque > targetTorque) ? totalPosTorque : totalNegTorque;
 
-        GD.Print($"rocket.Inertia = {rocket.Inertia,6:F2}, rocket.AngularVelocity = {rocket.AngularVelocity}");
+        // GD.Print($"rocket.Inertia = {rocket.Inertia,6:F2}, rocket.AngularVelocity = {rocket.AngularVelocity}");
         // GD.Print($"desiredRotation = {desiredRotation,6:F2}, offsetCorrection = {offsetCorrection,6:F2}, momentumCorrection = {momentumCorrection,6:F2}");
-        GD.Print($"rotationDifference = {rotationDifference,6:F3}, desiredAngularVelocity = {desiredAngularVelocity,6:F6}, angularVelocityDifference = {angularVelocityDifference,6:F6}");
-        GD.Print($"currentTorque = {currentTorque,10}; targetTorque = {targetTorque,10}; desiredTorqueChange = {desiredTorqueChange,10}");
+        // GD.Print($"rotationDifference = {rotationDifference,6:F3}, desiredAngularVelocity = {desiredAngularVelocity,6:F6}, angularVelocityDifference = {angularVelocityDifference,6:F6}");
+        // GD.Print($"currentTorque = {currentTorque,10}; targetTorque = {targetTorque,10}; desiredTorqueChange = {desiredTorqueChange,10}");
 
         float accumulatedTorque = 0;
         float maxAccumulatedTorque = totalTorqueInDirectionOfDesired - Mathf.Abs(desiredTorqueChange);
