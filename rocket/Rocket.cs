@@ -12,7 +12,7 @@ public partial class Rocket : RigidBody2D
     private const int MaxRocketComponents = 100;
     private const float PlayerControlTorque = 10000.0f;
     // in pixels/s
-    private const float MaxVelocityDelta = 100.0f;
+    private const float MaxVelocityDelta = 500.0f;
     // in pixels
     private const float MaxDistance = 75f;
     private const float MaxDistanceControl = 500f;
@@ -87,7 +87,7 @@ public partial class Rocket : RigidBody2D
             float velocityDeltaSq = component.LinearVelocity.DistanceSquaredTo(averageVelocity);
             if (distanceSqToControl > MaxDistanceControlSquared
                 || distanceSqToClosest > MaxDistanceSquared
-                || (velocityDeltaSq > MaxVelocityDeltaSquared && distanceSqToClosest > 40 * 40)
+                || velocityDeltaSq > MaxVelocityDeltaSquared
             )
             {
                 GD.Print($"Dropping {component.Name} from Rocket (closest = {Mathf.Sqrt(distanceSqToClosest)} control = {Mathf.Sqrt(distanceSqToControl)} dv = {Mathf.Sqrt(velocityDeltaSq)})");

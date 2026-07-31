@@ -9,10 +9,10 @@ public class DynamicThrustReduction
     public const float XOffsetCorrectionFactor = 0.001f;
     public const float XMomentumCorrectionFactor = 0.01f;
 
-    public const float AngleCorrectionSpeed = 0.1f;
+    public const float AngleCorrectionSpeed = 0.5f;
     public const float AngleCorrectionDampening = 20.0f;
     public const float TorqueCorrectionStrength = 0.9f;
-    public const float PlayerControlRotation = 0.5f;
+    public const float PlayerControlRotation = 1f;
     public const float MinimumControlTorque = 10f;
 
     public static void BalanceThrusters(RigidBody2D rocket, IReadOnlyList<ThrustSource> thrusters, float playerSteer)
@@ -47,7 +47,7 @@ public class DynamicThrustReduction
         
         float offset = Game.CentralXCoordinate - rocket.GlobalPosition.X;
         float offsetCorrection = offset * XOffsetCorrectionFactor;
-        float momentum = -rocket.LinearVelocity.X;
+        float momentum = -rocket.LinearVelocity.Rotated(rocket.Rotation).X;
         float momentumCorrection = momentum * XMomentumCorrectionFactor;
 
         float desiredRotation = Mathf.Clamp(offsetCorrection + momentumCorrection, -0.25f, 0.25f) + playerSteer * PlayerControlRotation;
@@ -72,7 +72,7 @@ public class DynamicThrustReduction
         if (leastEffectiveTorqueingThrusters.Count == 1)
         {
             leastEffectiveTorqueingThrusters.Dequeue().ThrustFactor = 1.0f;
-            GD.Print($"Thruster targetPowerLevel = MAX (it is the only thruster)");
+            // GD.Print($"Thruster targetPowerLevel = MAX (it is the only thruster)");
         }
         else
         {
@@ -88,7 +88,7 @@ public class DynamicThrustReduction
                     || Mathf.Abs(torque) < MinimumControlTorque)
                 {
                     thruster.ThrustFactor = 1.0f;
-                    GD.Print($"Thruster targetPowerLevel = MAX (torque = {torque})");
+                    // GD.Print($"Thruster targetPowerLevel = MAX (torque = {torque})");
                 }
                 else
                 {
@@ -97,7 +97,7 @@ public class DynamicThrustReduction
                     float targetPowerLevel = Mathf.Clamp(torqueBudgetLeft / Mathf.Abs(torque), 0, 1);
                     thruster.ThrustFactor = targetPowerLevel;
                     accumulatedTorque += Mathf.Abs(torque) * targetPowerLevel;
-                    GD.Print($"Thruster targetPowerLevel = {targetPowerLevel} (torque = {torque}, torqueBudgetLeft = {maxAccumulatedTorque - accumulatedTorque})");
+                    // GD.Print($"Thruster targetPowerLevel = {targetPowerLevel} (torque = {torque}, torqueBudgetLeft = {maxAccumulatedTorque - accumulatedTorque})");
                 }
             }
         }

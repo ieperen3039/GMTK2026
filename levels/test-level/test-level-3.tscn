@@ -69,11 +69,19 @@ position = Vector2(18, -85)
 
 [node name="Ducttape" parent="DuctTapeInstances" unique_id=1479068681 instance=ExtResource("8_jpbuu")]
 position = Vector2(-1, 0)
-points = PackedVector2Array(-17, -61, -16, -38)
+points = PackedVector2Array(-29, -59, -29, -50)
+
+[node name="Ducttape6" parent="DuctTapeInstances" unique_id=425667252 instance=ExtResource("8_jpbuu")]
+position = Vector2(-1, 0)
+points = PackedVector2Array(-3, -59, -3, -50)
 
 [node name="Ducttape2" parent="DuctTapeInstances" unique_id=1788389463 instance=ExtResource("8_jpbuu")]
 position = Vector2(1, 0)
-points = PackedVector2Array(16, -60, 16, -39)
+points = PackedVector2Array(3, -59, 3, -50)
+
+[node name="Ducttape5" parent="DuctTapeInstances" unique_id=1204559593 instance=ExtResource("8_jpbuu")]
+position = Vector2(1, 0)
+points = PackedVector2Array(29, -58, 29, -50)
 
 [node name="Ducttape3" parent="DuctTapeInstances" unique_id=456801028 instance=ExtResource("8_jpbuu")]
 position = Vector2(-1, -65)
