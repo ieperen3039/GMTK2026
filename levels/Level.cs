@@ -343,10 +343,10 @@ public partial class Level : Node2D
         public void OnClick(Vector2 mousePosition)
         {
             Grabbable selectable = parent.hoveredSelectable;
-            if (selectable != null)
+            if (selectable is RocketComponent component)
             {
-                Vector2 relativeClick = selectable.ToLocal(mousePosition);
-                tape.Attach(selectable, relativeClick);
+                Vector2 relativeClick = component.ToLocal(mousePosition);
+                tape.Attach(component, relativeClick);
 
                 if (tape.Status == DuctTape.StatusValue.Empty)
                 {
@@ -360,10 +360,10 @@ public partial class Level : Node2D
         public void OnRelease(Vector2 mousePosition)
         {
             Grabbable selectable = parent.hoveredSelectable;
-            if (selectable != null)
+            if (selectable is RocketComponent component)
             {
-                Vector2 relativeClick = selectable.ToLocal(mousePosition);
-                tape.Attach(selectable, relativeClick);
+                Vector2 relativeClick = component.ToLocal(mousePosition);
+                tape.Attach(component, relativeClick);
 
                 if (tape.Status == DuctTape.StatusValue.FullConnected)
                 {

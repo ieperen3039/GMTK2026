@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class TestLevel : Node2D
 {
     private Rocket rocket;
+    private Node2D centerOfMass;
     private List<DuctTape> tapes = new();
     private List<RocketComponent> rocketComponents = new();
     private Node ductTapeInstancesNode;
@@ -48,7 +49,10 @@ public partial class TestLevel : Node2D
             }
         }
 
-        GetNode<Camera2D>("Camera2D").Reparent(rocket.ControlComponent);
+        GetNode<Camera2D>("Camera2D").Reparent(rocket.ControlComponent, false);
+        centerOfMass = GetNode<Node2D>("ComIndicator");
+        centerOfMass.Position = rocket.ToGlobal(rocket.CenterOfMass);
+        centerOfMass.Visible = true;
 
         AddChild(rocket);
     }
@@ -76,6 +80,8 @@ public partial class TestLevel : Node2D
         {
             tape.Update(delta);
         }
+
+        centerOfMass.Position = rocket.ToGlobal(rocket.CenterOfMass);
     }
 
 }

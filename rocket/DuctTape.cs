@@ -15,9 +15,9 @@ public partial class DuctTape : Node2D
     public const float SnapDampening = 1f;
     private const float MaxForce = 100_000f;
 
-    public Grabbable ComponentA { get; private set; } = null;
+    public RocketComponent ComponentA { get; private set; } = null;
     private Vector2 anchorA = new();
-    public Grabbable ComponentB { get; private set; } = null;
+    public RocketComponent ComponentB { get; private set; } = null;
     private Vector2 anchorB = new();
 
     private Line2D graphic;
@@ -32,7 +32,7 @@ public partial class DuctTape : Node2D
 
     public StatusValue Status => ComponentA == null ? StatusValue.Empty : (ComponentB == null ? StatusValue.HalfConnected : StatusValue.FullConnected);
 
-    public void Attach(Grabbable component, Vector2 localAttachmentPosition)
+    public void Attach(RocketComponent component, Vector2 localAttachmentPosition)
     {
         switch (Status)
         {
@@ -90,7 +90,7 @@ public partial class DuctTape : Node2D
         graphic.SetPointPosition(0, ToLocal(globalAnchorA));
         graphic.SetPointPosition(1, ToLocal(mousePosition));
 
-        // component A pull is handled by Grabbable
+        // component A pull is handled by RocketComponent
     }
 
     private void UpdateConnected(double delta)

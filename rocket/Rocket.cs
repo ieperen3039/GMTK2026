@@ -90,8 +90,6 @@ public partial class Rocket : RigidBody2D
                 || (velocityDeltaSq > MaxVelocityDeltaSquared && distanceSqToClosest > 40 * 40)
             )
             {
-
-
                 GD.Print($"Dropping {component.Name} from Rocket (closest = {Mathf.Sqrt(distanceSqToClosest)} control = {Mathf.Sqrt(distanceSqToControl)} dv = {Mathf.Sqrt(velocityDeltaSq)})");
                 toRemove.Add(component);
                 component.Modulate = Colors.Gray;

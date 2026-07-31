@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class CountdownTimer : Grabbable
+public partial class CountdownTimer : RocketComponent
 {
     [Export]
     public bool Quiet;

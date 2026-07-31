@@ -38,7 +38,7 @@ public partial class ProtoDuctTape : Line2D
         if (hits.Count > 0)
         {
             GodotObject collider = (GodotObject)hits[0]["collider"];
-            if (collider is Grabbable body)
+            if (collider is RocketComponent body)
             {
                 tape.Attach(body, body.ToLocal(GlobalAnchorA()));
             }
@@ -54,7 +54,7 @@ public partial class ProtoDuctTape : Line2D
         if (hits.Count > 0)
         {
             GodotObject collider = (GodotObject)hits[0]["collider"];
-            if (collider is Grabbable body)
+            if (collider is RocketComponent body)
             {
                 tape.Attach(body, body.ToLocal(GlobalAnchorB()));
             }
