@@ -18,7 +18,6 @@ public partial class DuctTape : Node2D
     public Grabbable ComponentA { get; private set; } = null;
     private Vector2 anchorA = new();
     public Grabbable ComponentB { get; private set; } = null;
-
     private Vector2 anchorB = new();
 
     private Line2D graphic;
@@ -27,7 +26,6 @@ public partial class DuctTape : Node2D
 
     public override void _Ready()
     {
-        GD.Print("Tape Ready");
         graphic = GetNode<Line2D>("Graphics");
         graphic.TopLevel = false;
     }

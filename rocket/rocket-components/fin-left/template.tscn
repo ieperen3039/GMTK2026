@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bi4yn7cwq1oyn"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_hc3nu"]
+[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/rocket-material.tres" id="1_hc3nu"]
 [ext_resource type="Script" uid="uid://l56kfhys84o8" path="res://rocket/rocket-components/fin-left/Stabilizer.cs" id="2_x6xks"]
 [ext_resource type="Texture2D" uid="uid://mfkqygr1lmwu" path="res://rocket/rocket-components/fin-left/fin-left.tres" id="3_d55va"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="5_x6xks"]

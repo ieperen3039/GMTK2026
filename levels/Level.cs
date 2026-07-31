@@ -25,7 +25,7 @@ public partial class Level : Node2D
 
     private List<DuctTape> tapes = new();
     private Camera2D camera;
-    private Node rocketComponentsNode;
+    private List<RocketComponent> rocketComponents;
     private Node ductTapeInstancesNode;
     private Node selectablesNode;
     private ControlComponent controlComponent;
@@ -55,7 +55,7 @@ public partial class Level : Node2D
         rocketScene = ResourceLoader.Load<PackedScene>("uid://dmdekhk5ugqao");
 
         camera = GetNode<Camera2D>("Camera2D");
-        rocketComponentsNode = GetNode<Node>("RocketComponents");
+        Node rocketComponentsNode = GetNode<Node>("RocketComponents");
         timer = GetNode<Timer>("LevelTimer");
         timerGraphic = GetNode<CountdownTimer>("%CountdownTimer");
         buildPhaseBounds = GetNode<CollisionObject2D>("BuildPhaseBounds");
@@ -82,6 +82,7 @@ public partial class Level : Node2D
             {
                 numRocketComponents++;
                 part.Freeze = true;
+                rocketComponents.Add(part);
             }
         }
 
@@ -113,26 +114,23 @@ public partial class Level : Node2D
         Random rng = new();
 
         // setup grabbable listeners
-        foreach (Node child in rocketComponentsNode.GetChildren())
+        foreach (RocketComponent part in rocketComponents)
         {
-            if (child is RocketComponent part)
+            part.Freeze = false;
+
+            Util.Toss(part, rng);
+            part.InputPickable = true;
+            part.MouseEntered += () => OnHoverSelectable(part, true);
+            part.MouseExited += () => OnHoverSelectable(part, false);
+
+            if (part is ControlComponent control)
             {
-                part.Freeze = false;
-
-                Util.Toss(part, rng);
-                part.InputPickable = true;
-                part.MouseEntered += () => OnHoverSelectable(part, true);
-                part.MouseExited += () => OnHoverSelectable(part, false);
-
-                if (part is ControlComponent control)
+                if (controlComponent != null)
                 {
-                    if (controlComponent != null)
-                    {
-                        throw new Exception($"Multiple control components: {controlComponent.Name} and {control.Name}");
-                    }
-
-                    controlComponent = control;
+                    throw new Exception($"Multiple control components: {controlComponent.Name} and {control.Name}");
                 }
+
+                controlComponent = control;
             }
         }
 
@@ -204,6 +202,10 @@ public partial class Level : Node2D
         if (shouldBuildRocket)
         {
             shouldBuildRocket = false;
+            foreach (RocketComponent part in rocketComponents)
+            {
+                part.Modulate = Colors.Gray;
+            }
 
             Rocket rocket = rocketScene.Instantiate<Rocket>();
             rocket.AltitudeChanged += CheckVictory;
@@ -225,11 +227,11 @@ public partial class Level : Node2D
         buildPhaseBounds.ProcessMode = ProcessModeEnum.Disabled;
 
         // all thrusters to 100%
-        foreach (Node node in rocketComponentsNode.GetChildren())
+        foreach (RocketComponent part in rocketComponents)
         {
-            if (node is Thruster component)
+            if (part is Thruster thruster)
             {
-                component.ActivateThruster();
+                thruster.ActivateThruster();
             }
         }
 
@@ -259,15 +261,10 @@ public partial class Level : Node2D
         score = new() { TotalComponents = numRocketComponents, };
 
         float minimumAltitudeToCount = AltitudeGoal - AltitudeScoreZone;
-        foreach (Node node in rocketComponentsNode.GetChildren())
+        foreach (RocketComponent part in rocketComponents)
         {
-            if (node is not RigidBody2D component) continue;
-            if (-component.GlobalPosition.Y < minimumAltitudeToCount) continue;
-
-            if (component is RocketComponent)
-            {
-                score.NumLiftedComponents++;
-            }
+            if (-part.GlobalPosition.Y < minimumAltitudeToCount) continue;
+            score.NumLiftedComponents++;
         }
 
         foreach (Node node in selectablesNode.GetChildren())

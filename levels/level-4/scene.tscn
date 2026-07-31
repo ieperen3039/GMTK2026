@@ -10,12 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/scene.tscn" id="7_cpmxm"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="7_er6ob"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="9_1ierk"]
+[ext_resource type="PackedScene" uid="uid://73ile0xgnbys" path="res://rocket/rocket-components/traffic-cone/scene.tscn" id="11_ogb2v"]
 
 [node name="BaseLevel" unique_id=1782678356 instance=ExtResource("1_i1f4m")]
 AltitudeGoal = 10000
 
 [node name="LevelTimer" parent="." index="3" unique_id=317409736]
-wait_time = 50.0
+wait_time = 55.0
 
 [node name="Briefing" parent="." index="8" unique_id=561301093]
 offset_left = -167.0
@@ -32,7 +33,7 @@ offset_bottom = -16.0
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.75
-anchor_top = 0.15126055
+anchor_top = 0.11274508
 anchor_right = 0.9997502
 anchor_bottom = 0.11274508
 offset_bottom = 51.0
@@ -204,5 +205,8 @@ scale = Vector2(2.453, 2.5)
 [node name="CountdownTimer" parent="OtherSelectables" index="4" unique_id=1515224007 instance=ExtResource("9_1ierk")]
 unique_name_in_owner = true
 position = Vector2(121, -192)
+
+[node name="TrafficCone" parent="OtherSelectables" index="5" unique_id=1573511453 instance=ExtResource("11_ogb2v")]
+position = Vector2(181, -343)
 
 [editable path="Briefing"]

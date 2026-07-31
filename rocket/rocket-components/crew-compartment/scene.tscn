@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d25adh7mtpom8"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/default_physics_material.tres" id="1_ltycx"]
+[ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/rocket-material.tres" id="1_ltycx"]
 [ext_resource type="Script" uid="uid://dqwy0fsr0ujw8" path="res://rocket/rocket-components/crew-compartment/CrewCompartment.cs" id="2_5jqal"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="4_j8b3a"]
 [ext_resource type="Texture2D" uid="uid://cgpjv2uphpvqb" path="res://rocket/rocket-components/crew-compartment/full-compartment.tres" id="4_ltycx"]

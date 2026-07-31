@@ -7,19 +7,20 @@ public class DynamicThrustReduction
 {
     // radians per pixel offset
     public const float XOffsetCorrectionFactor = 0.001f;
+    public const float XMomentumCorrectionFactor = 0.01f;
 
     public const float AngleCorrectionSpeed = 0.1f;
-    public const float AngleCorrectionDampening = 50.0f;
-    public const float TorqueCorrectionStrength = 0.5f;
+    public const float AngleCorrectionDampening = 5.0f;
+    public const float TorqueCorrectionStrength = 0.9f;
     public const float PlayerControlRotation = 0.5f;
     public const float MinimumControlTorque = 10f;
 
-    public static void BalanceThrusters(RigidBody2D rocket, IReadOnlyList<ThrustSource> thrusters, float rotationTarget)
+    public static void BalanceThrusters(RigidBody2D rocket, IReadOnlyList<ThrustSource> thrusters, float playerSteer)
     {
         if (thrusters.Count == 0) return;
 
         Dictionary<ThrustSource, float> torques = new();
-        PriorityQueue<ThrustSource, float> mostEffectiveTorqueingThrusters = new();
+        PriorityQueue<ThrustSource, float> leastEffectiveTorqueingThrusters = new();
         float totalPosTorque = 0;
         float totalNegTorque = 0; // abs value
 
@@ -32,7 +33,7 @@ public class DynamicThrustReduction
 
             float downwardThrust = globalThrustVector.Cross(Vector2.Down);
             float torqueEffectiveness = (downwardThrust == 0) ? 0 : (torque / downwardThrust);
-            mostEffectiveTorqueingThrusters.Enqueue(thruster, -torqueEffectiveness);
+            leastEffectiveTorqueingThrusters.Enqueue(thruster, torqueEffectiveness);
 
             if (torque < 0) totalNegTorque -= torque;
             else totalPosTorque += torque;
@@ -40,10 +41,16 @@ public class DynamicThrustReduction
 
         // note: rocket.Inertia is 0 if automatically computed
         if (rocket.Inertia == 0)
-        rocket.Inertia = 1.0f / PhysicsServer2D.BodyGetDirectState(rocket.GetRid()).InverseInertia;
-
+        {
+            rocket.Inertia = 1.0f / PhysicsServer2D.BodyGetDirectState(rocket.GetRid()).InverseInertia;
+        }
+        
         float offset = Game.CentralXCoordinate - rocket.GlobalPosition.X;
-        float desiredRotation = Mathf.Clamp(offset * XOffsetCorrectionFactor, 0.2f, 0.2f) + rotationTarget * PlayerControlRotation;
+        float offsetCorrection = offset * XOffsetCorrectionFactor;
+        float momentum = -rocket.LinearVelocity.X;
+        float momentumCorrection = momentum * XMomentumCorrectionFactor;
+
+        float desiredRotation = Mathf.Clamp(offsetCorrection + momentumCorrection, -0.25f, 0.25f) + playerSteer * PlayerControlRotation;
         float currentRotation = Util.RotationRelativeToUp(rocket.Rotation);
         float rotationDifference = Mathf.Clamp(desiredRotation - currentRotation, -Mathf.Pi, Mathf.Pi);
         float desiredAngularVelocity = rotationDifference * AngleCorrectionSpeed;
@@ -54,24 +61,25 @@ public class DynamicThrustReduction
         float desiredTorqueChange = (targetTorque - currentTorque) * TorqueCorrectionStrength;
         float totalTorqueInDirectionOfDesired = (currentTorque > targetTorque) ? totalPosTorque : totalNegTorque;
 
-        GD.Print($"rocket relative COM = {rocket.CenterOfMass}, global COM = {rocket.ToGlobal(rocket.CenterOfMass)}");
-        GD.Print($"currentTorque = {currentTorque}, targetTorque = {targetTorque}, desiredTorqueChange = {desiredTorqueChange}");
+        GD.Print($"rocket.Inertia = {rocket.Inertia,6:F2}, rocket.AngularVelocity = {rocket.AngularVelocity}");
+        // GD.Print($"desiredRotation = {desiredRotation,6:F2}, offsetCorrection = {offsetCorrection,6:F2}, momentumCorrection = {momentumCorrection,6:F2}");
+        GD.Print($"rotationDifference = {rotationDifference,6:F3}, desiredAngularVelocity = {desiredAngularVelocity,6:F6}, angularVelocityDifference = {angularVelocityDifference,6:F6}");
+        GD.Print($"currentTorque = {currentTorque,10}; targetTorque = {targetTorque,10}; desiredTorqueChange = {desiredTorqueChange,10}");
 
         float accumulatedTorque = 0;
         float maxAccumulatedTorque = totalTorqueInDirectionOfDesired - Mathf.Abs(desiredTorqueChange);
-        GD.Print($"totalTorqueInDirectionOfDesired = {totalTorqueInDirectionOfDesired}, maxAccumulatedTorque = {maxAccumulatedTorque}");
 
-        if (mostEffectiveTorqueingThrusters.Count == 1)
+        if (leastEffectiveTorqueingThrusters.Count == 1)
         {
-            mostEffectiveTorqueingThrusters.Dequeue().ThrustFactor = 1.0f;
+            leastEffectiveTorqueingThrusters.Dequeue().ThrustFactor = 1.0f;
             GD.Print($"Thruster targetPowerLevel = MAX (it is the only thruster)");
         }
         else
         {
-            while (mostEffectiveTorqueingThrusters.Count > 0)
+            while (leastEffectiveTorqueingThrusters.Count > 0)
             {
                 // MOST effective thruster first
-                ThrustSource thruster = mostEffectiveTorqueingThrusters.Dequeue();
+                ThrustSource thruster = leastEffectiveTorqueingThrusters.Dequeue();
                 float torque = torques[thruster];
 
                 // if torque helps move total to target, go full blast

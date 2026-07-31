@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://2nrcrl4nkds2"]
+
+[ext_resource type="Script" uid="uid://brkylaolc3bu4" path="res://levels/test-level/TestLevel.cs" id="1_7ysab"]
+[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_2xiqg"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="4_6mj04"]
+[ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_6mj04"]
+[ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="5_p6jdl"]
+[ext_resource type="PackedScene" uid="uid://73ile0xgnbys" path="res://rocket/rocket-components/traffic-cone/scene.tscn" id="7_mnwxd"]
+[ext_resource type="PackedScene" uid="uid://dkrndcqjmeo20" path="res://levels/test-level/proto-ducttape.tscn" id="7_p6jdl"]
+[ext_resource type="PackedScene" uid="uid://60t44lhrpce4" path="res://rocket/rocket-components/nose-cone/scene.tscn" id="8_xth1o"]
+[ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/scene.tscn" id="9_fp3p8"]
+[ext_resource type="PackedScene" uid="uid://m7cwvckwpmts" path="res://rocket/rocket-components/fuel-tank/scene_1x2.tscn" id="10_mnwxd"]
+
+[node name="BaseLevel" type="Node2D" unique_id=1782678356]
+script = ExtResource("1_7ysab")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=114027]
+
+[node name="ParallaxBg" parent="." unique_id=932535934 instance=ExtResource("2_2xiqg")]
+
+[node name="RocketComponents" type="Node" parent="." unique_id=1960437399]
+
+[node name="Thruster" parent="RocketComponents" unique_id=1039960409 instance=ExtResource("4_6mj04")]
+position = Vector2(-30, 30)
+
+[node name="Thruster3" parent="RocketComponents" unique_id=500412682 instance=ExtResource("4_6mj04")]
+position = Vector2(4, 30)
+
+[node name="Thruster2" parent="RocketComponents" unique_id=2076117461 instance=ExtResource("4_6mj04")]
+position = Vector2(38, 30)
+
+[node name="Scene4" parent="RocketComponents" unique_id=829615004 instance=ExtResource("9_fp3p8")]
+position = Vector2(69, 25)
+rotation = -1.5707964
+
+[node name="Scene6" parent="RocketComponents" unique_id=2125738423 instance=ExtResource("9_fp3p8")]
+position = Vector2(-63, 25)
+rotation = 1.5707964
+
+[node name="Scene5" parent="RocketComponents" unique_id=1726531230 instance=ExtResource("5_p6jdl")]
+position = Vector2(4, -198)
+
+[node name="TrafficCone2" parent="RocketComponents" unique_id=1573511453 instance=ExtResource("7_mnwxd")]
+position = Vector2(-13, -8)
+rotation = 3.1415927
+
+[node name="TrafficCone3" parent="RocketComponents" unique_id=261721937 instance=ExtResource("7_mnwxd")]
+position = Vector2(21, -8)
+rotation = 3.1415927
+
+[node name="TrafficCone7" parent="RocketComponents" unique_id=130377981 instance=ExtResource("7_mnwxd")]
+position = Vector2(-13, -105)
+
+[node name="TrafficCone8" parent="RocketComponents" unique_id=48127521 instance=ExtResource("7_mnwxd")]
+position = Vector2(21, -105)
+
+[node name="TrafficCone4" parent="RocketComponents" unique_id=496279172 instance=ExtResource("7_mnwxd")]
+position = Vector2(4, -3)
+
+[node name="TrafficCone6" parent="RocketComponents" unique_id=1861738372 instance=ExtResource("7_mnwxd")]
+position = Vector2(-29.999996, -3)
+
+[node name="TrafficCone5" parent="RocketComponents" unique_id=249697734 instance=ExtResource("7_mnwxd")]
+position = Vector2(38, -3)
+
+[node name="Scene" parent="RocketComponents" unique_id=217928142 instance=ExtResource("5_6mj04")]
+position = Vector2(4, -142)
+
+[node name="Scene7" parent="RocketComponents" unique_id=527043232 instance=ExtResource("5_6mj04")]
+position = Vector2(4, -174)
+
+[node name="TrafficCone9" parent="RocketComponents" unique_id=470906216 instance=ExtResource("7_mnwxd")]
+position = Vector2(4, -110)
+rotation = -3.1415925
+
+[node name="DuctTapeInstances" type="Node" parent="." unique_id=2056786848]
+
+[node name="Ducttape" parent="DuctTapeInstances" unique_id=1479068681 instance=ExtResource("7_p6jdl")]
+points = PackedVector2Array(48, 16, 57, 25)
+
+[node name="Ducttape8" parent="DuctTapeInstances" unique_id=1461867586 instance=ExtResource("7_p6jdl")]
+points = PackedVector2Array(44, 38, 57, 25)
+
+[node name="Ducttape3" parent="DuctTapeInstances" unique_id=504966669 instance=ExtResource("7_p6jdl")]
+points = PackedVector2Array(-14, -95, -14, -81)
+
+[node name="Ducttape4" parent="DuctTapeInstances" unique_id=302137951 instance=ExtResource("7_p6jdl")]
+points = PackedVector2Array(21, -96, 21, -81)
+
+[node name="Ducttape5" parent="DuctTapeInstances" unique_id=702959058 instance=ExtResource("7_p6jdl")]
+points = PackedVector2Array(21, -30, 21, -18)
+
+[node name="Ducttape6" parent="DuctTapeInstances" unique_id=525910988 instance=ExtResource("7_p6jdl")]
+points = PackedVector2Array(-14, -31, -14, -19)
+
+[node name="Ducttape2" parent="DuctTapeInstances" unique_id=350035785 instance=ExtResource("7_p6jdl")]
+points = PackedVector2Array(-39, 16, -49, 25)
+
+[node name="Ducttape7" parent="DuctTapeInstances" unique_id=466505688 instance=ExtResource("7_p6jdl")]
+points = PackedVector2Array(-38, 39, -49, 25)
+
+[node name="Scene" parent="." unique_id=1365596330 instance=ExtResource("8_xth1o")]
+position = Vector2(4, -222)
+
+[node name="Scene2" parent="." unique_id=2011275943 instance=ExtResource("10_mnwxd")]
+position = Vector2(-13, -56)
+
+[node name="Scene3" parent="." unique_id=2012771504 instance=ExtResource("10_mnwxd")]
+position = Vector2(21, -56)

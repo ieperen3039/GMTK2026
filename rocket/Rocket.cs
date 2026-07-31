@@ -10,13 +10,17 @@ public partial class Rocket : RigidBody2D
     public delegate void AltitudeChangedEventHandler(float Altitude);
 
     private const int MaxRocketComponents = 100;
-    private const float PlayerControlTorque = 1000.0f;
+    private const float PlayerControlTorque = 10000.0f;
     // in pixels/s
-    private const float MaxVelocityDelta = 1000.0f;
+    private const float MaxVelocityDelta = 100.0f;
     // in pixels
-    private const float MaxDistance = 100;
+    private const float MaxDistance = 75f;
+    private const float MaxDistanceControl = 500f;
+    private const float MaxDistanceControlSquared = MaxDistanceControl * MaxDistanceControl;
     private const float MaxDistanceSquared = MaxDistance * MaxDistance;
     private const float MaxVelocityDeltaSquared = MaxVelocityDelta * MaxVelocityDelta;
+
+    private Color RocketIndicatorColor = Colors.White;
 
     public ControlComponent ControlComponent { get; private set; }
 
@@ -32,7 +36,7 @@ public partial class Rocket : RigidBody2D
         CenterOfMassMode = CenterOfMassModeEnum.Custom;
         RecomputeMassDistribution();
     }
-    
+
     public override void _PhysicsProcess(double delta)
     {
         // copy basic physics properties from control component
@@ -55,9 +59,20 @@ public partial class Rocket : RigidBody2D
     private void RemoveFallenComponents()
     {
         Vector2 averageVelocity = Vector2.Zero;
+        Dictionary<RocketComponent, float> componentDistancesSq = [];
         foreach (RocketComponent component in components)
         {
             averageVelocity += component.LinearVelocity;
+
+            float smallestDistanceSq = float.PositiveInfinity;
+            foreach (RocketComponent component2 in components)
+            {
+                if (component == component2) continue;
+                float dist = component.GlobalPosition.DistanceSquaredTo(component2.GlobalPosition);
+                if (dist < smallestDistanceSq) smallestDistanceSq = dist;
+            }
+
+            componentDistancesSq[component] = smallestDistanceSq;
         }
         averageVelocity /= components.Count;
 
@@ -67,13 +82,20 @@ public partial class Rocket : RigidBody2D
             // avoid ditching the control component
             if (component == ControlComponent) continue;
 
-            float distanceSq = component.GlobalPosition.DistanceSquaredTo(GlobalPosition);
+            float distanceSqToClosest = componentDistancesSq[component];
+            float distanceSqToControl = component.GlobalPosition.DistanceSquaredTo(GlobalPosition);
             float velocityDeltaSq = component.LinearVelocity.DistanceSquaredTo(averageVelocity);
-            if (distanceSq > MaxDistanceSquared || velocityDeltaSq > MaxVelocityDeltaSquared)
+            if (distanceSqToControl > MaxDistanceControlSquared
+                || distanceSqToClosest > MaxDistanceSquared
+                || (velocityDeltaSq > MaxVelocityDeltaSquared && distanceSqToClosest > 40 * 40)
+            )
             {
-                GD.Print($"Dropping {component.Name} from Rocket");
+
+
+                GD.Print($"Dropping {component.Name} from Rocket (closest = {Mathf.Sqrt(distanceSqToClosest)} control = {Mathf.Sqrt(distanceSqToControl)} dv = {Mathf.Sqrt(velocityDeltaSq)})");
                 toRemove.Add(component);
-                foreach(ThrustSource thruster in component.ThrustSources)
+                component.Modulate = Colors.Gray;
+                foreach (ThrustSource thruster in component.ThrustSources)
                 {
                     thruster.SetActivationThrustFactor();
                     thrusters.Remove(thruster);
@@ -101,7 +123,7 @@ public partial class Rocket : RigidBody2D
 
         CenterOfMass = newCenterOfMass;
         Mass = newMass;
-        
+
         float newInertia = 0f;
         foreach (RocketComponent component in components)
         {
@@ -116,6 +138,7 @@ public partial class Rocket : RigidBody2D
     {
         GD.Print($"Add {component.Name} to Rocket");
         components.Add(component);
+        component.Modulate = RocketIndicatorColor;
 
         thrusters.AddRange(component.ThrustSources);
 

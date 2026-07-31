@@ -15,7 +15,7 @@
 AltitudeGoal = 20000
 
 [node name="LevelTimer" parent="." index="3" unique_id=317409736]
-wait_time = 45.0
+wait_time = 50.0
 
 [node name="Briefing" parent="." index="8" unique_id=561301093]
 offset_bottom = -128.0
