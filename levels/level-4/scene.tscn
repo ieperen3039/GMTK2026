@@ -38,9 +38,9 @@ offset_bottom = -16.0
 [node name="Panel5" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="0" unique_id=1096352914]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.75
-anchor_top = 0.15021464
-anchor_right = 0.9997502
+anchor_left = 0.7710438
+anchor_top = 0.15021466
+anchor_right = 0.9997503
 anchor_bottom = 0.1127451
 offset_bottom = 51.0
 theme_override_styles/panel = ExtResource("2_ogb2v")
@@ -58,7 +58,7 @@ offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 14
-text = "John"
+text = "Bob"
 scroll_active = false
 vertical_alignment = 1
 
@@ -111,9 +111,9 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 6.0
-offset_top = 13.0
+offset_top = 15.0
 offset_right = -10.0
-offset_bottom = 51.0
+offset_bottom = 53.0
 grow_horizontal = 2
 theme_override_font_sizes/normal_font_size = 14
 text = "Parts"
@@ -157,7 +157,7 @@ scroll_active = false
 layout_mode = 0
 offset_left = 1.0
 offset_top = 23.0
-offset_right = 212.0
+offset_right = 216.0
 offset_bottom = 86.0
 theme_override_font_sizes/normal_font_size = 14
 text = "Anyway it's up to you to get it into orbit. This should be plenty of thrusters for this job."
@@ -166,7 +166,7 @@ scroll_active = false
 [node name="RocketComponents" type="Node" parent="." index="9" unique_id=1220565092]
 
 [node name="CrewComp" parent="RocketComponents" index="0" unique_id=217928142 instance=ExtResource("4_f7rp4")]
-position = Vector2(24, -288)
+position = Vector2(24, -293)
 
 [node name="Thing" parent="RocketComponents" index="1" unique_id=1875974869 instance=ExtResource("4_g5odw")]
 position = Vector2(-44, -231)
@@ -177,16 +177,16 @@ position = Vector2(-113, -231)
 mass = 5.0
 
 [node name="Thruster" parent="RocketComponents" index="3" unique_id=1039960409 instance=ExtResource("4_ogb2v")]
-position = Vector2(125, -242)
+position = Vector2(125, -248)
 
 [node name="Thruster2" parent="RocketComponents" index="4" unique_id=738144469 instance=ExtResource("4_ogb2v")]
-position = Vector2(91, -242)
+position = Vector2(91, -248)
 
 [node name="Thruster3" parent="RocketComponents" index="5" unique_id=1686283570 instance=ExtResource("4_ogb2v")]
-position = Vector2(23, -242)
+position = Vector2(23, -248)
 
 [node name="Thruster4" parent="RocketComponents" index="6" unique_id=1191888711 instance=ExtResource("4_ogb2v")]
-position = Vector2(57, -242)
+position = Vector2(57, -248)
 
 [node name="Scene4" parent="RocketComponents" index="7" unique_id=379758665 instance=ExtResource("7_cpmxm")]
 position = Vector2(58, -288)
@@ -198,7 +198,7 @@ position = Vector2(180, -28)
 scale = Vector2(2, 2)
 
 [node name="Crew" parent="OtherSelectables" index="1" unique_id=722783974 instance=ExtResource("6_bneui")]
-position = Vector2(128, -350)
+position = Vector2(125, -351)
 
 [node name="Platform1" parent="OtherSelectables" index="2" unique_id=499166670 instance=ExtResource("7_er6ob")]
 position = Vector2(181, -20)
