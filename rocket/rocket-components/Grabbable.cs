@@ -74,12 +74,18 @@ public partial class Grabbable : RigidBody2D
             if (volume > adjustedPreviousSfxVolume)
             {
                 adjustedPreviousSfxVolume = Mathf.Clamp(volume, 0, 1);
-                sfxPlayer.VolumeLinear = adjustedPreviousSfxVolume;
-                sfxPlayer.Play();
+                PlayCollisionSound(sfxPlayer, adjustedPreviousSfxVolume);
             }
         }
         lastMeasuredVelocityForClang = LinearVelocity;
     }
+
+    protected virtual void PlayCollisionSound(AudioStreamPlayer2D player, float volume)
+    {
+        player.VolumeLinear = volume;
+        player.Play();
+    }
+
 
     public void OnRelease()
     {

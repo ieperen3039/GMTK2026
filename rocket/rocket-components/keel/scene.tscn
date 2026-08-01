@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://igpfl3xe45v2"]
+
+[ext_resource type="PackedScene" uid="uid://cw8jja3s30uy7" path="res://rocket/rocket-components/keel/keel-section.tscn" id="1_6s37m"]
+
+[node name="Scene" type="Node2D" unique_id=1910198371]
+
+[node name="KeelSection1" parent="." unique_id=1573511453 node_paths=PackedStringArray("ConnectedTo") instance=ExtResource("1_6s37m")]
+position = Vector2(0, 64)
+ConnectedTo = NodePath("../KeelSection2")
+
+[node name="KeelSection2" parent="." unique_id=1727112076 node_paths=PackedStringArray("ConnectedTo") instance=ExtResource("1_6s37m")]
+position = Vector2(0, 32)
+ConnectedTo = NodePath("../KeelSection3")
+
+[node name="KeelSection3" parent="." unique_id=25088662 node_paths=PackedStringArray("ConnectedTo") instance=ExtResource("1_6s37m")]
+ConnectedTo = NodePath("../KeelSection4")
+
+[node name="KeelSection4" parent="." unique_id=1838036257 node_paths=PackedStringArray("ConnectedTo") instance=ExtResource("1_6s37m")]
+position = Vector2(0, -32)
+ConnectedTo = NodePath("../KeelSection5_head")
+
+[node name="KeelSection5_head" parent="." unique_id=1148999365 instance=ExtResource("1_6s37m")]
+position = Vector2(0, -64)

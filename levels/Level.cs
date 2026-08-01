@@ -21,9 +21,9 @@ public partial class Level : Node2D
 
     private PackedScene levelCompleteScene;
     private PackedScene ductTapeScene;
+    private PackedScene rubberBandScene;
     private PackedScene rocketScene;
 
-    private List<DuctTape> tapes = new();
     private Camera2D camera;
     private List<RocketComponent> rocketComponents = new();
     private Node ductTapeInstancesNode;
@@ -35,6 +35,7 @@ public partial class Level : Node2D
     private IMouseTool defaultMouseTool;
     private IMouseTool mouseTool;
     private Button tapeToolButton;
+    private Button rubberBandToolButton;
 
     private Grabbable hoveredSelectable;
 
@@ -48,10 +49,12 @@ public partial class Level : Node2D
     private bool shouldBuildRocket = false;
     private bool isGameStarted = false;
 
+
     public override void _Ready()
     {
         levelCompleteScene = ResourceLoader.Load<PackedScene>("uid://s62hk0dts0pl");
         ductTapeScene = ResourceLoader.Load<PackedScene>("uid://dxtpf7xkx1g4k");
+        rubberBandScene = ResourceLoader.Load<PackedScene>("uid://c7lm4m43ofvbg");
         rocketScene = ResourceLoader.Load<PackedScene>("uid://dmdekhk5ugqao");
 
         camera = GetNode<Camera2D>("Camera2D");
@@ -83,6 +86,19 @@ public partial class Level : Node2D
                 numRocketComponents++;
                 part.Freeze = true;
                 rocketComponents.Add(part);
+            } 
+            else
+            {
+                foreach (Node subChild in child.GetChildren())
+                {
+                    if (subChild is RocketComponent subPart)
+                    {
+                        subPart.Freeze = true;
+                        // add each part individually, because we cannot discern these at the end
+                        numRocketComponents++;
+                        rocketComponents.Add(subPart);
+                    }
+                }
             }
         }
 
@@ -107,6 +123,8 @@ public partial class Level : Node2D
         // Setup buttons
         tapeToolButton = GetNode<Button>("%SetTapeTool");
         tapeToolButton.Toggled += SetTapeTool;
+        rubberBandToolButton = GetNode<Button>("%SetRubberBandTool");
+        rubberBandToolButton.Toggled += SetRubberBandTool;
         Button resetButton = GetNode<Button>("%Reset");
         resetButton.Pressed += () => EmitSignal(SignalName.OnReset);
         timer.Start();
@@ -188,11 +206,6 @@ public partial class Level : Node2D
             timerGraphic.SetValue(timer.TimeLeft);
         }
 
-        foreach (DuctTape tape in tapes)
-        {
-            tape.Update(delta);
-        }
-
         if (Input.IsActionJustPressed("toggle_tape"))
         {
             // set active if not already active
@@ -220,6 +233,7 @@ public partial class Level : Node2D
     }
 
     private void SetTapeTool(bool setActive) => SetMouseTool(setActive ? new TapeTool(this) : defaultMouseTool);
+    private void SetRubberBandTool(bool setActive) => SetMouseTool(setActive ? new RubberBandTool(this) : defaultMouseTool);
 
     // attach camera to largest component tree, activate all engines
     private void OnCountdownZero()
@@ -288,6 +302,7 @@ public partial class Level : Node2D
         mouseTool.OnCancel();
         mouseTool = newMouseTool;
         tapeToolButton.SetPressedNoSignal(newMouseTool is TapeTool);
+        rubberBandToolButton.SetPressedNoSignal(newMouseTool is RubberBandTool);
         GD.Print($"mouseTool = {mouseTool.GetType().Name}");
     }
 
@@ -336,7 +351,6 @@ public partial class Level : Node2D
         {
             DuctTape tape = parent.ductTapeScene.Instantiate<DuctTape>();
             parent.ductTapeInstancesNode.AddChild(tape);
-            parent.tapes.Add(tape);
             return tape;
         }
 
@@ -369,6 +383,11 @@ public partial class Level : Node2D
                 {
                     tape = NewTape();
                 }
+                else
+                {
+                    OnCancel();
+                    tape = NewTape();
+                }
             }
             else
             {
@@ -380,7 +399,6 @@ public partial class Level : Node2D
         public void OnCancel()
         {
             tape.Snap();
-            parent.tapes.Remove(tape);
             tape.QueueFree();
         }
     }
@@ -418,6 +436,58 @@ public partial class Level : Node2D
             grabbed?.OnRelease();
             grabbed = null;
         }
+    }
+
+    private class RubberBandTool : IMouseTool
+    {
+        private Level parent;
+        private RubberBand band;
+
+        public RubberBandTool(Level parent)
+        {
+            this.parent = parent;
+            band = NewBand();
+        }
+
+        private RubberBand NewBand()
+        {
+            RubberBand band = parent.rubberBandScene.Instantiate<RubberBand>();
+            parent.ductTapeInstancesNode.AddChild(band);
+            return band;
+        }
+
+        public void OnClick(Vector2 mousePosition)
+        {
+            band.Place(mousePosition);
+
+            if (band.Status == RubberBand.StatusValue.Empty)
+            {
+                // avoid edge case
+                OnCancel();
+                band = NewBand();
+            }
+        }
+
+        public void OnRelease(Vector2 mousePosition)
+        {
+            band.Place(mousePosition);
+
+            if (band.Status == RubberBand.StatusValue.FullConnected)
+            {
+                band = NewBand();
+            }
+            else
+            {
+                OnCancel();
+                band = NewBand();
+            }
+        }
+
+        public void OnCancel()
+        {
+            band.QueueFree();
+        }
+
     }
 
     // player can't do anything

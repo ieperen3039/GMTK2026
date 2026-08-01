@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cwcg3yk8l3hi8"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://b4i4kmbjfamiy" path="res://rocket/rubber-band/rubber_material.tres" id="1_pi5wk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kc4um"]
+size = Vector2(2, 2)
+
+[node name="SideA" type="RigidBody2D" unique_id=866936278]
+mass = 0.5
+physics_material_override = ExtResource("1_pi5wk")
+gravity_scale = 0.1
+lock_rotation = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1428320558]
+shape = SubResource("RectangleShape2D_kc4um")

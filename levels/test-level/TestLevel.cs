@@ -6,13 +6,10 @@ public partial class TestLevel : Node2D
 {
     private Rocket rocket;
     private Node2D centerOfMass;
-    private List<DuctTape> tapes = new();
     private List<RocketComponent> rocketComponents = new();
     private Node ductTapeInstancesNode;
 
     // Called when the node enters the scene tree for the first time.
-
-
     public override void _Ready()
     {
         Node rocketComponentsNode = GetNode<Node>("RocketComponents");
@@ -42,7 +39,6 @@ public partial class TestLevel : Node2D
 
                 DuctTape tape = ductTapeScene.Instantiate<DuctTape>();
                 ductTapeInstancesNode.AddChild(tape);
-                tapes.Add(tape);
 
                 tape.Attach(part, Vector2.Zero);
                 tape.Attach(part2, Vector2.Zero);
@@ -66,7 +62,6 @@ public partial class TestLevel : Node2D
             {
                 DuctTape tape = proto.Realize();
                 ductTapeInstancesNode.AddChild(tape);
-                tapes.Add(tape);
                 proto.QueueFree();
             }
         }
@@ -74,11 +69,6 @@ public partial class TestLevel : Node2D
         foreach (RocketComponent part in rocketComponents)
         {
             part.LinearDamp = 0;
-        }
-
-        foreach (DuctTape tape in tapes)
-        {
-            tape.Update(delta);
         }
 
         centerOfMass.Position = rocket.ToGlobal(rocket.CenterOfMass);

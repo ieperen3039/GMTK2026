@@ -19,7 +19,11 @@ AltitudeGoal = 1000
 wait_time = 25.0
 
 [node name="GameUi" parent="UI" parent_id_path=PackedInt32Array(475960895) index="0" unique_id=1453695955]
+visible = false
 mouse_filter = 1
+
+[node name="SetRubberBandTool" parent="UI/GameUi" index="2" unique_id=171057678]
+visible = false
 
 [node name="BriefingRoom" parent="Briefing/VBoxContainer/Panel" parent_id_path=PackedInt32Array(561301093, 1838802079) index="0" unique_id=2050214305]
 offset_bottom = -18.0

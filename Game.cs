@@ -34,6 +34,8 @@ public partial class Game : Node
             ResourceLoader.Load<PackedScene>("res://levels/level-2/scene.tscn"),
             ResourceLoader.Load<PackedScene>("res://levels/level-3/scene.tscn"),
             ResourceLoader.Load<PackedScene>("res://levels/level-4/scene.tscn"),
+            ResourceLoader.Load<PackedScene>("res://levels/level-5/scene.tscn"),
+            ResourceLoader.Load<PackedScene>("res://levels/level-6/scene.tscn"),
         ];
         scores = new Score[levelScenes.Length];
 

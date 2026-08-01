@@ -10,7 +10,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(32, 32)
 
-[node name="Scene" type="RigidBody2D" unique_id=217928142]
+[node name="FuelTank" type="RigidBody2D" unique_id=217928142]
 input_pickable = true
 mass = 2.0
 physics_material_override = ExtResource("1_mls8d")

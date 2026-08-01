@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cc8s17bvcxowp"]
+
+[ext_resource type="Script" uid="uid://dt2xsf7en2yon" path="res://rocket/rocket-components/bowling-pin/BowlingPin.cs" id="1_g3gld"]
+[ext_resource type="Texture2D" uid="uid://dh7ehqwchyhuy" path="res://rocket/rocket-components/bowling-pin/bowling-pin-sprite.tres" id="2_g3gld"]
+[ext_resource type="AudioStream" uid="uid://bobxmb4oirjqs" path="res://sfx/tok.ogg" id="3_88ljm"]
+
+[node name="BowlingPin" type="RigidBody2D" unique_id=392779649]
+mass = 0.5
+gravity_scale = 0.9
+script = ExtResource("1_g3gld")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=1006566450]
+polygon = PackedVector2Array(0, -16, 4, -12, 4, -9, 3, -8, 3, -4, 6, 3, 7, 7, 7, 10, 3, 16, -3, 16, -7, 10, -7, 7, -6, 3, -3, -4, -3, -8, -4, -9, -4, -12)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=878818875]
+texture = ExtResource("2_g3gld")
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=279455588]
+stream = ExtResource("3_88ljm")
+volume_db = -4.0
+pitch_scale = 1.7

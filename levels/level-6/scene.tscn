@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://bu1mmmpy4ypgq"]
+
+[ext_resource type="PackedScene" uid="uid://brbphpk1yrjqc" path="res://levels/level-base.tscn" id="1_f54k4"]
+[ext_resource type="StyleBox" uid="uid://bju8heskucri1" path="res://ui-themes/gold_small_style_box_texture.tres" id="2_ayvco"]
+[ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="2_mlblq"]
+[ext_resource type="PackedScene" uid="uid://cc8s17bvcxowp" path="res://rocket/rocket-components/bowling-pin/scene.tscn" id="3_hu8td"]
+[ext_resource type="PackedScene" uid="uid://dbah51ct26pfp" path="res://rocket/rocket-components/drone-component/scene.tscn" id="4_f0nu1"]
+[ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="6_s8ahk"]
+[ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="7_lcxun"]
+[ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="8_s8ahk"]
+
+[node name="BaseLevel" unique_id=1782678356 instance=ExtResource("1_f54k4")]
+AltitudeGoal = 10000
+
+[node name="LevelTimer" parent="." index="3" unique_id=317409736]
+wait_time = 45.0
+
+[node name="BriefingRoom" parent="Briefing/VBoxContainer/Panel" parent_id_path=PackedInt32Array(561301093, 1838802079) index="0" unique_id=2050214305]
+offset_bottom = -18.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="0" unique_id=941790736]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 68.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Still wondering what we were going to do with that bowlingball? Well, here you go."
+
+[node name="Panel5" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="1" unique_id=1801629873]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.314
+anchor_right = 1.0
+anchor_bottom = 0.554
+offset_top = -8.056
+offset_bottom = -8.016006
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_ayvco")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel5" index="0" unique_id=741028911]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 6.0
+offset_right = -7.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Get these into orbit"
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="2" unique_id=121291354]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = -42.0
+offset_right = -0.028015137
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("2_ayvco")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel2" index="0" unique_id=1918892477]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 7.0
+offset_right = -9.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Countdown"
+vertical_alignment = 1
+
+[node name="Panel4" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="3" unique_id=1300054284]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = -91.0
+offset_right = -0.028015137
+offset_bottom = -51.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("2_ayvco")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel4" index="0" unique_id=1912813369]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 7.0
+offset_right = -9.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Controller"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Panel3" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="4" unique_id=695666283]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -92.0
+offset_right = 122.0
+grow_vertical = 0
+theme_override_styles/panel = ExtResource("2_ayvco")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel3" index="0" unique_id=1500815115]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -2.0
+offset_bottom = 51.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "This ought to be enough thrust"
+scroll_active = false
+
+[node name="Panel6" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="5" unique_id=2011214812]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 129.0
+offset_top = -92.0
+offset_right = 193.0
+grow_vertical = 0
+theme_override_styles/panel = ExtResource("2_ayvco")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel6" index="0" unique_id=1946781158]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = 84.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Plenty of fuel"
+scroll_active = false
+
+[node name="RocketComponents" type="Node" parent="." index="9" unique_id=1926566736]
+
+[node name="BowlingPin" parent="RocketComponents" index="0" unique_id=392779649 instance=ExtResource("3_hu8td")]
+position = Vector2(-5, -324)
+
+[node name="BowlingPin2" parent="RocketComponents" index="1" unique_id=1584211939 instance=ExtResource("3_hu8td")]
+position = Vector2(148, -324)
+
+[node name="BowlingPin3" parent="RocketComponents" index="2" unique_id=1532537190 instance=ExtResource("3_hu8td")]
+position = Vector2(131, -324)
+
+[node name="BowlingPin4" parent="RocketComponents" index="3" unique_id=931134914 instance=ExtResource("3_hu8td")]
+position = Vector2(114, -324)
+
+[node name="BowlingPin5" parent="RocketComponents" index="4" unique_id=2008065875 instance=ExtResource("3_hu8td")]
+position = Vector2(97, -324)
+
+[node name="BowlingPin6" parent="RocketComponents" index="5" unique_id=1055745067 instance=ExtResource("3_hu8td")]
+position = Vector2(80, -324)
+
+[node name="BowlingPin7" parent="RocketComponents" index="6" unique_id=80183852 instance=ExtResource("3_hu8td")]
+position = Vector2(63, -324)
+
+[node name="BowlingPin8" parent="RocketComponents" index="7" unique_id=2108202442 instance=ExtResource("3_hu8td")]
+position = Vector2(46, -324)
+
+[node name="BowlingPin9" parent="RocketComponents" index="8" unique_id=1767283439 instance=ExtResource("3_hu8td")]
+position = Vector2(29, -324)
+
+[node name="BowlingPin10" parent="RocketComponents" index="9" unique_id=568507903 instance=ExtResource("3_hu8td")]
+position = Vector2(12, -324)
+
+[node name="Controller" parent="RocketComponents" index="10" unique_id=1726531230 instance=ExtResource("4_f0nu1")]
+position = Vector2(58, -270)
+
+[node name="FuelTank" parent="RocketComponents" index="11" unique_id=217928142 instance=ExtResource("8_s8ahk")]
+position = Vector2(-5, -225)
+
+[node name="Thruster" parent="RocketComponents" index="12" unique_id=1039960409 instance=ExtResource("7_lcxun")]
+position = Vector2(-135, -222)
+
+[node name="Thruster2" parent="RocketComponents" index="13" unique_id=543800269 instance=ExtResource("7_lcxun")]
+position = Vector2(-78, -222)
+
+[node name="OtherSelectables" type="Node" parent="." index="10" unique_id=1896895325]
+
+[node name="Platform1" parent="OtherSelectables" index="0" unique_id=499166670 instance=ExtResource("2_mlblq")]
+position = Vector2(0, -8)
+
+[node name="CountdownTimer" parent="OtherSelectables" index="1" unique_id=1515224007 instance=ExtResource("6_s8ahk")]
+unique_name_in_owner = true
+position = Vector2(141, -220)
+
+[editable path="Briefing"]

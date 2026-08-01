@@ -14,10 +14,13 @@ region_enabled = true
 region_rect = Rect2(0, 0, 16, 240)
 
 [node name="WalkingPlatform" parent="." unique_id=1073155838 instance=ExtResource("2_piwu0")]
+z_index = 1
 position = Vector2(-9, -61)
 
 [node name="WalkingPlatform3" parent="." unique_id=742868253 instance=ExtResource("2_piwu0")]
+z_index = 1
 position = Vector2(-4, -140)
 
 [node name="WalkingPlatformExtension" parent="." unique_id=48754305 instance=ExtResource("2_piwu0")]
+z_index = 1
 position = Vector2(-36, -140)

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cw8jja3s30uy7"]
+
+[ext_resource type="Script" uid="uid://cfvg0aeyl7qk8" path="res://rocket/rocket-components/keel/KeelSection.cs" id="1_nlmku"]
+[ext_resource type="Texture2D" uid="uid://cbolxg5r2b8wu" path="res://rocket/rocket-components/keel/keel-sprite.tres" id="2_nk35r"]
+[ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="3_bnlj0"]
+[ext_resource type="AudioStream" uid="uid://cyxl2k3w4xk4v" path="res://sfx/clang_long.ogg" id="4_nlmku"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_teru1"]
+points = PackedVector2Array(12, -12, 12, 16, -12, 16, -12, -12, 0, -24)
+
+[node name="KeelSection" type="RigidBody2D" unique_id=1573511453]
+script = ExtResource("1_nlmku")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1125583401]
+position = Vector2(0, -8)
+texture = ExtResource("2_nk35r")
+
+[node name="Magnet" parent="." unique_id=1363214683 instance=ExtResource("3_bnlj0")]
+position = Vector2(-12, 0)
+
+[node name="Magnet2" parent="." unique_id=376500177 instance=ExtResource("3_bnlj0")]
+position = Vector2(12, 0)
+
+[node name="ClangSfx" type="AudioStreamPlayer2D" parent="." unique_id=1251325472]
+stream = ExtResource("4_nlmku")
+volume_db = -5.0
+pitch_scale = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1057909315]
+shape = SubResource("ConvexPolygonShape2D_teru1")
+
+[node name="Joint" type="Marker2D" parent="." unique_id=1825065396]
+position = Vector2(0, -24.000002)
+rotation = 0.7853982
+gizmo_extents = 5.0

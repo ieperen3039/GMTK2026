@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teru1"]
 size = Vector2(32, 16)
 
-[node name="Scene" type="RigidBody2D" unique_id=1726531230]
+[node name="Controller" type="RigidBody2D" unique_id=1726531230]
 script = ExtResource("1_lpyc2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1289694669]

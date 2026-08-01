@@ -69,7 +69,7 @@ public partial class DuctTape : Node2D
         }
     }
 
-    public void Update(double delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (Status == StatusValue.FullConnected)
         {
