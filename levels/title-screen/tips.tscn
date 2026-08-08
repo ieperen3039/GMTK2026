@@ -15,9 +15,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 96.0
+offset_left = 49.0
 offset_top = 54.0
-offset_right = -96.0
+offset_right = -49.0
 offset_bottom = -54.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -44,9 +44,12 @@ offset_right = -18.0
 offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Use the mouse to drag components around, and use space as a hotkey for tape. Use left/right or A/D to steer your rocket.
+text = "Use the mouse to drag components around, and use space as a hotkey for tape. 
+Use left/right or A/D to steer your rocket.
 
-Most of your stability and control comes from automatic thrust reduction. If your rockets are unstable, move the thrusters away from the middle."
+Most of your stability and control comes from automatic thrust reduction. If your rockets are unstable, move the thrusters away from the middle.
+
+If your rocket is steering into the ground, make sure the controller is the right way up"
 autowrap_mode = 2
 
 [node name="ButtonBack" type="Button" parent="Control" unique_id=2120857016]

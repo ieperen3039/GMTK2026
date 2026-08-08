@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://2nrcrl4nkds2"]
 
 [ext_resource type="Script" uid="uid://brkylaolc3bu4" path="res://levels/test-level/TestLevel.cs" id="1_tt41q"]
-[ext_resource type="PackedScene" uid="uid://c6n8kpxrtcofr" path="res://background/parallax-bg.tscn" id="2_cidmj"]
 [ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="3_c4as1"]
 [ext_resource type="PackedScene" uid="uid://dkohpn7rytwjv" path="res://rocket/rocket-components/oddly-shaped-component/scene.tscn" id="4_jntux"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="5_fe1f6"]
@@ -9,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_rbg3q"]
 [ext_resource type="PackedScene" uid="uid://dkrndcqjmeo20" path="res://levels/test-level/proto-ducttape.tscn" id="8_ntr45"]
 [ext_resource type="PackedScene" uid="uid://s7v7dbr5g7n4" path="res://rocket/rocket-components/bowling-ball/scene.tscn" id="9_0q84p"]
+[ext_resource type="Texture2D" uid="uid://bxfsrxb26ood3" path="res://levels/test-level/check.png" id="9_tt41q"]
 
 [node name="BaseLevel" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_tt41q")
@@ -20,8 +20,6 @@ color = Color(0.0333333, 1, 0, 0.5019608)
 polygon = PackedVector2Array(1, 2, 2, 1, 2, -1, 1, -2, -1, -2, -2, -1, -2, 1, -1, 2)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=114027]
-
-[node name="ParallaxBg" parent="." unique_id=932535934 instance=ExtResource("2_cidmj")]
 
 [node name="RocketComponents" type="Node" parent="." unique_id=1960437399]
 
@@ -66,3 +64,12 @@ points = PackedVector2Array(-75, -78, -51, -56)
 
 [node name="BowlingBall" parent="." unique_id=392779649 instance=ExtResource("9_0q84p")]
 position = Vector2(-7, -288)
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1335070498]
+scale = Vector2(100, 100)
+repeat_size = Vector2(2, 2)
+repeat_times = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1608673798]
+modulate = Color(0.16, 0.16, 0.16, 1)
+texture = ExtResource("9_tt41q")

@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="7_f3i6u"]
 [ext_resource type="PackedScene" uid="uid://m7cwvckwpmts" path="res://rocket/rocket-components/fuel-tank/scene_1x2.tscn" id="8_i6buh"]
 [ext_resource type="PackedScene" uid="uid://dkrndcqjmeo20" path="res://levels/test-level/proto-ducttape.tscn" id="8_jpbuu"]
-[ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="10_i6buh"]
 
 [node name="BaseLevel" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_8d4ym")
@@ -17,7 +16,7 @@ script = ExtResource("1_8d4ym")
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1051977185]
 scale = Vector2(100, 100)
 repeat_size = Vector2(2, 2)
-repeat_times = 1000
+repeat_times = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=632365889]
 modulate = Color(0.16, 0.16, 0.16, 1)
@@ -47,7 +46,7 @@ rotation = 0.017453292
 
 [node name="CrewBox" parent="RocketComponents" unique_id=286899100 instance=ExtResource("3_i6buh")]
 position = Vector2(-16, -104)
-rotation = 0.017453292
+rotation = 1.5707964
 
 [node name="LongTank" parent="RocketComponents" unique_id=1659526976 instance=ExtResource("8_i6buh")]
 position = Vector2(17, -121)
@@ -62,8 +61,16 @@ position = Vector2(16, -37.000004)
 rotation = 0.017453292
 
 [node name="Thruster2" parent="RocketComponents" unique_id=1270215336 instance=ExtResource("5_8y0l2")]
-position = Vector2(-18, -37)
+position = Vector2(-19, -37.000004)
 rotation = 0.017453292
+
+[node name="Thruster3" parent="RocketComponents" unique_id=1480062764 instance=ExtResource("5_8y0l2")]
+position = Vector2(-49, -136)
+rotation = 1.5707964
+
+[node name="Thruster4" parent="RocketComponents" unique_id=1461447665 instance=ExtResource("5_8y0l2")]
+position = Vector2(-48, -69)
+rotation = 1.5707964
 
 [node name="CountdownTimer" parent="RocketComponents" unique_id=1515224007 instance=ExtResource("7_f3i6u")]
 unique_name_in_owner = true
@@ -74,33 +81,24 @@ rotation = 0.017453292
 
 [node name="Ducttape" parent="DuctTapeInstances" unique_id=1479068681 instance=ExtResource("8_jpbuu")]
 position = Vector2(-1, 0)
-points = PackedVector2Array(-29, -59, -29, -50)
+points = PackedVector2Array(-14, -73, -18, -42)
 
 [node name="Ducttape6" parent="DuctTapeInstances" unique_id=425667252 instance=ExtResource("8_jpbuu")]
 position = Vector2(-1, 0)
-points = PackedVector2Array(-3, -59, -3, -50)
+points = PackedVector2Array(-8, -71, 17, -43)
 
 [node name="Ducttape2" parent="DuctTapeInstances" unique_id=1788389463 instance=ExtResource("8_jpbuu")]
 position = Vector2(1, 0)
-points = PackedVector2Array(3, -59, 3, -50)
+points = PackedVector2Array(18, -73, -19, -40)
 
 [node name="Ducttape5" parent="DuctTapeInstances" unique_id=1204559593 instance=ExtResource("8_jpbuu")]
 position = Vector2(1, 0)
-points = PackedVector2Array(29, -58, 29, -50)
+points = PackedVector2Array(17, -74, 21, -45)
 
 [node name="Ducttape3" parent="DuctTapeInstances" unique_id=456801028 instance=ExtResource("8_jpbuu")]
 position = Vector2(-1, -65)
-points = PackedVector2Array(20, -39, -11, -12)
+points = PackedVector2Array(-3, -128, -19, -111)
 
 [node name="Ducttape4" parent="DuctTapeInstances" unique_id=2083674160 instance=ExtResource("8_jpbuu")]
 position = Vector2(1, -65)
-points = PackedVector2Array(-7, -97, 21, -58)
-
-[node name="Crew" parent="." unique_id=722783974 instance=ExtResource("10_i6buh")]
-position = Vector2(-35, -99)
-
-[node name="Crew2" parent="." unique_id=242118018 instance=ExtResource("10_i6buh")]
-position = Vector2(-33, -105)
-
-[node name="Crew3" parent="." unique_id=1807784181 instance=ExtResource("10_i6buh")]
-position = Vector2(-33, -116)
+points = PackedVector2Array(24, -132, 29, -113)

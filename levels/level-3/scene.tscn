@@ -106,7 +106,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 7.0
 offset_top = 3.0
-offset_right = -161.0
+offset_right = -190.0
 offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -120,14 +120,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 160.0
+offset_left = 135.0
 offset_top = 6.0
-offset_right = -19.0
+offset_right = -8.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 14
-text = "It's also your controller"
+text = "MAKE SURE IT IS THE RIGHT WAY UP!"
 scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -199,7 +199,7 @@ position = Vector2(20, -270)
 position = Vector2(-5, -228)
 
 [node name="CrewBox" parent="RocketComponents" index="3" unique_id=1138033148 instance=ExtResource("11_0op4n")]
-position = Vector2(0, -170)
+position = Vector2(-29, -171)
 
 [node name="LongTank" parent="RocketComponents" index="4" unique_id=192567211 instance=ExtResource("11_168kw")]
 position = Vector2(67, -251)
