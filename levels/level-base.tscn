@@ -113,6 +113,25 @@ theme = ExtResource("3_1isni")
 toggle_mode = true
 text = "RubberBand"
 
+[node name="AltitudeCounter" type="Label" parent="UI" unique_id=303658457]
+unique_name_in_owner = true
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -20.0
+offset_right = -19.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.44313726)
+theme_override_font_sizes/font_size = 28
+text = "altitude"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="Briefing" parent="." unique_id=561301093 instance=ExtResource("6_w0bne")]
 unique_name_in_owner = true
 z_index = -1

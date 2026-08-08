@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b7u3of3wbuoau" path="res://launch-tower/walking-platform.tscn" id="6_ju4gd"]
 [ext_resource type="PackedScene" uid="uid://b1riprbftj6ig" path="res://levels/title-screen/level-selection.tscn" id="6_pnnfd"]
 [ext_resource type="PackedScene" uid="uid://cwnr2b1gsic8q" path="res://levels/title-screen/credits.tscn" id="7_0yfs4"]
+[ext_resource type="PackedScene" uid="uid://b0bxyxanuk68x" path="res://levels/title-screen/tips.tscn" id="11_ju4gd"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uw0dn"]
 normal = Vector2(1, 0)
@@ -108,5 +109,9 @@ visible = false
 layout_mode = 1
 
 [node name="Credits" parent="." unique_id=852141576 instance=ExtResource("7_0yfs4")]
+visible = false
+layout_mode = 1
+
+[node name="Tips" parent="." unique_id=231219344 instance=ExtResource("11_ju4gd")]
 visible = false
 layout_mode = 1

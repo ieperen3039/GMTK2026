@@ -16,15 +16,9 @@
 AltitudeGoal = 12000
 
 [node name="LevelTimer" parent="." index="3" unique_id=317409736]
-wait_time = 55.0
+wait_time = 50.0
 
-[node name="GameUi" parent="UI" parent_id_path=PackedInt32Array(475960895) index="0" unique_id=1453695955]
-visible = false
-
-[node name="SetTapeTool" parent="UI/GameUi" index="0" unique_id=1047236533]
-disabled = true
-
-[node name="SetRubberBandTool" parent="UI/GameUi" index="2" unique_id=171057678]
+[node name="SetRubberBandTool" parent="UI/GameUi" parent_id_path=PackedInt32Array(1453695955) index="2" unique_id=171057678]
 visible = false
 
 [node name="Briefing" parent="." index="8" unique_id=561301093]
@@ -195,28 +189,28 @@ position = Vector2(-73, -339)
 
 [node name="RocketComponents" type="Node" parent="." index="10" unique_id=627111615]
 
-[node name="Engine" parent="RocketComponents" index="0" unique_id=1039960409 instance=ExtResource("2_vmxb2")]
-position = Vector2(109, -229)
+[node name="FuelTank5" parent="RocketComponents" index="0" unique_id=1423883616 instance=ExtResource("5_168kw")]
+position = Vector2(-25, -270)
 
-[node name="FuelTank5" parent="RocketComponents" index="1" unique_id=1423883616 instance=ExtResource("5_168kw")]
-position = Vector2(-12, -274)
+[node name="FuelTank4" parent="RocketComponents" index="1" unique_id=1599240470 instance=ExtResource("5_168kw")]
+position = Vector2(20, -270)
 
-[node name="FuelTank4" parent="RocketComponents" index="2" unique_id=1599240470 instance=ExtResource("5_168kw")]
-position = Vector2(34, -274)
+[node name="COOOONE" parent="RocketComponents" index="2" unique_id=1365596330 instance=ExtResource("5_doeej")]
+position = Vector2(-5, -228)
 
-[node name="Engine2" parent="RocketComponents" index="3" unique_id=367263358 instance=ExtResource("2_vmxb2")]
-position = Vector2(72, -229)
-
-[node name="COOOONE" parent="RocketComponents" index="4" unique_id=1365596330 instance=ExtResource("5_doeej")]
-position = Vector2(11, -226)
-
-[node name="CrewBox" parent="RocketComponents" index="5" unique_id=1138033148 instance=ExtResource("11_0op4n")]
+[node name="CrewBox" parent="RocketComponents" index="3" unique_id=1138033148 instance=ExtResource("11_0op4n")]
 position = Vector2(0, -170)
 
-[node name="LongTank" parent="RocketComponents" index="6" unique_id=192567211 instance=ExtResource("11_168kw")]
-position = Vector2(-64, -242)
+[node name="LongTank" parent="RocketComponents" index="4" unique_id=192567211 instance=ExtResource("11_168kw")]
+position = Vector2(67, -251)
 
-[node name="LongTank2" parent="RocketComponents" index="7" unique_id=1089481680 instance=ExtResource("11_168kw")]
-position = Vector2(-118, -242)
+[node name="LongTank2" parent="RocketComponents" index="5" unique_id=1089481680 instance=ExtResource("11_168kw")]
+position = Vector2(112, -250)
+
+[node name="Thruster" parent="RocketComponents" index="6" unique_id=1039960409 instance=ExtResource("2_vmxb2")]
+position = Vector2(-77, -228)
+
+[node name="Thruster2" parent="RocketComponents" index="7" unique_id=1034081942 instance=ExtResource("2_vmxb2")]
+position = Vector2(-117, -228)
 
 [editable path="Briefing"]

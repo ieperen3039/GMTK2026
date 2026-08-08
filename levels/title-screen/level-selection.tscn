@@ -82,21 +82,21 @@ theme = ExtResource("1_t7rro")
 text = "Level 3"
 icon = ExtResource("4_6qd8u")
 
-[node name="Button4" type="Button" parent="Control/Panel/MarginContainer/LevelButtons" unique_id=59432098]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("1_t7rro")
-text = "Level 4"
-icon = ExtResource("5_eq1cp")
-
 [node name="Button5" type="Button" parent="Control/Panel/MarginContainer/LevelButtons" unique_id=714099440]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_t7rro")
-text = "Level 5"
+text = "Level 4"
 icon = ExtResource("6_nlvy7")
+
+[node name="Button4" type="Button" parent="Control/Panel/MarginContainer/LevelButtons" unique_id=59432098]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_t7rro")
+text = "Level 5"
+icon = ExtResource("5_eq1cp")
 
 [node name="Button6" type="Button" parent="Control/Panel/MarginContainer/LevelButtons" unique_id=1087444230]
 layout_mode = 2

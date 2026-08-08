@@ -1,187 +1,212 @@
-[gd_scene format=3 uid="uid://br2lxd1e5crh0"]
+[gd_scene format=3 uid="uid://baxaqtupd5g7f"]
 
 [ext_resource type="PackedScene" uid="uid://brbphpk1yrjqc" path="res://levels/level-base.tscn" id="1_nrwo4"]
 [ext_resource type="StyleBox" uid="uid://bju8heskucri1" path="res://ui-themes/gold_small_style_box_texture.tres" id="2_7wx42"]
-[ext_resource type="PackedScene" uid="uid://igpfl3xe45v2" path="res://rocket/rocket-components/keel/scene.tscn" id="3_tlpca"]
+[ext_resource type="PackedScene" uid="uid://dkohpn7rytwjv" path="res://rocket/rocket-components/oddly-shaped-component/scene.tscn" id="4_khv0g"]
 [ext_resource type="PackedScene" uid="uid://bsr8qnp6xxaig" path="res://crew/Crew.tscn" id="6_7wx42"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="6_bev7j"]
+[ext_resource type="PackedScene" uid="uid://vgso4xp2l1yw" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/scene.tscn" id="6_sq0ew"]
 [ext_resource type="PackedScene" uid="uid://cgewgr252tv33" path="res://platform/platform_1.tscn" id="7_iqbd7"]
-[ext_resource type="PackedScene" uid="uid://m7cwvckwpmts" path="res://rocket/rocket-components/fuel-tank/scene_1x2.tscn" id="7_nrwo4"]
+[ext_resource type="PackedScene" uid="uid://bn7h154hc2vae" path="res://launch-tower/launch-tower.tscn" id="7_xs3x5"]
 [ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="8_7wx42"]
 [ext_resource type="PackedScene" uid="uid://dnvvm5a5dbxib" path="res://countdown-timer/countdown-timer.tscn" id="8_x572n"]
+[ext_resource type="PackedScene" uid="uid://73ile0xgnbys" path="res://rocket/rocket-components/traffic-cone/scene.tscn" id="11_x8ecf"]
 
 [node name="BaseLevel" unique_id=1782678356 instance=ExtResource("1_nrwo4")]
-AltitudeGoal = 5000
+AltitudeGoal = 15000
 
 [node name="LevelTimer" parent="." index="3" unique_id=317409736]
-wait_time = 60.0
+wait_time = 55.0
 
-[node name="GameUi" parent="UI" parent_id_path=PackedInt32Array(475960895) index="0" unique_id=1453695955]
-visible = false
-
-[node name="SetTapeTool" parent="UI/GameUi" index="0" unique_id=1047236533]
-disabled = true
+[node name="Briefing" parent="." index="8" unique_id=561301093]
+offset_left = -167.0
+offset_right = 160.0
+offset_bottom = -111.0
 
 [node name="BriefingRoom" parent="Briefing/VBoxContainer/Panel" parent_id_path=PackedInt32Array(561301093, 1838802079) index="0" unique_id=2050214305]
-offset_bottom = -18.0
+offset_left = 15.0
+offset_top = 16.0
+offset_right = -15.0
+offset_bottom = -16.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="0" unique_id=941790736]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_right = 1.0
-offset_bottom = 68.0
-grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 14
-text = "We ran out of tape! Lucky for you, we found some rubber bands that you can use instead. "
-
-[node name="Panel5" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="1" unique_id=1801629873]
+[node name="Panel5" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="0" unique_id=1096352914]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.785
-anchor_right = 0.61700004
-anchor_bottom = 0.785
-offset_top = -108.924995
-offset_right = 0.1559906
-offset_bottom = -2.925003
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = ExtResource("2_7wx42")
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel5" index="0" unique_id=741028911]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 6.0
-offset_right = -7.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 14
-text = "Use this strong modular reinforcement to add some strength to your rocket"
-
-[node name="Panel6" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="2" unique_id=2095649323]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.6415663
-anchor_top = 1.0093659
-anchor_right = 1.006
-anchor_bottom = 1.0240242
-offset_top = -153.92001
-offset_right = 0.0079956055
-offset_bottom = 0.07499695
-grow_horizontal = 2
-grow_vertical = 2
+anchor_left = 0.7710438
+anchor_top = 0.1127451
+anchor_right = 0.9997503
+anchor_bottom = 0.1127451
+offset_bottom = 51.0
 theme_override_styles/panel = ExtResource("2_7wx42")
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel6" index="0" unique_id=1485891850]
+[node name="descComponents" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel5" index="0" unique_id=491454331]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 6.0
+offset_left = 7.25
+offset_top = 5.0
 offset_right = -7.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 14
-text = "These should do it"
-scroll_active = false
-
-[node name="Panel2" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="3" unique_id=177946320]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 1.024
-anchor_right = 0.46100003
-anchor_bottom = 1.024
-offset_left = 62.0
-offset_top = -45.920013
-offset_right = 52.947998
-offset_bottom = -0.9200134
-grow_horizontal = 0
-theme_override_styles/panel = ExtResource("2_7wx42")
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel2" index="0" unique_id=750179087]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 6.0
-offset_right = -6.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 14
-text = "Plenty of time"
-scroll_active = false
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Panel3" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="4" unique_id=814328849]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.48200002
-anchor_top = 1.024
-anchor_right = 0.62
-anchor_bottom = 1.024
-offset_left = -159.024
-offset_top = -45.920013
-offset_right = -153.84
-offset_bottom = 0.07998657
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = ExtResource("2_7wx42")
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel3" index="0" unique_id=1384693025]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 7.0
-offset_right = -6.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 14
-text = "Jeb"
+text = "Bob"
+scroll_active = false
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="1" unique_id=2021405446]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.5
+offset_top = -45.0
+offset_right = 0.97198486
+offset_bottom = -1.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("2_7wx42")
+
+[node name="descComponents" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel2" index="0" unique_id=298097475]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Countdown:"
+scroll_active = false
+vertical_alignment = 1
+
+[node name="Panel3" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="2" unique_id=1080233087]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.514
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.3419952
+offset_top = -145.0
+offset_right = 0.28997803
+offset_bottom = -50.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("2_7wx42")
+
+[node name="descComponents" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel3" index="0" unique_id=1704714614]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 6.0
+offset_top = 15.0
+offset_right = -10.0
+offset_bottom = 53.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Parts"
 scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="RocketComponents" type="Node" parent="." index="9" unique_id=1926566736]
+[node name="Panel6" type="Panel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="3" unique_id=1139445510]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -145.0
+offset_right = 148.0
+grow_vertical = 0
+theme_override_styles/panel = ExtResource("2_7wx42")
 
-[node name="Keel" parent="RocketComponents" index="0" unique_id=1910198371 instance=ExtResource("3_tlpca")]
-position = Vector2(-76, -269)
-rotation = 1.5707964
+[node name="descComponents" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom/Panel6" index="0" unique_id=191056548]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = 37.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 14
+text = "Handle with haste"
+scroll_active = false
+vertical_alignment = 1
 
-[node name="Thruster" parent="RocketComponents" index="1" unique_id=1039960409 instance=ExtResource("6_bev7j")]
-position = Vector2(77, -224)
+[node name="RichTextLabel" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="4" unique_id=947366090]
+layout_mode = 0
+offset_right = 289.0
+offset_bottom = 23.0
+theme_override_font_sizes/normal_font_size = 14
+text = "Our R&D nerds have made... something?"
+scroll_active = false
 
-[node name="Thruster2" parent="RocketComponents" index="2" unique_id=1340776759 instance=ExtResource("6_bev7j")]
-position = Vector2(136, -224)
+[node name="RichTextLabel2" type="RichTextLabel" parent="Briefing/VBoxContainer/Panel/BriefingRoom" index="5" unique_id=608817867]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 23.0
+offset_right = 216.0
+offset_bottom = 86.0
+theme_override_font_sizes/normal_font_size = 14
+text = "Anyway it's up to you to get it into orbit. This should be plenty of thrusters for this job."
+scroll_active = false
 
-[node name="Scene" parent="RocketComponents" index="3" unique_id=217928142 instance=ExtResource("7_nrwo4")]
-position = Vector2(135, -283)
+[node name="RocketComponents" type="Node" parent="." index="9" unique_id=1220565092]
 
-[node name="Scene2" parent="RocketComponents" index="4" unique_id=759493292 instance=ExtResource("8_7wx42")]
-position = Vector2(78, -268)
+[node name="CrewComp" parent="RocketComponents" index="0" unique_id=217928142 instance=ExtResource("8_7wx42")]
+position = Vector2(24, -293)
 
-[node name="OtherSelectables" type="Node" parent="." index="10" unique_id=1896895325]
+[node name="Thing" parent="RocketComponents" index="1" unique_id=1875974869 instance=ExtResource("4_khv0g")]
+position = Vector2(-44, -231)
+mass = 5.0
 
-[node name="Platform1" parent="OtherSelectables" index="0" unique_id=499166670 instance=ExtResource("7_iqbd7")]
-position = Vector2(0, -8)
+[node name="Thing2" parent="RocketComponents" index="2" unique_id=909466974 instance=ExtResource("4_khv0g")]
+position = Vector2(-113, -231)
+mass = 5.0
 
-[node name="CountdownTimer" parent="OtherSelectables" index="1" unique_id=1515224007 instance=ExtResource("8_x572n")]
+[node name="Thruster" parent="RocketComponents" index="3" unique_id=1039960409 instance=ExtResource("6_bev7j")]
+position = Vector2(125, -248)
+
+[node name="Thruster2" parent="RocketComponents" index="4" unique_id=738144469 instance=ExtResource("6_bev7j")]
+position = Vector2(91, -248)
+
+[node name="Thruster3" parent="RocketComponents" index="5" unique_id=1686283570 instance=ExtResource("6_bev7j")]
+position = Vector2(23, -248)
+
+[node name="Thruster4" parent="RocketComponents" index="6" unique_id=1191888711 instance=ExtResource("6_bev7j")]
+position = Vector2(57, -248)
+
+[node name="Scene4" parent="RocketComponents" index="7" unique_id=379758665 instance=ExtResource("6_sq0ew")]
+position = Vector2(58, -288)
+
+[node name="OtherSelectables" type="Node" parent="." index="10" unique_id=1537484713]
+
+[node name="LaunchTower" parent="OtherSelectables" index="0" unique_id=1181244718 instance=ExtResource("7_xs3x5")]
+position = Vector2(180, -28)
+scale = Vector2(2, 2)
+
+[node name="Crew" parent="OtherSelectables" index="1" unique_id=722783974 instance=ExtResource("6_7wx42")]
+position = Vector2(125, -351)
+
+[node name="Platform1" parent="OtherSelectables" index="2" unique_id=499166670 instance=ExtResource("7_iqbd7")]
+position = Vector2(181, -20)
+scale = Vector2(2.453, 2.5)
+
+[node name="Platform2" parent="OtherSelectables" index="3" unique_id=665729661 instance=ExtResource("7_iqbd7")]
+position = Vector2(-197.00002, -20)
+scale = Vector2(2.453, 2.5)
+
+[node name="CountdownTimer" parent="OtherSelectables" index="4" unique_id=1515224007 instance=ExtResource("8_x572n")]
 unique_name_in_owner = true
-position = Vector2(-81, -218)
+position = Vector2(121, -197)
 
-[node name="Crew" parent="OtherSelectables" index="2" unique_id=722783974 instance=ExtResource("6_7wx42")]
-position = Vector2(-153, -216)
+[node name="TrafficCone" parent="OtherSelectables" index="5" unique_id=1573511453 instance=ExtResource("11_x8ecf")]
+position = Vector2(181, -327)
 
 [editable path="Briefing"]

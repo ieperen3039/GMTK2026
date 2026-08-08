@@ -25,6 +25,7 @@ public partial class Level : Node2D
     private PackedScene rocketScene;
 
     private Camera2D camera;
+    private Label altitudeCounter;
     private List<RocketComponent> rocketComponents = new();
     private Node ductTapeInstancesNode;
     private Node selectablesNode;
@@ -49,7 +50,6 @@ public partial class Level : Node2D
     private bool shouldBuildRocket = false;
     private bool isGameStarted = false;
 
-
     public override void _Ready()
     {
         levelCompleteScene = ResourceLoader.Load<PackedScene>("uid://s62hk0dts0pl");
@@ -64,6 +64,9 @@ public partial class Level : Node2D
         buildPhaseBounds = GetNode<CollisionObject2D>("BuildPhaseBounds");
         selectablesNode = GetNode<Node>("OtherSelectables");
         GetNode<Node2D>("Finishline").Position = new(0, -AltitudeGoal);
+        GetNode<Control>("%GameUi").Visible = false;
+        altitudeCounter = GetNode<Label>("%AltitudeCounter");
+        altitudeCounter.Visible = false;
 
         // reset ui offset
         CanvasLayer ui = GetNode<CanvasLayer>("UI");
@@ -206,7 +209,7 @@ public partial class Level : Node2D
             timerGraphic.SetValue(timer.TimeLeft);
         }
 
-        if (Input.IsActionJustPressed("toggle_tape"))
+        if (Input.IsActionJustPressed("toggle_tape") && !tapeToolButton.Disabled)
         {
             // set active if not already active
             tapeToolButton.SetPressed(!tapeToolButton.IsPressed());
@@ -224,6 +227,10 @@ public partial class Level : Node2D
             rocket.AltitudeChanged += CheckVictory;
             rocket.AddAllNearbyRecursively(controlComponent);
             AddChild(rocket);
+
+            altitudeCounter.Text = "";
+            altitudeCounter.Visible = true;
+            rocket.AltitudeChanged += alt => altitudeCounter.Text = ((int) alt) + " m";
 
             camera.Reparent(rocket.ControlComponent);
             GetTree().CreateTween()
@@ -295,6 +302,8 @@ public partial class Level : Node2D
         levelCompleteScreen.Score = score;
         camera.Reparent(levelCompleteScreen);
         AddChild(levelCompleteScreen);
+
+        altitudeCounter.Visible = false;
     }
 
     private void SetMouseTool(IMouseTool newMouseTool)

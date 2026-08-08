@@ -10,23 +10,28 @@ public partial class TitleScreen : Control
     private Control mainMenu;
     private Control levelSelectionMenu;
     private Control creditsMenu;
+    private Control tipsMenu;
 
     // Called when the node enters the scene tree for the first time.
+
     public override void _Ready()
     {
         mainMenu = GetNode<Control>("MainMenu");
         levelSelectionMenu = GetNode<Control>("LevelSelection");
         creditsMenu = GetNode<Control>("Credits");
+        tipsMenu = GetNode<Control>("Tips");
 
         Button StartButton = mainMenu.GetNode<Button>("%ButtonStart");
         StartButton.Pressed += () => EmitSignal(SignalName.OnLevelSelect, 0);
 
         mainMenu.GetNode<Button>("%ButtonExit").Pressed += () => GetTree().Quit();
-        mainMenu.GetNode<Button>("%ButtonCredits").Pressed += SetCredits;
         mainMenu.GetNode<Button>("%ButtonLevelSelection").Pressed += SetLevelSelection;
+        mainMenu.GetNode<Button>("%ButtonCredits").Pressed += SetCredits;
+        mainMenu.GetNode<Button>("%ButtonTips").Pressed += SetTips;
 
         levelSelectionMenu.GetNode<Button>("%ButtonBack").Pressed += SetMainMenu;
         creditsMenu.GetNode<Button>("%ButtonBack").Pressed += SetMainMenu;
+        tipsMenu.GetNode<Button>("%ButtonBack").Pressed += SetMainMenu;
 
         Container container = levelSelectionMenu.GetNode<Container>("%LevelButtons");
 
@@ -49,6 +54,7 @@ public partial class TitleScreen : Control
         mainMenu.Visible = false;
         levelSelectionMenu.Visible = true;
         creditsMenu.Visible = false;
+        tipsMenu.Visible = false;
     }
 
     private void SetCredits()
@@ -56,6 +62,15 @@ public partial class TitleScreen : Control
         mainMenu.Visible = false;
         levelSelectionMenu.Visible = false;
         creditsMenu.Visible = true;
+        tipsMenu.Visible = false;
+    }
+
+    private void SetTips()
+    {
+        mainMenu.Visible = false;
+        levelSelectionMenu.Visible = false;
+        creditsMenu.Visible = false;
+        tipsMenu.Visible = true;
     }
 
     private void SetMainMenu()
@@ -63,5 +78,6 @@ public partial class TitleScreen : Control
         mainMenu.Visible = true;
         levelSelectionMenu.Visible = false;
         creditsMenu.Visible = false;
+        tipsMenu.Visible = false;
     }
 }
