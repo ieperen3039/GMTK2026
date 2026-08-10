@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bw22cq2lx70df"]
 
-[ext_resource type="Script" uid="uid://xlsk1ilacq6k" path="res://rocket/magnet/Magnet.cs" id="1_fulry"]
+[ext_resource type="Script" path="res://rocket/magnet/Magnet.gd" id="1_fulry"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_teru1"]
 radius = 6.0

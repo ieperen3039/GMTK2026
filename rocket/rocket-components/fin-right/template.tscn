@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dtbc1yy3xxe0b"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/rocket-material.tres" id="1_2e6lc"]
-[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_c155d"]
+[ext_resource type="Script" path="res://rocket/rocket-components/RocketComponent.gd" id="2_c155d"]
 [ext_resource type="Texture2D" uid="uid://bjgni40qb3d40" path="res://rocket/rocket-components/fin-right/fin-right.tres" id="3_c155d"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="5_byink"]
 [ext_resource type="AudioStream" uid="uid://cy55xrqkmux73" path="res://sfx/clang4.ogg" id="5_t2ops"]

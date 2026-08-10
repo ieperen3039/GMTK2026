@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dxtpf7xkx1g4k"]
 
-[ext_resource type="Script" uid="uid://3uik83tlu5uh" path="res://rocket/duct-tape/DuctTape.cs" id="1_ttbwk"]
+[ext_resource type="Script" path="res://rocket/duct-tape/DuctTape.gd" id="1_ttbwk"]
 
 [node name="DuctTape" type="Node2D" unique_id=630853924]
 script = ExtResource("1_ttbwk")

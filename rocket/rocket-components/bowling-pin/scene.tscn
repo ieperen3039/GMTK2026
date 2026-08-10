@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cc8s17bvcxowp"]
 
-[ext_resource type="Script" uid="uid://dt2xsf7en2yon" path="res://rocket/rocket-components/bowling-pin/BowlingPin.cs" id="1_g3gld"]
+[ext_resource type="Script" path="res://rocket/rocket-components/bowling-pin/BowlingPin.gd" id="1_g3gld"]
 [ext_resource type="Texture2D" uid="uid://dh7ehqwchyhuy" path="res://rocket/rocket-components/bowling-pin/bowling-pin-sprite.tres" id="2_g3gld"]
 [ext_resource type="AudioStream" uid="uid://bobxmb4oirjqs" path="res://sfx/tok.ogg" id="3_88ljm"]
 

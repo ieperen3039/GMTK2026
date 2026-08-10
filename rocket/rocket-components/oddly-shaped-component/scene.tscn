@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dkohpn7rytwjv"]
 
-[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_yupri"]
+[ext_resource type="Script" path="res://rocket/rocket-components/RocketComponent.gd" id="1_yupri"]
 [ext_resource type="Texture2D" uid="uid://c3shej0f6y657" path="res://rocket/rocket-components/oddly-shaped-component/oddly-shaped-sprite.tres" id="2_t68eu"]
 [ext_resource type="AudioStream" uid="uid://cyxl2k3w4xk4v" path="res://sfx/clang_long.ogg" id="3_t68eu"]
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/rocket-material.tres" id="4_20sxp"]

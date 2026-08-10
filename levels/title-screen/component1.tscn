@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3sd7kyiugv60"]
 
-[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="2_awvtc"]
+[ext_resource type="Script" path="res://rocket/rocket-components/RocketComponent.gd" id="2_awvtc"]
 [ext_resource type="Texture2D" uid="uid://crxgi31ot7hyt" path="res://rocket/rocket-components/nose-cone/nose-cone-right.tres" id="2_nn046"]
 [ext_resource type="Texture2D" uid="uid://ck8roj6dp5hwn" path="res://rocket/rocket-components/nose-cone/nose-cone-left.tres" id="3_nn046"]
 
