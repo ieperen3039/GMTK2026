@@ -54,12 +54,8 @@ layout_mode = 2
 theme = ExtResource("2_yjbf4")
 text = "Credits"
 
-[node name="Filler" type="Control" parent="VBoxContainer" unique_id=1806673890]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="ButtonExit" type="Button" parent="VBoxContainer" unique_id=613238095]
+[node name="ButtonSound" type="CheckButton" parent="VBoxContainer" unique_id=195773708]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_yjbf4")
-text = "Exit"
+text = "Sound"

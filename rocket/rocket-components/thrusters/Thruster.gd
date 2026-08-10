@@ -13,7 +13,7 @@ func _ready() -> void:
 	var particles_node: Node2D = get_node("ExhaustParticles")
 	particles_node.visible = true
 	for node in particles_node.get_children():
-		if node is CpuParticles2D:
+		if node is CPUParticles2D:
 			_particles[node] = node.lifetime
 			node.emitting = false
 

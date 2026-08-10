@@ -48,7 +48,7 @@ func _update_display() -> void:
 	if _tens == null or _ones == null:
 		return
 	var clamped: int = clampi(Value, 0, 99)
-	_tens.frame = clamped / 10
+	_tens.frame = floori(clamped / 10.0)
 	_ones.frame = clamped % 10
 
 	if not Quiet:

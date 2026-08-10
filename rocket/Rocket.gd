@@ -20,8 +20,6 @@ var control_component
 
 var _thrusters: Array = []
 var _components: Array = []
-var _is_empty: bool = true
-
 
 func _ready() -> void:
 	# this rigid body will be a ephemeral representation of the rocket

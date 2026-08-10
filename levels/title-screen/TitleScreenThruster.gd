@@ -12,7 +12,7 @@ var _particles: Array = []
 func _ready() -> void:
 	var particles_node: Node2D = get_node("ExhaustParticles")
 	for node in particles_node.get_children():
-		if node is CpuParticles2D:
+		if node is CPUParticles2D:
 			_particles.append(node)
 			node.emitting = false
 			node.visible = true
