@@ -6,7 +6,10 @@
 [ext_resource type="StyleBox" uid="uid://dgm4tptw8f6h7" path="res://ui-themes/gold_clicked_style_box_texture.tres" id="4_0iq0r"]
 [ext_resource type="StyleBox" uid="uid://ckb4mfb1ouwbi" path="res://ui-themes/gold_small_flat.tres" id="5_cc2yr"]
 [ext_resource type="StyleBox" uid="uid://ftnxswtcnjb6" path="res://ui-themes/gold_highlight_small_flat.tres" id="6_tywy2"]
+[ext_resource type="StyleBox" uid="uid://c5fs1smsmduny" path="res://ui-themes/gold_small_bg_flat.tres" id="7_2jt1t"]
 [ext_resource type="StyleBox" uid="uid://bju8heskucri1" path="res://ui-themes/gold_small_style_box_texture.tres" id="7_qv4u1"]
+[ext_resource type="Texture2D" uid="uid://n30v3ucg83qq" path="res://ui-themes/KnobHz.png" id="8_urv1h"]
+[ext_resource type="Texture2D" uid="uid://d8scwncnwouq" path="res://ui-themes/KnobHzHighlight.png" id="9_7mwk1"]
 
 [sub_resource type="Image" id="Image_vf8jx"]
 data = {
@@ -981,39 +984,6 @@ _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\">
 
 [sub_resource type="ImageTexture" id="ImageTexture_2jt1t"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urv1h"]
-content_margin_left = 0.0
-content_margin_top = 4.0
-content_margin_right = 0.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-corner_detail = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mwk1"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
 [resource]
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
@@ -1104,15 +1074,18 @@ HScrollBar/icons/increment_pressed = SubResource("ImageTexture_2jt1t")
 HScrollBar/styles/grabber = ExtResource("5_cc2yr")
 HScrollBar/styles/grabber_highlight = ExtResource("6_tywy2")
 HScrollBar/styles/grabber_pressed = ExtResource("6_tywy2")
-HScrollBar/styles/scroll = SubResource("StyleBoxFlat_urv1h")
-HScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_7mwk1")
+HScrollBar/styles/scroll = ExtResource("7_2jt1t")
+HScrollBar/styles/scroll_focus = ExtResource("7_2jt1t")
+HSlider/icons/grabber = ExtResource("8_urv1h")
+HSlider/icons/grabber_highlight = ExtResource("9_7mwk1")
 HSlider/styles/grabber_area = ExtResource("5_cc2yr")
 HSlider/styles/grabber_area_highlight = ExtResource("6_tywy2")
-HSlider/styles/slider = ExtResource("5_cc2yr")
+HSlider/styles/slider = ExtResource("7_2jt1t")
 LineEdit/styles/focus = ExtResource("1_pgr5e")
 LineEdit/styles/normal = ExtResource("1_pgr5e")
 LineEdit/styles/read_only = ExtResource("3_ypv36")
 Panel/styles/panel = ExtResource("1_pgr5e")
+PanelContainer/styles/panel = ExtResource("1_pgr5e")
 ProgressBar/styles/fill = ExtResource("7_qv4u1")
 TextEdit/styles/focus = ExtResource("1_pgr5e")
 TextEdit/styles/normal = ExtResource("1_pgr5e")

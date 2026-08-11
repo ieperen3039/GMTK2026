@@ -24,10 +24,9 @@ func _ready() -> void:
     _main_menu.get_node("%ButtonLevelSelection").pressed.connect(_set_level_selection)
     _main_menu.get_node("%ButtonCredits").pressed.connect(_set_credits)
 
-    var sound_button: Button = _main_menu.get_node("%ButtonSound")
-    sound_button.toggled.connect(_set_sound)
-    var is_muted := AudioServer.is_bus_mute(AudioServer.get_bus_index("Master"))
-    sound_button.set_pressed_no_signal(is_muted == false)
+    var sound_slider: Slider = _main_menu.get_node("%VolumeSlider")
+    _set_sound(sound_slider.value);
+    sound_slider.value_changed.connect(_set_sound);
 
     _level_selection_menu.get_node("%ButtonBack").pressed.connect(_set_main_menu)
     _credits_menu.get_node("%ButtonBack").pressed.connect(_set_main_menu)
@@ -73,6 +72,5 @@ func _set_main_menu() -> void:
     _credits_menu.visible = false
     _tips_menu.visible = false
 
-func _set_sound(on: bool) -> void:
-    AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), on == false)
-    get_node("AudioStreamPlayer").play()
+func _set_sound(percent: float) -> void:
+    AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), percent / 100);
