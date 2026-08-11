@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://cbolxg5r2b8wu" path="res://rocket/rocket-components/keel/keel-sprite.tres" id="6_nlvy7"]
 [ext_resource type="Texture2D" uid="uid://dh7ehqwchyhuy" path="res://rocket/rocket-components/bowling-pin/bowling-pin-sprite.tres" id="7_s6dtj"]
 
+[sub_resource type="FontVariation" id="FontVariation_5tnor"]
+variation_embolden = 0.5
+
 [node name="LevelSelection" type="Control" unique_id=499166574]
 layout_mode = 3
 anchors_preset = 15
@@ -66,6 +69,26 @@ theme = ExtResource("1_t7rro")
 text = "Level 1"
 icon = ExtResource("2_xb0gf")
 
+[node name="Score" type="Label" parent="Control/Panel/MarginContainer/LevelButtons/Button1" unique_id=1394384462]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -27.0
+offset_right = -5.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("FontVariation_5tnor")
+theme_override_font_sizes/font_size = 18
+text = "9/9"
+horizontal_alignment = 2
+
 [node name="Button2" type="Button" parent="Control/Panel/MarginContainer/LevelButtons" unique_id=1657649026]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -73,6 +96,26 @@ size_flags_vertical = 3
 theme = ExtResource("1_t7rro")
 text = "Level 2"
 icon = ExtResource("3_6qd8u")
+
+[node name="Score" type="Label" parent="Control/Panel/MarginContainer/LevelButtons/Button2" unique_id=1364403884]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -27.0
+offset_right = -5.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("FontVariation_5tnor")
+theme_override_font_sizes/font_size = 18
+text = "9/9"
+horizontal_alignment = 2
 
 [node name="Button3" type="Button" parent="Control/Panel/MarginContainer/LevelButtons" unique_id=1491334814]
 layout_mode = 2
@@ -82,6 +125,26 @@ theme = ExtResource("1_t7rro")
 text = "Level 3"
 icon = ExtResource("4_6qd8u")
 
+[node name="Score" type="Label" parent="Control/Panel/MarginContainer/LevelButtons/Button3" unique_id=930517727]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -27.0
+offset_right = -5.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("FontVariation_5tnor")
+theme_override_font_sizes/font_size = 18
+text = "9/9"
+horizontal_alignment = 2
+
 [node name="Button5" type="Button" parent="Control/Panel/MarginContainer/LevelButtons" unique_id=714099440]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -89,6 +152,26 @@ size_flags_vertical = 3
 theme = ExtResource("1_t7rro")
 text = "Level 4"
 icon = ExtResource("6_nlvy7")
+
+[node name="Score" type="Label" parent="Control/Panel/MarginContainer/LevelButtons/Button5" unique_id=1533794150]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -27.0
+offset_right = -5.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("FontVariation_5tnor")
+theme_override_font_sizes/font_size = 18
+text = "9/9"
+horizontal_alignment = 2
 
 [node name="Button4" type="Button" parent="Control/Panel/MarginContainer/LevelButtons" unique_id=59432098]
 layout_mode = 2
@@ -98,6 +181,26 @@ theme = ExtResource("1_t7rro")
 text = "Level 5"
 icon = ExtResource("5_eq1cp")
 
+[node name="Score" type="Label" parent="Control/Panel/MarginContainer/LevelButtons/Button4" unique_id=1558020854]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -27.0
+offset_right = -5.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("FontVariation_5tnor")
+theme_override_font_sizes/font_size = 18
+text = "9/9"
+horizontal_alignment = 2
+
 [node name="Button6" type="Button" parent="Control/Panel/MarginContainer/LevelButtons" unique_id=1087444230]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -105,6 +208,26 @@ size_flags_vertical = 3
 theme = ExtResource("1_t7rro")
 text = "Level 6"
 icon = ExtResource("7_s6dtj")
+
+[node name="Score" type="Label" parent="Control/Panel/MarginContainer/LevelButtons/Button6" unique_id=683483114]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -27.0
+offset_right = -5.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("FontVariation_5tnor")
+theme_override_font_sizes/font_size = 18
+text = "9/9"
+horizontal_alignment = 2
 
 [node name="ButtonBack" type="Button" parent="Control" unique_id=863779557]
 unique_name_in_owner = true

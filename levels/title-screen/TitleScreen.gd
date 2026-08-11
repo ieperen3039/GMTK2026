@@ -3,11 +3,12 @@ extends Control
 
 signal level_selected(level_index: int)
 
+var scores: Array
+
 var _main_menu: Control
 var _level_selection_menu: Control
 var _credits_menu: Control
 var _tips_menu: Control
-
 
 func _ready() -> void:
     _main_menu = get_node("MainMenu")
@@ -38,9 +39,17 @@ func _ready() -> void:
     for node in container.get_children():
         if node is Button:
             var level_index_for_lambda: int = level_idx
-            level_idx += 1
             print("Assigning level index %d to button %s" % [level_idx, node.name])
             node.pressed.connect(func(): level_selected.emit(level_index_for_lambda))
+
+            var score_label: Label = node.get_node("Score")
+            score_label.visible = false;
+            if scores.size() > level_idx and scores[level_idx] != null:
+                score_label.text = str(scores[level_idx].num_lifted_components) + "/" + str(scores[level_idx].total_components)
+                if scores[level_idx].num_lifted_components > 0:
+                    score_label.visible = true;
+
+            level_idx += 1
 
     _set_main_menu()
 
@@ -74,3 +83,6 @@ func _set_main_menu() -> void:
 
 func _set_sound(percent: float) -> void:
     AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"), percent / 100);
+            
+
+    
