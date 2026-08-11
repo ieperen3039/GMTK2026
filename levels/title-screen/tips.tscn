@@ -52,15 +52,26 @@ Most of your stability and control comes from automatic thrust reduction. If you
 If your rocket is steering into the ground, make sure the controller is the right way up"
 autowrap_mode = 2
 
-[node name="ButtonBack" type="Button" parent="Control" unique_id=2120857016]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=2017220367]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -31.0
+offset_top = -43.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="ButtonBack" type="Button" parent="Control/HBoxContainer" unique_id=1960746502]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("1_nwuws")
 text = "Back"
+
+[node name="ButtonStart" type="Button" parent="Control/HBoxContainer" unique_id=2120857016]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_nwuws")
+text = "Play!"

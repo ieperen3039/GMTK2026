@@ -42,12 +42,6 @@ layout_mode = 2
 theme = ExtResource("2_yjbf4")
 text = "Level selection"
 
-[node name="ButtonTips" type="Button" parent="VBoxContainer" unique_id=491883807]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("2_yjbf4")
-text = "How to play"
-
 [node name="ButtonCredits" type="Button" parent="VBoxContainer" unique_id=1225315077]
 unique_name_in_owner = true
 layout_mode = 2

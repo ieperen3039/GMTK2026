@@ -21,13 +21,15 @@ public partial class TitleScreen : Control
         creditsMenu = GetNode<Control>("Credits");
         tipsMenu = GetNode<Control>("Tips");
 
-        Button StartButton = mainMenu.GetNode<Button>("%ButtonStart");
+        // NOTE: Start actually shows tips
+        mainMenu.GetNode<Button>("%ButtonStart").Pressed += SetTips;
+        // tips.start starts the game
+        Button StartButton = tipsMenu.GetNode<Button>("%ButtonStart");
         StartButton.Pressed += () => EmitSignal(SignalName.OnLevelSelect, 0);
 
         mainMenu.GetNode<Button>("%ButtonExit").Pressed += () => GetTree().Quit();
         mainMenu.GetNode<Button>("%ButtonLevelSelection").Pressed += SetLevelSelection;
         mainMenu.GetNode<Button>("%ButtonCredits").Pressed += SetCredits;
-        mainMenu.GetNode<Button>("%ButtonTips").Pressed += SetTips;
 
         levelSelectionMenu.GetNode<Button>("%ButtonBack").Pressed += SetMainMenu;
         creditsMenu.GetNode<Button>("%ButtonBack").Pressed += SetMainMenu;
