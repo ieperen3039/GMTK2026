@@ -1,17 +1,20 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class KeelSection : RocketComponent
 {
-    private const int Stiffness = 75;
+    private const int Stiffness = 25;
     private const int SpringLength = 4;
 
     [Export]
     private KeelSection ConnectedTo;
+    private KeelSection ConnectedBack;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        base._Ready();
         Vector2 jointPosition = GetNode<Node2D>("Joint").Position;
 
         if (ConnectedTo != null)
@@ -42,6 +45,8 @@ public partial class KeelSection : RocketComponent
                 RestLength = SpringLength,
                 Stiffness = Stiffness
             });
+
+            ConnectedTo.ConnectedBack = this;
         }
     }
 
@@ -49,4 +54,13 @@ public partial class KeelSection : RocketComponent
     public override void _Process(double delta)
     {
     }
+
+    public override List<RigidBody2D> GetNearbyBodies()
+    {
+        List<RigidBody2D> nearby = base.GetNearbyBodies();
+        // nearby.Add(ConnectedTo);
+        // nearby.Add(ConnectedBack);
+        return nearby;
+    }
+
 }

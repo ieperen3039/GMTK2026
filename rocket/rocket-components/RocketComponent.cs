@@ -82,7 +82,7 @@ public partial class RocketComponent : Grabbable
         }
     }
 
-    public List<RigidBody2D> GetNearbyBodies()
+    public virtual List<RigidBody2D> GetNearbyBodies()
     {
         List<RigidBody2D> results = new();
 

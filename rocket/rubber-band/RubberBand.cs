@@ -14,8 +14,8 @@ public partial class RubberBand : Node2D
     private RigidBody2D ComponentA = null;
     private RigidBody2D ComponentB = null;
     private Line2D graphic;
-    private const float ForceFactor = 25f;
-    private const float MaxForce = 10_000f;
+    private const float ForceFactor = 20f;
+    private const float MaxForce = 1_000f;
 
 
     // Called when the node enters the scene tree for the first time.
