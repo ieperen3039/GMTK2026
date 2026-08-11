@@ -1,13 +1,15 @@
 class_name KeelSection
 extends RocketComponent
 
-const STIFFNESS: int = 75
+const STIFFNESS: int = 25
 const SPRING_LENGTH: int = 4
 
 @export var ConnectedTo: KeelSection
 
 
 func _ready() -> void:
+	super._ready()
+    
 	var joint_position: Vector2 = get_node("Joint").position
 
 	if ConnectedTo != null:
