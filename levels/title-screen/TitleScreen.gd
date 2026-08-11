@@ -15,12 +15,14 @@ func _ready() -> void:
     _credits_menu = get_node("Credits")
     _tips_menu = get_node("Tips")
 
-    var start_button: Button = _main_menu.get_node("%ButtonStart")
+    # NOTE: Start actually shows tips
+    _main_menu.get_node("%ButtonStart").pressed.connect(_set_tips)
+    # tips.start starts the game
+    var start_button: Button = _tips_menu.get_node("%ButtonStart")
     start_button.pressed.connect(func(): level_selected.emit(0))
 
     _main_menu.get_node("%ButtonLevelSelection").pressed.connect(_set_level_selection)
     _main_menu.get_node("%ButtonCredits").pressed.connect(_set_credits)
-    _main_menu.get_node("%ButtonTips").pressed.connect(_set_tips)
 
     var sound_button: Button = _main_menu.get_node("%ButtonSound")
     sound_button.toggled.connect(_set_sound)
