@@ -26,8 +26,8 @@ static func balance_thrusters(rocket: RigidBody2D, thrusters: Array, player_stee
 		var torque: float = global_offset.cross(global_thrust_vector)
 		torques[thruster] = torque
 
-		var downward_thrust: float = global_thrust_vector.cross(Vector2.DOWN)
-		var torque_effectiveness: float = 0.0 if downward_thrust == 0 else (torque / downward_thrust)
+		var upward_thrust: float = global_thrust_vector.cross(Vector2.UP)
+		var torque_effectiveness: float = 0.0 if upward_thrust == 0 else abs(torque / upward_thrust)
 		effectiveness_entries.append({"thruster": thruster, "effectiveness": torque_effectiveness})
 
 		if torque < 0:
@@ -63,13 +63,13 @@ static func balance_thrusters(rocket: RigidBody2D, thrusters: Array, player_stee
 	var accumulated_torque: float = 0.0
 	var max_accumulated_torque: float = total_torque_in_direction_of_desired - absf(desired_torque_change)
 
+	# LEAST torqueing thruster first
 	effectiveness_entries.sort_custom(func(a, b): return a["effectiveness"] < b["effectiveness"])
 
 	if effectiveness_entries.size() == 1:
 		effectiveness_entries[0]["thruster"].thrust_factor = 1.0
 		# print("Thruster targetPowerLevel = MAX (it is the only thruster)")
 	else:
-		# MOST effective thruster first
 		for entry in effectiveness_entries:
 			var thruster = entry["thruster"]
 			var torque: float = torques[thruster]
@@ -86,4 +86,4 @@ static func balance_thrusters(rocket: RigidBody2D, thrusters: Array, player_stee
 				var target_power_level: float = clampf(torque_budget_left / absf(torque), 0, 1)
 				thruster.thrust_factor = target_power_level
 				accumulated_torque += absf(torque) * target_power_level
-				# print("Thruster targetPowerLevel = %s (torque = %s, torqueBudgetLeft = %s)" % [target_power_level, torque, max_accumulated_torque - accumulated_torque])
+				# print("Thruster targetPowerLevel = %s (torque = %s, effective = %s)" % [target_power_level, torque, entry["effectiveness"]])

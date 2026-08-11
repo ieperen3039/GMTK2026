@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2nrcrl4nkds2"]
 
-[ext_resource type="Script" path="res://levels/test-level/TestLevel.gd" id="1_tt41q"]
+[ext_resource type="Script" uid="uid://6fwbgqqxfp1j" path="res://levels/test-level/TestLevel.gd" id="1_tt41q"]
 [ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="3_c4as1"]
 [ext_resource type="PackedScene" uid="uid://dkohpn7rytwjv" path="res://rocket/rocket-components/oddly-shaped-component/scene.tscn" id="4_jntux"]
 [ext_resource type="PackedScene" uid="uid://kwkfpjhv503o" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tscn" id="5_fe1f6"]
@@ -12,6 +12,15 @@
 
 [node name="BaseLevel" type="Node2D" unique_id=1782678356]
 script = ExtResource("1_tt41q")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1335070498]
+scale = Vector2(100, 100)
+repeat_size = Vector2(2, 2)
+repeat_times = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1608673798]
+modulate = Color(0.16, 0.16, 0.16, 1)
+texture = ExtResource("9_tt41q")
 
 [node name="ComIndicator" type="Polygon2D" parent="." unique_id=25721837]
 visible = false
@@ -29,15 +38,13 @@ position = Vector2(-50, -84)
 [node name="Thing" parent="RocketComponents" unique_id=1416954186 instance=ExtResource("4_jntux")]
 position = Vector2(-17, -100)
 rotation = 1.5707964
-mass = 5.0
 
 [node name="Thing2" parent="RocketComponents" unique_id=1279390398 instance=ExtResource("4_jntux")]
-position = Vector2(15, -131)
+position = Vector2(1, -163)
 rotation = 1.5707964
-mass = 5.0
 
 [node name="Thruster4" parent="RocketComponents" unique_id=1039960409 instance=ExtResource("5_fe1f6")]
-position = Vector2(49, -52)
+position = Vector2(106, -52)
 
 [node name="Thruster5" parent="RocketComponents" unique_id=1024315288 instance=ExtResource("5_fe1f6")]
 position = Vector2(16, -52)
@@ -49,27 +56,27 @@ position = Vector2(-50, -52)
 position = Vector2(-17, -52)
 
 [node name="Scene4" parent="RocketComponents" unique_id=379758665 instance=ExtResource("6_ygw5v")]
-position = Vector2(-75, -82)
+position = Vector2(-112, -83)
 
 [node name="CountdownTimer" parent="RocketComponents" unique_id=1515224007 instance=ExtResource("7_rbg3q")]
-position = Vector2(49, -84)
+position = Vector2(-32, -210)
 
 [node name="DuctTapeInstances" type="Node" parent="." unique_id=2056786848]
 
 [node name="Ducttape3" parent="DuctTapeInstances" unique_id=504966669 instance=ExtResource("8_ntr45")]
-points = PackedVector2Array(-75, -99, -58, -122)
+points = PackedVector2Array(-16, -121, -2, -149)
 
 [node name="Ducttape4" parent="DuctTapeInstances" unique_id=302137951 instance=ExtResource("8_ntr45")]
-points = PackedVector2Array(-75, -78, -51, -56)
+position = Vector2(34, -3)
+points = PackedVector2Array(-51, -86, -51, -56)
+
+[node name="Ducttape5" parent="DuctTapeInstances" unique_id=1479068681 instance=ExtResource("8_ntr45")]
+position = Vector2(34, -3)
+points = PackedVector2Array(-96, -73, -96, -63)
+
+[node name="Ducttape6" parent="DuctTapeInstances" unique_id=308937745 instance=ExtResource("8_ntr45")]
+position = Vector2(34, -3)
+points = PackedVector2Array(-10, -81, -8, -63)
 
 [node name="BowlingBall" parent="." unique_id=392779649 instance=ExtResource("9_0q84p")]
-position = Vector2(-7, -288)
-
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1335070498]
-scale = Vector2(100, 100)
-repeat_size = Vector2(2, 2)
-repeat_times = 100
-
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1608673798]
-modulate = Color(0.16, 0.16, 0.16, 1)
-texture = ExtResource("9_tt41q")
+position = Vector2(40, -298)
