@@ -2,8 +2,8 @@
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/rocket-material.tres" id="1_prk0x"]
 [ext_resource type="Texture2D" uid="uid://bkvt0iey1faq5" path="res://rocket/rocket-components/thrusters/basic-thruster/thruster.tres" id="1_ro0od"]
-[ext_resource type="Script" path="res://rocket/rocket-components/thrusters/Thruster.gd" id="2_6c5fl"]
-[ext_resource type="Script" path="res://rocket/rocket-components/thrusters/ThrustSource.gd" id="3_00yy8"]
+[ext_resource type="Script" uid="uid://c3xn1s4a1kvsd" path="res://rocket/rocket-components/thrusters/Thruster.gd" id="2_6c5fl"]
+[ext_resource type="Script" uid="uid://ccl3pkg7gshfi" path="res://rocket/rocket-components/thrusters/ThrustSource.gd" id="3_00yy8"]
 [ext_resource type="PackedScene" uid="uid://bw22cq2lx70df" path="res://rocket/magnet/scene.tscn" id="4_hrefm"]
 [ext_resource type="Texture2D" uid="uid://dg8ypi70khfpw" path="res://rocket/rocket-components/thrusters/flame-particles/red-particle.tres" id="7_lvg87"]
 [ext_resource type="Texture2D" uid="uid://cmsxsbbyl3keh" path="res://rocket/rocket-components/thrusters/flame-particles/orange-particle.tres" id="8_lvurw"]

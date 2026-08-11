@@ -32,7 +32,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_time_until_new_add -= delta
-	if _time_until_new_add < 0:
+    # at around 100 components, we reach critical mass
+	if _time_until_new_add < 0 && _components_added < 100:
 		_time_until_new_add += TIME_BETWEEN_ADD
 		_components_added += 1
 		_timer.Value = _components_added

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dkohpn7rytwjv"]
 
-[ext_resource type="Script" path="res://rocket/rocket-components/RocketComponent.gd" id="1_yupri"]
+[ext_resource type="Script" uid="uid://ctgjbf8856fsv" path="res://rocket/rocket-components/RocketComponent.gd" id="1_yupri"]
 [ext_resource type="Texture2D" uid="uid://c3shej0f6y657" path="res://rocket/rocket-components/oddly-shaped-component/oddly-shaped-sprite.tres" id="2_t68eu"]
 [ext_resource type="AudioStream" uid="uid://cyxl2k3w4xk4v" path="res://sfx/clang_long.ogg" id="3_t68eu"]
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/rocket-material.tres" id="4_20sxp"]
@@ -12,7 +12,7 @@ size = Vector2(30, 64)
 size = Vector2(30, 64)
 
 [node name="RigidBody2D" type="RigidBody2D" unique_id=1416954186]
-mass = 8.0
+mass = 10.0
 physics_material_override = ExtResource("4_20sxp")
 script = ExtResource("1_yupri")
 
