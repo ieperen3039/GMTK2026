@@ -55,12 +55,4 @@ public partial class KeelSection : RocketComponent
     {
     }
 
-    public override List<RigidBody2D> GetNearbyBodies()
-    {
-        List<RigidBody2D> nearby = base.GetNearbyBodies();
-        // nearby.Add(ConnectedTo);
-        // nearby.Add(ConnectedBack);
-        return nearby;
-    }
-
 }
