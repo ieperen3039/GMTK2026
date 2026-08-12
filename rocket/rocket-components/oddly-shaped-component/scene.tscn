@@ -12,7 +12,7 @@ size = Vector2(30, 64)
 size = Vector2(30, 64)
 
 [node name="RigidBody2D" type="RigidBody2D" unique_id=1416954186]
-mass = 8.0
+mass = 10.0
 physics_material_override = ExtResource("4_20sxp")
 script = ExtResource("1_yupri")
 
