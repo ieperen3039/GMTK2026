@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://3ypjldxcxkvw"]
 
-[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_fgang"]
+[ext_resource type="Script" path="res://rocket/rocket-components/RocketComponent.gd" id="1_fgang"]
 [ext_resource type="Texture2D" uid="uid://c8y80ic2lwa3f" path="res://rocket/rocket-components/fuel-tank/fuel-tank-top.tres" id="2_3xj3g"]
 [ext_resource type="Texture2D" uid="uid://cl8qvrvqsommx" path="res://rocket/rocket-components/fuel-tank/fuel-tank-bottom.tres" id="2_tscd7"]
 

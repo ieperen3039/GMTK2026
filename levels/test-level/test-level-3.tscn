@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bvhiu5y8pybup"]
 
-[ext_resource type="Script" uid="uid://brkylaolc3bu4" path="res://levels/test-level/TestLevel.cs" id="1_8d4ym"]
+[ext_resource type="Script" path="res://levels/test-level/TestLevel.gd" id="1_8d4ym"]
 [ext_resource type="Texture2D" uid="uid://bxfsrxb26ood3" path="res://levels/test-level/check.png" id="2_v0ny3"]
 [ext_resource type="PackedScene" uid="uid://d25adh7mtpom8" path="res://rocket/rocket-components/crew-compartment/scene.tscn" id="3_i6buh"]
 [ext_resource type="PackedScene" uid="uid://ddlow82ffgang" path="res://rocket/rocket-components/fuel-tank/scene.tscn" id="5_8d4ym"]

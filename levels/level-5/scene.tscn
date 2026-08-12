@@ -164,11 +164,9 @@ position = Vector2(24, -293)
 
 [node name="Thing" parent="RocketComponents" index="1" unique_id=1875974869 instance=ExtResource("4_khv0g")]
 position = Vector2(-44, -231)
-mass = 5.0
 
 [node name="Thing2" parent="RocketComponents" index="2" unique_id=909466974 instance=ExtResource("4_khv0g")]
 position = Vector2(-113, -231)
-mass = 5.0
 
 [node name="Thruster" parent="RocketComponents" index="3" unique_id=1039960409 instance=ExtResource("6_bev7j")]
 position = Vector2(125, -248)

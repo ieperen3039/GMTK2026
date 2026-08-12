@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://b5v30djg1rxq8"]
 
-[ext_resource type="Script" uid="uid://dqpuhxaf1q1kk" path="res://levels/title-screen/TitleScreenThruster.cs" id="2_2y83g"]
+[ext_resource type="Script" path="res://levels/title-screen/TitleScreenThruster.gd" id="2_2y83g"]
 [ext_resource type="Texture2D" uid="uid://dg8ypi70khfpw" path="res://rocket/rocket-components/thrusters/flame-particles/red-particle.tres" id="3_l4ecf"]
 [ext_resource type="Texture2D" uid="uid://cmsxsbbyl3keh" path="res://rocket/rocket-components/thrusters/flame-particles/orange-particle.tres" id="4_gw12l"]
 [ext_resource type="Texture2D" uid="uid://7fvdg0btkttd" path="res://rocket/rocket-components/thrusters/flame-particles/yellow-particle.tres" id="5_eqngy"]
 [ext_resource type="Texture2D" uid="uid://c0kbmas1o14k8" path="res://rocket/rocket-components/thrusters/flame-particles/white-particle.tres" id="6_y21d4"]
 [ext_resource type="Texture2D" uid="uid://d3vtwxv701qcm" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/stabilisation-thruster.tres" id="7_u6ilr"]
-[ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/thrusters/ThrustSource.cs" id="8_wump0"]
+[ext_resource type="Script" path="res://rocket/rocket-components/thrusters/ThrustSource.gd" id="8_wump0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dxifs"]
 friction = 0.2

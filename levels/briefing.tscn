@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b8x3fllvhc31t"]
 
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="1_73e77"]
-[ext_resource type="Script" uid="uid://74hfgu68p46b" path="res://levels/Briefing.cs" id="2_uvr74"]
+[ext_resource type="Script" path="res://levels/Briefing.gd" id="2_uvr74"]
 
 [node name="Briefing" type="Control" unique_id=561301093]
 layout_mode = 3

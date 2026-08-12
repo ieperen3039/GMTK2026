@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://uu4114xku38w" path="res://ui-themes/UIFatBorder.png" id="1_ypj05"]
 
 [resource]
+content_margin_left = 20.0
+content_margin_right = 20.0
 texture = ExtResource("1_ypj05")
 texture_margin_left = 10.0
 texture_margin_top = 10.0

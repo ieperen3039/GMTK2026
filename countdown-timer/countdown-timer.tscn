@@ -2,7 +2,7 @@
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/rocket-material.tres" id="1_51wcu"]
 [ext_resource type="Texture2D" uid="uid://wk3wnetbao4d" path="res://countdown-timer/graphic/timer.tres" id="1_onarb"]
-[ext_resource type="Script" uid="uid://dpdgawotgy53l" path="res://countdown-timer/CountdownTimer.cs" id="1_vwdx4"]
+[ext_resource type="Script" path="res://countdown-timer/CountdownTimer.gd" id="1_vwdx4"]
 [ext_resource type="Texture2D" uid="uid://bqe2j87nb0662" path="res://countdown-timer/graphic/countdown-timer.png" id="2_vwdx4"]
 [ext_resource type="AudioStream" uid="uid://bdwi8qwaapvh5" path="res://countdown-timer/audio/ignition-in-t-minus.ogg" id="5_1ib3g"]
 [ext_resource type="AudioStream" uid="uid://cy55xrqkmux73" path="res://sfx/clang4.ogg" id="6_kmy5u"]

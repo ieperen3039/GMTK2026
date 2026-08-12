@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://s62hk0dts0pl"]
 
-[ext_resource type="Script" uid="uid://c6vsk2w1bpdpc" path="res://levels/level-complete/LevelComplete.cs" id="1_83n8o"]
+[ext_resource type="Script" path="res://levels/level-complete/LevelComplete.gd" id="1_83n8o"]
 [ext_resource type="Texture2D" uid="uid://bobef6j2cr5w5" path="res://levels/level-complete/LevelCompleteBanner.png" id="2_db2jp"]
 [ext_resource type="Theme" uid="uid://bq15wp0xcvfbq" path="res://ui-themes/gold_theme.tres" id="3_db2jp"]
 

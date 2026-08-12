@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://s7v7dbr5g7n4"]
 
-[ext_resource type="Script" uid="uid://du3u0mmw6vgwl" path="res://rocket/rocket-components/RocketComponent.cs" id="1_yclp8"]
+[ext_resource type="Script" path="res://rocket/rocket-components/RocketComponent.gd" id="1_yclp8"]
 [ext_resource type="Texture2D" uid="uid://bkaftubhbodwl" path="res://rocket/rocket-components/bowling-ball/bowling-ball-sprite.tres" id="2_1e16j"]
 [ext_resource type="AudioStream" uid="uid://bobxmb4oirjqs" path="res://sfx/tok.ogg" id="3_ltx2e"]
 

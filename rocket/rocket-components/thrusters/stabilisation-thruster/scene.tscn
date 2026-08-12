@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://vgso4xp2l1yw"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwllcq10ee5x6" path="res://rocket/rocket-components/rocket-material.tres" id="1_s7mit"]
-[ext_resource type="Script" uid="uid://c4mpc1loy7hmh" path="res://rocket/rocket-components/thrusters/Thruster.cs" id="2_4mpob"]
-[ext_resource type="Script" uid="uid://bxqs7woblckkp" path="res://rocket/rocket-components/thrusters/ThrustSource.cs" id="2_s7mit"]
+[ext_resource type="Script" path="res://rocket/rocket-components/thrusters/Thruster.gd" id="2_4mpob"]
+[ext_resource type="Script" path="res://rocket/rocket-components/thrusters/ThrustSource.gd" id="2_s7mit"]
 [ext_resource type="Texture2D" uid="uid://dg8ypi70khfpw" path="res://rocket/rocket-components/thrusters/flame-particles/red-particle.tres" id="3_4mpob"]
 [ext_resource type="Texture2D" uid="uid://cmsxsbbyl3keh" path="res://rocket/rocket-components/thrusters/flame-particles/orange-particle.tres" id="4_3441p"]
 [ext_resource type="Texture2D" uid="uid://d3vtwxv701qcm" path="res://rocket/rocket-components/thrusters/stabilisation-thruster/stabilisation-thruster.tres" id="4_y5kgx"]

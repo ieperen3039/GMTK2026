@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c7lm4m43ofvbg"]
 
-[ext_resource type="Script" uid="uid://bo1soqpxugi4t" path="res://rocket/rubber-band/RubberBand.cs" id="1_e1qph"]
+[ext_resource type="Script" path="res://rocket/rubber-band/RubberBand.gd" id="1_e1qph"]
 
 [node name="RubberBand" type="Node2D" unique_id=1105319194]
 script = ExtResource("1_e1qph")

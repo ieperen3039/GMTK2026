@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://6hadi0aiwebx"]
 
-[ext_resource type="Script" uid="uid://x7ahgpdbfiyg" path="res://rocket/rocket-components/thrusters/thruster-sfx/ThrusterSFX.cs" id="1_ksxjq"]
+[ext_resource type="Script" path="res://rocket/rocket-components/thrusters/thruster-sfx/ThrusterSFX.gd" id="1_ksxjq"]
 
 [node name="ThrusterSFX" type="AudioStreamPlayer2D" unique_id=708308183]
 bus = &"RocketEngine"

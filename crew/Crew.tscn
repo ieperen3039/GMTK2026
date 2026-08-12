@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bsr8qnp6xxaig"]
 
-[ext_resource type="Script" uid="uid://dba151g7u8mpd" path="res://crew/CrewMember.cs" id="1_kycf5"]
+[ext_resource type="Script" path="res://crew/CrewMember.gd" id="1_kycf5"]
 [ext_resource type="SpriteFrames" uid="uid://4gsf5see57qy" path="res://crew/crew-animation.tres" id="1_w3wfc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_w3wfc"]
